@@ -1,0 +1,459 @@
+%!TEX root = ../../main.tex
+\chapter{Corpo rigido}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 08/05/2017 - DECIMA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduzione}
+
+\begin{defn}{Corpo rigido}{corpoRigido}\index{Corpo rigido}
+	Un \emph{corpo rigido} è una collezione di \(N\) punti materiali \(\vec{q}_i\) di masse \(m_i\), le cui distanze reciproche sono costanti nel tempo, ovvero
+	\[
+		\abs{\vec{q}_i(t)-\vec{q}_j(t)} \equiv d_{ij}.
+	\]
+\end{defn}
+
+\begin{notz}
+	La condizione che definisce i corpi rigidi prende il nome di \emph{condizione di rigidità}.
+\end{notz}
+
+\begin{defn}{Sistema di riferimento solidale al corpo rigido}{sistemaSolidaleCorpoRigido}
+	La condizione di rigidità implica l'esistenza di un \emph{sistema mobile solidale al corpo}
+	\[
+		K = \big(O',\hat{\h}_1,\hat{\h}_2,\hat{\h}_3\big),
+	\]
+	tale che \(\dot{\vec{Q}}_i=\vec{0}\) per ogni \(i\).
+\end{defn}
+\noindent
+Il sistema è rappresentato nella figura seguente:
+\[
+	\input{Immagini/tikz/corpoRigido.tikz}
+\]
+Tramite il formalismo del precedente capitolo, possiamo scrivere le leggi di trasformazione per il nuovo sistema di riferimento:
+
+\begin{remark}{Leggi di trasformazioni del corpo rigido}{leggiTrasformazioneCorpoRigido}
+	\[
+		\vec{q}_i = \vec{r}+B\,\vec{Q}_i \qquad\text{e}\qquad \dot{\vec{q}}_i = \dot{\vec{r}}+\vec{\w}\wedge\big(\vec{q}_i-\vec{r}\big).
+	\]
+\end{remark}
+\noindent
+Il nostro obiettivo è dedurre, tramite le leggi di trasformazione, le proprietà cinematiche del corpo rigido in una forma con cui sia possibile lavorare nella pratica.
+In particolare ci occuperemo di trovare formule per
+\begin{itemize}
+	\item Energia cinetica.
+	\item Quantità di moto.
+	\item Momento angolare.
+\end{itemize}
+
+\section{Energia cinetica}
+
+In un sistema di \(N\) corpi, l'energia cinetica è data da
+\[
+	T = \sum_{i=1}^N \frac{m_i}{2}\,\abs{\dot{\vec{q}}_i}^2 \qquad\text{con }\vec{q}_i\in\R^3.
+\]
+In un corpo rigido, se i punti materiali sono descritti dagli atomi, \(N\approx 10^{24}\), ciò rende impossibile lavorare direttamente con questa espressione di energia cinetica.
+Sfruttiamo la legge di trasformazione della velocità:
+\[
+	T = \sum_{i=1}^N \frac{m_i}{2}\,\big\lvert \dot{\vec{r}}+\vec{\w}\wedge\big(\vec{q}_i-\vec{r}\big)\big\rvert^2 = \sum_{i=1}^N \frac{m_i}{2}\,\Big[\abs{\dot{\vec{r}}}^2+2\,\dot{\vec{r}}\sdot\big(\vec{\w}\wedge(\vec{q}_i-\vec{r})\big)+\abs{\vec{\w}\wedge(\vec{q}_i-\vec{r})}^2\Big].
+\]
+Facciamo riferimento ai tre addendi della sommatoria rispettivamente con \((A),(B)\) e \((C)\) e cerchiamo di semplificarne le espressioni:
+\begin{itemize}
+	\item \((A):\) detta \(M\) la massa totale\graffito{ovvero la somma delle masse}, avremo
+	      \[
+		      \sum_{i=1}^N \frac{m_i}{2}\,\abs{\dot{\vec{r}}}^2 = \frac{M}{2}\,\abs{\dot{\vec{r}}}^2.
+	      \]
+	\item \((B):\) portiamo \(\dot{\vec{r}}\) fuori dalla sommatoria
+	      \[
+		      \dot{\vec{r}} \sdot \left[\sum_{i=1}^N m_i\big(\vec{\w}\wedge(\vec{q}_i-\vec{r})\big)\right] = \dot{\vec{r}} \sdot \left[\vec{\w} \wedge \left(\sum_{i=1}^N m_i\,\vec{q}_i-\sum_{i=1}^N m_i\,\vec{r}\right)\right].
+	      \]
+	      Ricordando che l'espressione della posizione baricentro è data da
+	      \[
+		      \vec{r}_G = \frac{1}{M}\,\sum_{i=1}^N m_i\,\vec{q}_i,
+	      \]
+	      e sostituendo nella relazione precedente otteniamo
+	      \[
+		      (B) = \dot{\vec{r}} \sdot \big(\vec{\w}\wedge(M\,\vec{r}_G-M\,\vec{r})\big) = M\,\dot{\vec{r}} \sdot \big(\vec{\w}\wedge(\vec{r}_G-\vec{r})\big).
+	      \]
+	      In particolare osserviamo che una scelta opportuna del centro del sistema mobile è proprio il baricentro \(G\), per cui
+	      \[
+		      O'=G \implies \vec{r}=\vec{r}_G \implies (B) = 0.
+	      \]
+	\item \((C):\) passiamo nelle coordinate mobili
+	      \[
+		      \frac{1}{2}\sum_{i=1}^N m_i \abs{\vec{\w}\wedge(\vec{q}_i-\vec{r})}^2 = \frac{1}{2}\sum_{i=1}^N m_i \abs{B\,(\vec{\Omega}\wedge\vec{Q}_i)}^2 = \frac{1}{2}\sum_{i=1}^N m_i \abs{\vec{\Omega}\wedge\vec{Q}_i}^2,
+	      \]
+	      ora
+	      \[
+		      \abs{\vec{\Omega}\wedge\vec{Q}_i}^2 = (\vec{\Omega}\wedge\vec{Q}_i) \sdot (\vec{\Omega}\wedge\vec{Q}_i) = \big[\vec{Q}_i\wedge(\vec{\Omega}\wedge\vec{Q}_i)\big] \sdot \vec{\Omega},
+	      \]
+	      inoltre, detto \(\vec{Q}\) un generico \(\vec{Q}_i\), si ha
+	      \[
+		      \vec{Q} \wedge (\vec{\Omega}\wedge\vec{Q}) = 	\begin{pmatrix}
+			      Q_2^2+Q_3^2 & -Q_1 Q_2    & -Q_1 Q_3      \\
+			      -Q_1 Q_2    & Q_1^2+Q_3^2 & -Q_2 Q_3      \\
+			      -Q_1 Q_3    & -Q_2 Q_3    & Q_1^2 +Q_2^2
+		      \end{pmatrix}
+		      \begin{pmatrix}\Omega_1\\\Omega_2\\\Omega_3\end{pmatrix} =
+		      S\,\vec{\Omega}.
+	      \]
+	      Dove osserviamo \(S_{k l} = \abs{\vec{Q}}^2 \d_{k,l} - Q_k Q_l\). Per cui
+	      \[
+		      (C) = \frac{1}{2}\sum_{i=1}^N m_i \vec{\Omega} \sdot S_i \vec{\Omega} \qquad\text{dove }{(S_i)}_{k l} = \abs{\vec{Q}_i}^2 \d_{k,l} - {(\vec{Q}_i)}_k {(\vec{Q}_i)}_l.
+	      \]
+	      Introduciamo la \emph{matrice d'inerzia}\index{Matrice d'inerzia} \(I=\sum_{i=1}^N m_i S_i\) per ottenere l'espressione
+	      \[
+		      (C) = \frac{1}{2} \vec{\Omega} \sdot I\,\vec{\Omega}.
+	      \]
+\end{itemize}
+\noindent
+Pertanto, preso \(O'\equiv G\) il baricentro, deduciamo l'espressione dell'energia cinetica
+
+\begin{remark}{Energia cinetica del corpo rigido}{energiaCineticaCorpoRigido}
+	\[
+		T = \frac{M}{2}\,\abs{\dot{\vec{r}}_G}^2 + \frac{1}{2}\vec{\Omega} \sdot I\,\vec{\Omega}.
+	\]
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 10/05/2017 - DECIMA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Il primo termine dell'equazione corrisponde al contributo dell'energia cinetica traslazionale del baricentro se identificato come una massa puntiforme di massa \(M\). Il secondo termine corrisponde al contributo dell'energia cinetica rotazionale del corpo.
+
+Osserviamo che, dal momento che \(S_i\) è reale e simmetrica, la matrice d'inerzia
+\[
+	I = \sum_{i=1}^N m_i S_i,
+\]
+è a sua volta reale e simmetrica. Inoltre si mostra che \(I\) è definita positiva, infatti
+\[
+	\vec{u} \sdot S\,\vec{u} = \sum_{k,l=1}^3 u_k \big(\abs{\vec{Q}}^2 \d_{k,l}-Q_k Q_l\big)\,u_l = \abs{\vec{Q}}^2 \abs{\vec{u}}^2 - \big(\vec{Q} \sdot \vec{u}\big)^2 \ge 0,
+\]
+dove l'ultima disuguaglianza segue per Cauchy-Schwarz.
+Da ciò segue che \(I\) ammette una base ortonormale di autovettori \(\hat{v}_1,\hat{v}_2,\hat{v}_3\) con autovalori \(I_1,I_2,I_3\).
+
+\begin{notz}
+	Gli autovalori \(I_1,I_2,I_3\) si dicono \emph{momenti principali di inerzia}, mentre le direzioni individuate da \(\hat{v}_1,\hat{v}_2,\hat{v}_3\) si dicono \emph{assi principali di inerzia}.
+\end{notz}
+\noindent
+Questo ci fa intuire che è conveniente scegliere la terna del sistema di assi del sistema solidale, coincidente con gli assi principali di inerzia. Riepilogando il sistema mobile sarà
+\[
+	(O',\hat{\h}_1, \hat{\h}_2, \hat{\h}_3) \equiv (G, \hat{v}_1,\hat{v}_2,\hat{v}_3).
+\]
+Con questa scelta, l'espressione dell'energia cinetica si semplifica ulteriormente:
+
+\begin{remark}{Teorema di K\"onig}{teoremaKonig}\index{Teorema!di K\"onig}
+	\[
+		T = \frac{1}{2}M\,\abs{\dot{\vec{r}}_G}^2 + \frac{1}{2}(I_1\Omega_1^2+I_2\Omega_2^2+I_3\Omega_3^2)
+	\]
+\end{remark}
+
+\section{Quantità di moto}
+
+La quantità di moto totale è data da
+\[
+	\vec{p} = \sum_{i=1}^N m_i \dot{\vec{q}}_i.
+\]
+Ricordando che la velocità del baricentro è
+\[
+	\dot{\vec{r}}_G = \frac{1}{M}\sum_{i=1}^N m_i\,\dot{\vec{q}}_i,
+\]
+si vede immediatamente che, indipendentemente dalla scelta del sistema mobile, la quantità di moto totale del sistema è la stessa che avrebbe una massa puntiforme di massa \(M\) nel baricentro, ovvero:
+
+\begin{remark}{Quantità di moto totale del corpo rigido}{quantitàMotoTotaleCorpoRigido}
+	\[
+		\vec{p} = M\,\dot{\vec{r}}_G.
+	\]
+\end{remark}
+
+\section{Momento angolare}
+
+Supponiamo che il sistema mobile sia scelto in maniera opportuna con \(O'\equiv G\), il momento angolare totale sarà dato da
+\[
+	\vec{l} = \sum_{i=1}^N m_i \big(\vec{q}_i-\vec{r}\big) \wedge \dot{\vec{q}}_i = \sum_{i=1}^N m_i \big(\vec{q}_i - \vec{r}_G\big) \wedge \dot{\vec{q}}_i.
+\]
+Applicando la legge di trasformazione per le velocità, si ottiene
+\[
+	\sum_{i=1}^N m_i \big(\vec{q}_i -\vec{r}_G\big) \wedge \dot{\vec{r}}_G + \sum_{i=1}^N m_i\big(\vec{q}_i-\vec{r}_G\big) \wedge \big[\vec{\w}\wedge\big(\vec{q}_i-\vec{r}_G\big)\big].
+\]
+Ora
+\[
+	\sum_{i=1}^N m_i\big(\vec{q}_i-\vec{r}_G\big) = \sum_{i=1}^N m_i \vec{q}_i - \vec{r}_G \sum_{i=1}^N m_i = M\,\vec{r}_G - M\,\vec{r}_G = \vec{0},
+\]
+da cui
+\[
+	\sum_{i=1}^N m_i \big(\vec{q}_i-\vec{r}_G\big) \wedge \dot{\vec{r}}_G = \left[\sum_{i=1}^N m_i \big(\vec{q}_i-\vec{r}_G\big)\right] \wedge \dot{\vec{r}}_G = \vec{0}.
+\]
+Quindi
+\[
+	\begin{split}
+		\vec{l} & = \sum_{i=1}^N m_i\big(\vec{q}_i-\vec{r}_G\big) \wedge \big[\vec{\w} \wedge\big(\vec{q}_i-\vec{r}_G\big)\big] = B \sum_{i=1}^N m_i \underbrace{Q_i \wedge \big(\vec{\Omega} \wedge \vec{Q}_i\big)}_{S_i \vec{\Omega}}\\
+		& = B \underbrace{\sum_{i=1}^N m_i S_i}_{I} \vec{\Omega} = B\,I\,\vec{\Omega}
+	\end{split}
+\]
+Ovvero
+
+\begin{remark}{Momento angolare totale del corpo rigido}{momentoAngolareTotaleCorpoRigido}
+	\[
+		\vec{l} = B\,\vec{L} \qquad\text{con }\vec{L} = I\,\vec{\Omega}.
+	\]
+\end{remark}
+
+\begin{oss}
+	In coordinate, la relazione \(\vec{L}=I\,\vec{\Omega}\) è equivalente a
+	\[
+		\begin{cases}
+			L_1 = I_1 \Omega_1 \\
+			L_2 = I_2 \Omega_2 \\
+			L_3 = I_3 \Omega_3
+		\end{cases}
+	\]
+\end{oss}
+
+\begin{ese}[Corpo rigido con punto fisso]
+	Questo caso speciale è interessante in quanto si presenta in diverse applicazioni.
+	Un esempio tipico si ha con il \emph{giroscopio} oppure con il \emph{pendolo fisico}.
+	In tale situazione è preferibile scegliere \(O'\equiv O\) come il punto fisso del corpo rigido; la scelta delle direzioni del sistema mobile è sempre quella degli assi principali di inerzia.
+	Così facendo le leggi di trasformazione sono
+	\[
+		\vec{q}_i = B\,\vec{Q}_i \qquad\text{e}\qquad \dot{\vec{q}}_i = \vec{\w} \wedge \vec{q}_i = B\,\big(\vec{\Omega} \wedge \vec{Q}_i\big).
+	\]
+	Da cui dicendono le tre equazioni della cinematica:
+	\begin{gather*}
+		T = \sum_{i=1}^N \frac{m_i}{2}\,\abs{\vec{\Omega}\wedge \vec{Q}_i}^2 = \frac{1}{2}\vec{\Omega} \sdot I\,\vec{\Omega};\\
+		\vec{p} = M\,\dot{\vec{r}}_G;\\
+		\vec{l} = B\,\vec{L} = I\,\vec{\Omega}.
+	\end{gather*}
+\end{ese}
+
+\section{Dinamica del corpo rigido}
+
+Le equazioni della dinamica del corpo rigido, o equazioni di Eulero, sono due equazioni differenziali che descrivono il moto di un sistema di corpi, studiando il comportamento globale a prescindere da ciò che avviene per le singole componenti.
+
+La prima equazione si ottiene derivando la quantità di moto totale del sistema:
+\[
+	\frac{\dd}{\dd t}\vec{p} = \frac{\dd}{\dd t}\sum_{i=1}^N m_i\,\dot{\vec{q}}_i = \sum_{i=1}^N m_i \ddot{\vec{q}}_i = \sum_{i=1}^N \vec{f}_i,
+\]
+dove \(\vec{f}_i\) sono le forze agenti sulla singola componente. Decomponiamo tale forza nella sua parte esterna, attiva e conservativa e nella sua reazione vincolare:
+\[
+	\vec{f}_i = \vec{f}_i^{ext} + \vec{R}_i,
+\]
+dove supporremo \(\vec{R}_i\) ideale nel senso del principio di D'Alembert. Pertanto si ottiene
+\[
+	\frac{\dd}{\dd t}\vec{p} = \vec{f}_{TOT}^{ext} + \vec{R}_{TOT}.
+\]
+Dimostreremo che \(\vec{R}_{TOT}=\vec{0}\): definiamo
+\[
+	\vec{x} = 	\begin{pmatrix}
+		\vec{q}_1 \\
+		\vdots    \\
+		\vec{q}_N
+	\end{pmatrix} \qquad\text{e}\qquad
+	\vec{R} = 	\begin{pmatrix}
+		\vec{R}_1 \\
+		\vdots    \\
+		\vec{R}_N
+	\end{pmatrix}
+\]
+Ricordiamo che, il principio di D'Alembert chiede che per ogni istante \(t_0\) si abbia
+\[
+	\vec{R}\big(\vec{x}(t_0),\dot{\vec{x}}(t_0)\big) \sdot \vec{v} = 0,
+\]
+dove \(\vec{v}\) è la \emph{velocità virtuale}. Quest'ultima ricordiamo essere un vettore dello spazio tangente al vincolo in \(\vec{x}(t_0)\) oppure, equivalentemente, la velocità di un altro "possibile moto" del corpo rigido, il quale passa per il punto \(\vec{x}(t_0)\) al tempo \(t_0\).
+La strategia è scegliere un moto virtuale adattato a dimostrare la nostra tesi. In particolare scegliamo
+\[
+	\vec{\tilde{x}}(t) =	\begin{pmatrix}
+		\vec{\tilde{q}}_1(t) \\
+		\vdots               \\
+		\vec{\tilde{q}}_N(t)
+	\end{pmatrix} \text{ dove }
+	\vec{\tilde{q}}_i(t) = \vec{q}_i(t_0) + \a\,\hat{n}_0(t-t_0) \implies \vec{\tilde{x}}(t) = \vec{x}(t_0) + \a\,(t-t_0)\, \begin{pmatrix}\hat{n}_0\\\vdots\\\hat{n}_0\end{pmatrix}
+\]
+Da cui la velocità virtuale
+\[
+	\vec{v} = \frac{\dd}{\dd t} \vec{\tilde{x}}(t) \bigg|_{t=t_0} = \a\, \begin{pmatrix}\hat{n}_0\\\vdots\\\hat{n}_0\end{pmatrix}
+\]
+Per il principio di D'Alembert, avremo
+\[
+	\begin{split}
+		\vec{R}\big(\vec{x}(t_0),\dot{\vec{x}}(t_0)\big) \sdot \vec{v} = 0 \iff & \a\, \begin{pmatrix}\vec{R}_1\\\vdots\\\vec{R}_N\end{pmatrix} \sdot \begin{pmatrix}\hat{n}_0\\\vdots\\\hat{n}_0\end{pmatrix} = 0 \iff 0 = \a\,\sum_{i=1}^N \vec{R}_i \sdot \hat{n}_0 = \a\,\hat{n}_0 \sdot \sum_{i=1}^N \vec{R}_i = \a\,\hat{n}_0 \sdot \vec{R}_{TOT}\\
+		\implies & \vec{R}_{TOT} = \vec{0}.
+	\end{split}
+\]
+Possiamo quindi scrivere la prima legge di Eulero
+
+\begin{remark}{Prima legge di Eulero}{primaLeggeEuelero}\index{Leggi di Eulero!prima legge}
+	\[
+		M\,\ddot{\vec{r}}_G = \vec{f}_{TOT}^{ext}.
+	\]
+\end{remark}
+\noindent
+La seconda legge si ottiene studiando la variazione del momento angolare \(\vec{l}\). Inizialmente si ottiene
+\[
+	\frac{\dd}{\dd t}\vec{l} = \frac{\dd}{\dd t} \sum_{i=1}^N m_i \big(\vec{q}_i-\vec{r}_G\big) \wedge \dot{\vec{q}}_i = \sum_{i=1}^N m_i \dot{\vec{q}}_i \wedge \dot{\vec{q}}_i - \sum_{i=1}^N m_i \dot{\vec{r}}_G \wedge  \dot{\vec{q}}_i + \sum_{i=1}^N m_i \big(\vec{q}_i-\vec{r}_G\big) \wedge \ddot{\vec{q}}_i,
+\]
+dove il primo addendo è nullo poiché è nullo il prodotto vettoriale \(\dot{\vec{q}}_i \wedge \dot{\vec{q}}_i\), il secondo è nullo in quanto
+\[
+	\sum_{i=1}^N m_i \dot{\vec{r}}_G \wedge \dot{\vec{q}}_i = \dot{\vec{r}}_G \wedge \sum_{i=1}^N m_i \dot{\vec{q}}_i = \dot{\vec{r}}_G \wedge M\,\dot{\vec{r}}_G = \vec{0}.
+\]
+Quindi
+\[
+	\frac{\dd}{\dd t}\vec{l} = \sum_{i=1}^N m_i \big(\vec{q}_i - \vec{r}_G\big) \wedge \ddot{\vec{q}}_i = \sum_{i=1}^N \big(\vec{q}_i-\vec{r}_G\big) \wedge \vec{f}_i.
+\]
+Nuovamente scomponiamo la forza nella sua componente attiva e nella reazione vincolare
+\[
+	\vec{f}_i = \vec{f}_i^{ext} + \vec{R}_i,
+\]
+così da ottenere
+\[
+	\frac{\dd}{\dd t}\vec{l} = \sum_{i=1}^N \big(\vec{q}_i-\vec{r}_G\big) \wedge \big(\vec{f}_i^{ext}+\vec{R}_i\big) = \vec{n}_{TOT}^{ext} + \sum_{i=1}^N \big(\vec{q}_i-\vec{r}_G\big) \wedge \vec{R}_i.
+\]
+Vogliamo dimostrare che
+\[
+	\sum_{i=1}^N \big(\vec{q}_i - \vec{r}_G\big) \wedge \vec{R}_i = \sum_{i=1}^N \vec{q}_i \wedge \vec{R}_i = \vec{0},
+\]
+dove abbiamo già potuto eliminare la parte con \(\vec{r}_G\) in quanto, avendo dimostrato \(\vec{R}_{TOT}=\vec{0}\), si ha
+\[
+	\sum_{i=1}^N \vec{r}_G \wedge \vec{R}_i = \vec{r}_G \wedge \sum_{i=1}^N \vec{R}_i = \vec{r}_G \wedge \vec{R}_{TOT} = \vec{0}.
+\]
+Sfruttiamo nuovamente il principio di D'Alembert
+\[
+	\vec{R}\big(\vec{x}(t_0),\dot{\vec{x}}(t_0)\big) \sdot \vec{v} = 0,
+\]
+dove, in quanto caso, scegliamo \(\vec{v}\) la velocità virtuale associata ad un moto virtuale sull'asse \(\hat{e}_3\):
+\[
+	\vec{\tilde{x}}(t) = 	\begin{pmatrix}
+		\vec{\tilde{q}}_1(t) \\
+		\vdots               \\
+		\vec{\tilde{q}}_N(t)
+	\end{pmatrix} \text{ dove }
+	\vec{\tilde{q}}_i(t) = \vec{q}_i(t_0) + \begin{pmatrix}
+		\cos\big(\a\,(t-t_0)\big) & -\sin\big(\a\,(t-t_0)\big) & 0  \\
+		\sin\big(\a\,(t-t_0)\big) & \cos\big(\a\,(t-t_0)\big)  & 0  \\
+		0                         & 0                          & 1
+	\end{pmatrix}
+	\begin{pmatrix}q_{i,1}(t_0)\\q_{i,2}(t_0)\\q_{i,3}(t_0)\end{pmatrix}
+\]
+da cui la velocità virtuale
+\[
+	\vec{v} = \frac{\dd}{\dd t}\vec{\tilde{x}}(t)\bigg|_{t=t_0} = \begin{pmatrix}\vec{v}_1\\\vdots\\\vec{v}_N\end{pmatrix},
+\]
+dove
+\[
+	\vec{v}_i = \frac{\dd}{\dd t}\vec{\tilde{q}}_i(t)\bigg|_{t=t_0} = \a\, \begin{pmatrix}0&-1&0\\1&0&0\\0&0&0\end{pmatrix} \begin{pmatrix}q_{i,1}(t_0)\\ q_{i,2}(t_0)\\ q_{i,3}(t_0)\end{pmatrix} =  \begin{pmatrix}
+		-q_{i,2}(t_0) \\
+		q_{i,1}(t_0)  \\
+		0
+	\end{pmatrix}
+\]
+Da cui
+\[
+	\vec{0} = \vec{R} \sdot \vec{v} = \sum_{i=1}^N \vec{R}_i \sdot \vec{v}_i = \sum_{i=1}^N \a\,(-R_{i,1} q_{i,2} + R_{i,2} q_{i,1}) = \a\,\sum_{i=1}^N{\big(\vec{q}_i \wedge \vec{R}_i\big)}_3. 
+\]
+Ripetendo il procedimento con velocità virtuali associate al moto virtuale sugli assi \(\hat{e}_1,\hat{e}_2\), si ottiene che
+\[
+	\sum_{i=1}^N {\big(\vec{q}_i \wedge \vec{R}_i\big)}_j = 0 \,\,\fa j=1,2,3 \implies \sum_{i=1}^N \vec{q}_i \wedge \vec{R}_i = \vec{0}.
+\]
+Da cui la seconda legge di Eulero
+
+\begin{remark}{Seconda legge di Eulero}{secondaLeggeEulero}\index{Leggi di Eulero!seconda legge}
+	\[
+		\frac{\dd}{\dd t} \vec{l} = \vec{n}_{TOT}^{ext} \qquad\text{dove }\vec{n}_{TOT}^{ext} = \sum_{i=1}^N\big(\vec{q}_i-\vec{r}_G\big) \wedge \vec{f}_i^{ext}.
+	\]
+\end{remark}
+
+\begin{ese}
+	Studiamo il caso notevole in cui
+	\[
+		\vec{f}_i^{ext} = m_i \vec{g} \implies \vec{f}_{TOT}^{ext} = \sum_{i=1}^N m_i \vec{g} = M\,\vec{g}.
+	\]
+	Dalla prima legge di Eulero otteniamo
+	\[
+		\dot{\vec{p}} = M\,\ddot{\vec{r}}_G = M\,\vec{g} \iff \ddot{\vec{r}}_G = \vec{g},
+	\]
+	che ci fornisce la legge del moto
+	\[
+		\vec{r}_G(t) = \vec{r}_G(0) + \dot{\vec{r}}_G(0)\,t + \frac{1}{2}\vec{g}\,t^2.
+	\]
+	Dalla seconda legge otteniamo
+	\[
+		\vec{n}_{TOT}^{ext} = \sum_{i=1}^N\big(\vec{q}_i-\vec{r}_G\big)\wedge m_i \vec{g} = \left[\sum_{i=1}^N m_i\big(\vec{q}_i-\vec{r}_G\big)\right] \wedge \vec{g} = \vec{0} \implies \frac{\dd}{\dd t}\vec{l} = \vec{0},
+	\]
+	per cui il momento angolare è conservato.
+	Questo caso corrisponde ad equazioni di rotazioni libere in assenza di forza esterna.
+\end{ese}
+\noindent
+Nel caso in cui \(\vec{l}\) sia conservata e \hyperref[mk:momentoAngolareTotaleCorpoRigido]{ricordando che}
+\[
+	\vec{l} = B\,\vec{L} = B\,I\,\vec{\Omega},
+\]
+si ottiene
+\[
+	0 = \dot{\vec{l}} = B\,\dot{\vec{L}} + \dot{B}\,\vec{L} \iff B\,\big(\dot{\vec{L}} + \vec{\Omega} \wedge \vec{L}\big) = \vec{0},
+\]
+dove abbiamo sfruttato la relazione di \(\dot{B}\) con \(\vec{\w}\):
+\[
+	\dot{B}\,\vec{L} = \dot{B}\tran{B}\,B\,\vec{L} = M\,B\,\vec{L} = \vec{\w} \wedge B\,\vec{L} = B\,\vec{\Omega} \wedge B\,\vec{L}.
+\]
+Quindi
+\[
+	\frac{\dd}{\dd t}\vec{l} = 0 \iff \dot{\vec{L}} = \vec{L} \wedge \vec{\Omega} \iff I\,\dot{\vec{\Omega}} = I\,\vec{\Omega} \wedge \vec{\Omega},
+\]
+che sono le cosiddette equazioni di Eulero
+
+\begin{remark}{Equazioni di Eulero}{equazioniEulero}
+	\[
+		\begin{cases}
+			I_1 \dot{\Omega}_1 = (I_2-I_3)\,\Omega_2 \Omega_3 \\
+			I_2 \dot{\Omega}_2 = (I_3-I_1)\,\Omega_3 \Omega_1 \\
+			I_3 \dot{\Omega}_3 = (I_1-I_2)\,\Omega_1 \Omega_2
+		\end{cases}
+	\]
+\end{remark}
+
+\begin{oss}
+	Si dimostra direttamente, che tali equazioni di Eulero ammettono le seguenti grandezze conservate
+	\[
+		T_{TOT} = \frac{1}{2}(I_1\Omega_1^2+I_2\Omega_2^2+I_3\Omega_3^2) \qquad\text{e}\qquad L^2 = I_1^2\Omega_1^2+I_2^2\Omega_2^2+I_3^2\Omega_3^2
+	\]
+\end{oss}
+\noindent
+Studiamo cosa succede quando \(\vec{l}\) si conserva e il sistema ha particolari simmetrie:
+\begin{itemize}
+	\item Se \(I_1=I_2=I_3\neq 0\) allora
+	      \[
+		      I = I_1 Id = 	\begin{pmatrix}
+			      I_1 & 0   & 0    \\
+			      0   & I_1 & 0    \\
+			      0   & 0   & I_1
+		      \end{pmatrix}
+	      \]
+	      Ora \(\vec{l}\) è costante, inoltre
+	      \[
+		      \vec{l} = B\,\big(I\,\vec{\Omega}\big) = B\,\big(I_1 Id\,\vec{\Omega}\big) = I_1\,\big(B\,\vec{\Omega}\big) = I_1 \vec{\w},
+	      \]
+	      per cui \(\vec{w}\) è costante e abbiamo pertanto un moto rotatorio uniforme.
+	\item Se \(I_1=I_2\neq 0\) e \(I_3=0\), le equazioni di Eulero diventano
+	      \[
+		      \begin{cases}
+			      I_1\dot{\Omega}_1 = I_1\Omega_2\Omega_3 \\
+			      I_1\dot{\Omega}_2 = -I_1\Omega_1\Omega_3
+		      \end{cases}
+	      \]
+	      da cui
+	      \[
+		      I\,\vec{\Omega} = I_1 Id\,\vec{\tilde{\Omega}} \iff \begin{pmatrix}I_1&0&0\\0&I_1&0\\0&0&0\end{pmatrix} \begin{pmatrix}\Omega_1\\\Omega_2\\\Omega_3\end{pmatrix} = I_1 \begin{pmatrix}1 & 0 & 0\\0 & 1 & 0\\0 & 0 & 1\end{pmatrix} \begin{pmatrix}\Omega_1\\\Omega_2\\0\end{pmatrix}.
+	      \]
+	      Quindi possiamo applicare il ragionamento del caso precedente pe ottenere
+	      \[
+		      \vec{l} = I_1 \vec{\tilde{\w}},
+	      \]
+	      da cui \(\vec{\tilde{\w}}\) costante.
+	\item Se \(I_1=I_2\neq 0\) e \(I_3\neq 0\) il sistema è descritto da tre angoli, detti di Eulero. In particolare si hanno l'angolo \(\q\) di nutazione, l'angolo \(\j\) di precessione e l'angolo \(\y\) di rotazione.
+	      Risolvendo esplicitamente le equazioni di Eulero si ottiene
+	      \[
+		      \dot{\q} = 0; \qquad \dot{\j} = \frac{L}{I_1}; \qquad \dot{\y} = L\,\left(\frac{1}{I_3}-\frac{1}{I_2}\right)\,\cos\q,
+	      \]
+	      che corrisponde ad un moto complessivo quasi periodico, dove si ha un moto relativo a \(\j\) ed uno relativo a d\(\y\).
+	\item Se \(I_1\neq I_2\neq I_3 \neq 0\) si ha il caso generale. Nel quale si avrà, oltre ad un moto di precessione e ad uno di rotazione, anche un moto di nutazione per via dell'andamento di \(\q\).
+\end{itemize}

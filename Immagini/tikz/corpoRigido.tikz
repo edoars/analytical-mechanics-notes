@@ -1,0 +1,19 @@
+%!TEX root = ../../main.tex
+\tikz{
+	\coordinate (O) at (0,0);
+	\coordinate (G) at (2.9,2.47);
+	\coordinate (A) at (3,2);
+	\coordinate (B) at (3.3,2.2);
+	\coordinate (C) at (2.5,2.75);
+	\coordinate (D) at (2.8,2.95);
+
+	\draw[-latex, thick, compl] (O) -- (-2.83,-2.83) node[below, black] {\(\hat{e}_1\)};
+	\draw[-latex, thick, compl] (O) -- (4,0) node[below, black] {\(\hat{e}_2\)};
+	\draw[-latex, thick, compl] (O) -- (0,4) node[right, black] {\(\hat{e}_3\)};
+
+	\draw[-latex, thick, contrast] (G) -- (2.66,1.25) node[below, black] {\(\hat{\h}_1\)};
+	\draw[-latex, thick, contrast] (G) -- (3.94,3.17) node[below, black] {\(\hat{\h}_2\)};
+	\draw[-latex, thick, contrast] (G) -- (2.21,3.52) node[right, black] {\(\hat{\h}_3\)};
+
+	\draw[pattern=north east lines wide] (A) -- (B) -- (D) -- (C) -- cycle;
+}

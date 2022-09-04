@@ -1,0 +1,1020 @@
+%!TEX root = ../main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 03/03/2017 - PRIMA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part{2}
+\chapter{Analisi qualitativa del moto e stabilità}
+
+Salvo precisazioni ulteriori, faremo riferimento a
+\[\label{eq:sistema}
+	M\,\ddot{\vec{R}} = -\frac{\pd}{\pd\vec{R}}U\big(\vec{R}\big)\tag{\(\star\)}
+\]
+come al \emph{sistema} o al sistema \eqref{eq:sistema}.
+
+\section{Equilibrio e stabilità}
+
+In generale, quando diciamo che \(M\,\ddot{\vec{R}} = -\frac{\pd}{\pd\vec{R}}U\big(\vec{R}\big)\) è non risolubile, intendiamo che non lo è per dati iniziali generici.
+D'altronde è quasi sempre possibile identificare dati iniziali "speciali" che ci permettono di esplicitare una soluzione. In questi casi è inoltre possibile eseguire un'analisi qualitativa del problema negli intorni di tali punti.
+
+\begin{defn}{Punto di equilibrio}{puntoEquilibrio}\index{Punto di equilibrio}
+	Definiamo \emph{punto di equilibrio} del sistema \eqref{eq:sistema} un punto \(\vec{R}_{eq}\) tale che
+	\[
+		\frac{\pd}{\pd\vec{R}}U\big(\vec{R}_{eq}\big) = 0,
+	\]
+	ovvero un punto critico del potenziale.
+\end{defn}
+
+\begin{oss}
+	Spesso, la nozione di punto di equilibrio viene discusso per un sistema del tipo
+	\[
+		\dot{\vec{x}} = \vec{G}\big(\vec{x}\big).
+	\]
+	In tal caso si dice che \(\vec{x}_{eq}\) è un punto di equilibrio se \(\vec{G}\big(\vec{x}_{eq}\big)=0\).
+	
+	Le equazioni di Newton sono un caso particolare di tale sistema, infatti le equazioni
+	\[
+		M\,\ddot{\vec{R}} = F\big(\vec{R},\dot{\vec{R}}\big) \iff
+		\begin{cases}
+			\dot{\vec{R}} = \vec{V} \\
+			\dot{\vec{V}} = M^{-1}F\big(\vec{R},\vec{V}\big)
+		\end{cases}
+	\]
+	possono essere viste attraverso \(\dot{\vec{x}}=\vec{G}\big(\vec{x}\big)\) ponendo
+	\[
+		\vec{x} = \begin{pmatrix}\vec{R}\\\vec{V}\end{pmatrix}
+	\]
+\end{oss}
+
+\begin{ese}
+	Un caso particolare è quello in cui, posto un punto di equilibrio \(\vec{R}_{eq}\), si hanno i seguenti dati iniziali:
+	\[
+		\vec{R}(0) = \vec{R}_{eq} \qquad\text{e}\qquad \dot{\vec{R}}(0) = 0.
+	\]
+	In tal caso si ha che \(\vec{R}(t) \equiv \vec{R}_{eq}\) è soluzione di \eqref{eq:sistema}.
+\end{ese}
+
+Un approccio naturale, che andremo ad analizzare in questo capitolo, è quello di studiare il comportamento nel sistema, se scegliamo un punto vicino a quello di equilibrio come punto iniziale.
+In particolare osserveremo che tale comportamento definisce punti di equilibrio "stabili" o "instabili"; a seconda di quanto dati iniziali vicini a \(\vec{R}_{eq}\) rimangono vicini ad esso.
+
+\begin{defn}{Stabilità secondo Ljapunov}{stabilitàLjapunov}\index{Stabilità!secondo Ljapunov}
+	Un punto di equilibrio \(\vec{R}_{eq}\) si dice \emph{stabile}, nel senso di Ljapunov, se per ogni \(\e>0\) esiste un \(\d=\d_\e>0\) tale che, se
+	\[
+		\sqrt{\abs{\vec{R}_0-\vec{R}_{eq}}^2 +\t_0^2\abs{\vec{V}_0}^2} \le \d,
+	\]
+	allora
+	\[
+		\sqrt{\abs{\vec{R}(t)-\vec{R}_{eq}}^2+\t_0^2\abs{\vec{V}(t)}^2} \le \e,\,\fa t \ge 0.
+	\]
+\end{defn}
+
+\begin{notz}
+	La quantità \(\t_0\) si definisce \emph{unità temporale} e serve ad aggiustare le unità di misura.
+\end{notz}
+
+\begin{oss}
+	Viceversa \(\vec{R}_{eq}\) si dice \emph{instabile} se non è stabile, cioè se esiste un \(\e>0\) tale che per ogni \(\d>0\) esistono \(\vec{R}_0,\vec{V}_0\) e \(t_1>0\) con
+	\[
+		\sqrt{\abs{\vec{R}_0-\vec{R}_{eq}}^2 +\t_0^2\abs{\vec{V}_0}^2} \le \d,
+	\]
+	tali che
+	\[
+		\sqrt{\abs{\vec{R}(t_1)-\vec{R}_{eq}}^2+\t_0^2\abs{\vec{V}(t_1)}^2} > \e.
+	\]
+\end{oss}
+
+\begin{teor}{di Dirichlet}{teoremaDirichlet}\index{Teorema!di Dirichlet}
+	Sia \(\vec{R}_{eq}\) un punto di minimo locale stretto per \(U\big(\vec{R}\big)\).
+	Allora \(\vec{R}_{eq}\) è stabile.
+\end{teor}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 06/03/2017 - SECONDA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{proof}
+	Per dimostrare che \(\vec{R}_{eq}\) è stabile, dobbiamo mostrare che per dati iniziali sufficientemente vicini a \(\big(\vec{R}_{eq},\vec{0}\big)\), i valori \(\\big(\vec{R},\dot{\vec{R}}\big)\) continuano a restarvi vicini nel tempo.
+	
+	Consideriamo la seguente funzione
+	\[
+		W\big(\vec{R},\dot{\vec{R}}\big) = \frac{1}{2}\,\dot{\vec{R}}\sdot M\,\dot{\vec{R}} + U\big(\vec{R}\big) - U\big(\vec{R}_{eq}\big)
+	\]
+	osservando che \(W\big(\vec{R}_{eq},\vec{0}\big)=0\).
+	Dal momento che, per ipotesi, \(\vec{R}_{eq}\) un minimo stretto di \(U\), sul bordo di un intorno di \(\big(\vec{R}_{eq},\vec{0}\big)\), la quantità \(W\) sarà sempre positiva. Formalmente, definito
+	\[
+		I_\e = \Set{\big(\vec{R},\dot{\vec{R}}\big) : \sqrt{\abs{\vec{R}-\vec{R}_{eq}}^2+\t_0^2\abs{\dot{\vec{R}}}^2} \le \e}
+	\]
+	avremo che, per ogni \(\e>0\) sufficientemente piccolo,
+	\[
+		E_\e:=\min_{(\vec{R},\dot{\vec{R}}) \in \pd I_\e} W\big(\vec{R},\dot{\vec{R}}\big) > 0
+	\]
+	Inoltre \(W\big(\vec{R},\dot{\vec{R}}\big) \to 0\) per \(\big(\vec{R},\dot{\vec{R}}\big) \to \big(\vec{R}_{eq},\vec{0}\big)\); in particolare esisterà un \(\d_\e\) tale che
+	\[
+		\max_{(\vec{R},\dot{\vec{R}})\in I_{\d_\e}} W\big(\vec{R},\dot{\vec{R}}\big) \le \frac{E_\e}{2}.
+	\]
+	Quindi, dati iniziali in \(I_{\d_\e}\), generano moti tali che
+	\[
+		W\big(\vec{R}(t),\dot{\vec{R}}(t)\big) \le \frac{E_\e}{2} \qquad\text{se }\big(\vec{R}(t),\dot{\vec{R}}(t)\big) \in I_{\d_\e},\,\fa t \ge 0.
+	\]
+	Ciò significa che \(\big(\vec{R},\dot{\vec{R}}\big)\) non può raggiungere \(\pd I_\e\) su cui \(W \ge E_\e\) e resteranno pertanto vicini al punto di equilibrio.
+\end{proof}
+
+\begin{oss}
+	Ricordiamo che se \(\vec{R}_{eq}\) un punto critico per \(U\big(\vec{R}\big)\) e consideriamo la matrice Hessiana in \(\vec{R}_{eq}\)
+	\[
+		\big(H_0\big){i j} = \frac{\pd^2}{\pd R_i \pd R_j}U\big(\vec{R}_{eq}\big),
+	\]
+	abbiamo le seguenti possibilità:
+	\begin{itemize}
+		\item Se \(H_0\) è definita strettamente positiva, allora \(\vec{R}_{eq}\) è un minimo locale stretto di \(U\).
+		\item Se \(H_0\) è definita strettamente negativa, allora \(\vec{R}_{eq}\) è un massimo locale stretto di \(U\).
+		\item Se \(H_0\) ha autovalori positivi e negativi, allora \(\vec{R}_{eq}\) è un punto di sella di \(U\).
+	\end{itemize}
+\end{oss}
+
+\begin{notz}
+	Con punto di sella non degenere, intendiamo che vi è un autovalore negativo dell'Hessiano di \(U\) in \(\vec{R}_{eq}\).
+\end{notz}
+
+\begin{prop}{Condizione di instabilità}{condizionaInstabilità}
+	Sia \(\vec{R}_{eq}\) un punto di massimo locale o di sella non degenere per \(U\big(\vec{R}\big)\).
+	Allora \(\vec{R}_{eq}\) è instabile.
+\end{prop}
+
+\begin{proof}
+	Per semplicità discuteremo la dimostrazione per moti in una dimensione.
+	L'equazione del moto a cui faremo riferimento sarà pertanto
+	\[
+		m\,\ddot{x} = -U'(x).
+	\]
+	Supponiamo che \(x_{eq}\) sia un massimo stretto non degenere\graffito{Il caso dei punti di sella non è applicabile}, ovvero tale che
+	\[
+		U'(x_{eq}) = 0 \qquad\text{e}\qquad U''(x_{eq}) < 0.
+	\]
+	Sfruttando queste proprietà, sviluppiamo \(-U'(x)\) in serie di Taylor attorno a \(x_{eq}\):
+	\[
+		-U'(x) = -U'(x_{eq}) - U''(x_{eq})(x-x_{eq}) + R(x,x_{eq}) = -U''(x_{eq})(x-x_{eq})+R(x,x_{eq}),
+	\]
+	dove \(R(x,x_{eq}) \in \bO\big((x-x_{eq})^2\big)\).
+	In particolare \(U''(x_{eq})\) è una costante negativa, scriviamola come
+	\[
+		U''(x_{eq}) = -m\,\t_0^{-2} \qquad\text{con }\t_0 = \sqrt{\frac{m}{-U''(x_{eq})}}.
+	\]
+	Sostituendo nell'equazione del moto otteniamo
+	\begin{equation}
+		m\,\ddot{x} = m\,\t_0^{-2}(x-x_{eq}) + R(x,x_{eq}) \implies \ddot{x} = \t_0^{-2}(x-x_{eq})+\frac{R(x,x_{eq})}{m}.\tag{1}
+	\end{equation}
+	Trascurando il resto, otteniamo l'equazione linearizzata
+	\[
+		\ddot{x} = \t_0^{-2}(x-x_{eq}),
+	\]
+	la cui soluzione generale è
+	\[
+		x(t)-x_{eq} = a\,e^{t/\t_0} + b\,e^{-t/\t_0}.
+	\]
+	Imponendo i dati iniziali \(x(0)=x_0\) e \(\dot{x}(0)=v_0\), otteniamo
+	\[
+		\begin{cases}
+			x_0-x_{eq} = a+b \\
+			\t_0v_0 = a-b
+		\end{cases} \implies
+		\begin{cases}
+			a = \frac{1}{2}(x_0-x_{eq}+\t_0 v_0) \\
+			b = \frac{1}{2}(x_0-x_{eq}-\t_0 v_0)
+		\end{cases}
+	\]
+	Quindi
+	\[
+		x(t)-x_{eq} = \frac{1}{2}(x_0-x_{eq}+\t_0 v_0)\,e^{t/\t_0} + \frac{1}{2}(x_0-x_{eq}-\t_0 v_0)\,e^{-t/\t_0}.
+	\]
+	Per dimostrare che \(x_{eq}\) è un punto instabile, vogliamo mostrare che esistono dati iniziali arbitrariamente vicini a \((x_{eq},0)\) che fuoriescono, in un tempo finito, da un intorno
+	\[
+		I_{\d_\e} = \Set{(x,\dot{x}): \sqrt{\abs{x-x_{eq}}^2+\t_0^2 \abs{\dot{x}}^2} \le \d_\e}
+	\]
+	Scegliamo i dati iniziali \((x_{eq}+\d',0)\) con \(\d'>0\). Sulla base della soluzione generale ricavata prima, definiamo la seguente funzione
+	\[
+		g(t) := x(t)-x_{eq} + \frac{\t_0}{\sqrt{1-\e}}\dot{x}(t).
+	\]
+	Scriviamo la sua derivata e stimiamola in termini di \(g\) per riportarci ad una disequazione differenziale:
+	\[
+		\frac{\dd}{\dd t}g(t) = \dot{x}(t) + \frac{\t_0}{\sqrt{1-\e}}\ddot{x}(t) \overset{1}{=} \dot{x}(t) + \frac{\t_0}{\sqrt{1-\e}} \left( \t_0^{-2}(x-x_{eq}) + \frac{R(x,x_{eq})}{m} \right).
+	\]
+	Possiamo stimare il resto con il termine di ordine inferiore:
+	\[
+		\fa \e >0\,\ex \d_\e: \abs{x-x_{eq}} \le \d_\e \implies \frac{\abs{R(x,x_{eq})}}{m} \le \e\,\t_0^{-2}\abs{x-x_{eq}}.
+	\]
+	Quindi, fintanto che \(\abs{x-x_{eq}} \le \d_\e\) e ricordando che \(x-x_{eq} > 0\), otteniamo che
+	\[
+		\frac{\dd}{\dd t}g(t) \ge \dot{x} + \frac{\t_0}{\sqrt{1-\e}}\frac{1-\e}{\t_0^2}(x-x_{eq}) = \frac{\sqrt{1-\e}}{\t_0} \left( x-x_{eq}+ \frac{\t_0}{\sqrt{1-\e}}\dot{x} \right),
+	\]
+	ovvero
+	\[
+		\frac{\dd}{\dd t}g(t) \ge \frac{\sqrt{1-\e}}{\t_0}g(t).
+	\]
+	Il lemma di Gronwall afferma che se esiste \(g\) che soddisfa tale disequazione differenziale, allora tale soluzione viene limitata dal basso dalla soluzione dell'equazione differenziale associata.
+	Per trovare quest'ultima ricordiamo che \(g\) è positiva dall'istante iniziale, pertanto possiamo dividere per \(g\) e risolvere per separazione di variabili:
+	\[
+		\begin{split}
+			g'(t) = \frac{\sqrt{1-\e}}{\t_0}g(t) & \implies \frac{g'(t)}{g(t)} = \frac{\sqrt{1-\e}}{\t_0} \implies \frac{\dd}{\dd t}\ln\big(g(t)\big) = \frac{\sqrt{1-\e}}{\t_0}\\
+			& \implies \ln\big(g(t)\big) = \frac{\sqrt{1-\e}}{\t_0}t + \ln(g_0)\\
+			& \implies g(t) = g_0 e^{\frac{\sqrt{1-\e}}{\t_0}t}.
+		\end{split}
+	\]
+	Da cui, applicando il lemma,
+	\[
+		g(t) \ge g_0 e^{\frac{t\,\sqrt{1-\e}}{\t_0}}.
+	\]
+	Da questa stima, ricordando la definizione di \(g\) e la banale disuguaglianza \(\sqrt{2}\sqrt{a^2+b^2} \ge a+b\), otteniamo
+	\[
+		\sqrt{\frac{2}{1-\e}}\sqrt{\abs{x(t)-x_{eq}}^2+\t_0^2\abs{x(t)}^2} \ge x(t)-x_{eq} + \frac{\t_0}{\sqrt{1-\e}}\dot{x}(t) = g(t) \ge g_0 e^{\frac{t\,\sqrt{1-\e}}{\t_0}},
+	\]
+	che è certamente maggiore di \(\e\) per \(t\) sufficientemente grande.
+\end{proof}
+
+Per concludere, vorremmo considerare l'effetto dell'attrito sulla stabilità dei punti di equilibrio.
+L'equazione a cui facciamo riferimento in questo caso è
+\[
+	M\,\ddot{\vec{R}} = -\frac{\pd U}{\pd \vec{R}}\big(\vec{R}\big) - \g\,\dot{\vec{R}}.\tag{\(\star\star\)}
+\]
+In particolare si dimostra che i punti di massimo o di sella non degeneri rimangono instabili come nel caso senza attrito; viceversa, i punti di minimo stretto non degeneri diventano asintoticamente stabili.
+
+\begin{defn}{Punti asintoticamente stabili}{puntiAsintoticamenteStabili}\index{Punto di equilibrio!asintoticamente stabile}
+	Un punto di equilibrio \(\vec{R}_{eq}\) per un sistema dotato di attrito \((\star\star)\), si dice \emph{asintoticamente stabile} se è stabile ed esiste \(\d\) per cui, dati iniziali in 
+	\[
+		I_\d = \Set{\big(\vec{R},\dot{\vec{R}}\big) : \sqrt{\abs{\vec{R}-\vec{R}_{eq}}^2+\t_0^2\abs{\dot{\vec{R}}}^2} \le \d},
+	\]
+	generano moti tali che
+	\[
+		\big(\vec{R}(t),\dot{\vec{R}}(t)\big) \longrightarrow \big(\vec{R}_{eq},\vec{0}\big) \qquad\text{per }t \to +\infty.
+	\]
+\end{defn}
+
+\begin{teor}{di Dirichlet per sistemi con attrito}{teoremaDirichletAttrito}
+	Sia \(\vec{R}_{eq}\) un punto di minimo locale stretto non degenere per \(U\).
+	Allora \(\vec{R}_{eq}\) è un punto di equilibrio asintoticamente stabile per
+	\[
+		M\,\ddot{\vec{R}} = -\frac{\pd U}{\pd\vec{R}}\big(\vec{R}\big) - \g\dot{\vec{R}} \qquad\text{con }\g > 0.
+	\]
+\end{teor}
+
+\begin{proof}
+	Nuovamente per semplicità, discuteremo la dimostrazione per moti in una dimensione.
+	L'equazione a cui faremo riferimento sarà pertanto
+	\[
+		m\,\ddot{x}=-U'(x)-\g\,\dot{x}.
+	\]
+	Supponiamo che \(x_{eq}\) sia un minimo stretto non degenere, per cui
+	\[
+		U'(x_{eq}) = 0 \qquad\text{e}\qquad U''(x_{eq}) > 0.
+	\]
+	\(U''(x_{eq})\) è una costante positiva, quindi, analogamente alla dimostrazione precedente, definiamo
+	\[
+		U''(x_{eq}) = \w_0^2 m \qquad\text{con } \w_0 = \sqrt{\frac{U''(x_{eq})}{m}}.
+	\]
+	Sviluppando \(U'(x)\) con Taylor e sostituendo nell'equazione generale otteniamo
+	\[
+		m\,\ddot{x} = -U''(x_{eq})(x-x_{eq}) + R(x,x_{eq}) - \g\,\dot{x} \implies \ddot{x} = -w_0^2(x-x_{eq}) - \frac{\g}{m}\,\dot{x} + \frac{R(x,x_{eq})}{m}.
+	\]
+	Da cui otteniamo l'equazione linearizzata
+	\[
+		\ddot{x} + \frac{\g}{m}\,\dot{x} + \w_0^2 (x-x_{eq}) = 0,
+	\]
+	che corrisponde all'equazione dell'oscillatore armonico smorzato.
+	
+	Risolvendo esplicitamente l'equazione e stimandola in maniera opportuna, possiamo costruire una funzione che ci dia la tesi nel caso generale come per la \hyperref[pr:condizionaInstabilità]{proposizione sulla condizione di instabilità}
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 08/03/2017 - SECONDA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Piccole oscillazioni}
+
+Torniamo nel caso conservativo privo di attrito e andiamo a studiare con attenzione il caso del moto vicino ad un punto di equilibrio stabile.
+
+Abbiamo dimostrato che \(\vec{R}_{eq}\) è un punto di equilibrio stabile se è un minimo stretto non degenere per \(U\).
+Sviluppando \(U\) nella sua serie di Taylor attorno a \(\vec{R}_{eq}\) e sostituendo nell'equazione del moto, otteniamo
+\[
+	M\,\ddot{\vec{R}} = -\underbrace{\frac{\pd U}{\pd \vec{R}}\big(\vec{R}_{eq})}_{= 0} - H_0 \big(\vec{R}-\vec{R}_{eq}\big) + \vec{C}\big(\vec{R},\vec{R}_{eq}\big),
+\]
+dove \(\vec{C}\big(\vec{R},\vec{R}_{eq}\big)\) è il resto di Taylor del secondo ordine.
+
+\begin{oss}
+	Per definizione, \(\vec{R}_{eq}\) è non degenere se la matrice Hessiana \(H_0\) è definita positiva, ovvero se il minimo autovalore \(\l_{\min}\) di \(H_0\) è strettamente positivo.
+	Una definizione analoga è la seguente:
+	\[
+		H_0 \ge \l_{\min}Id \qquad\text{ovvero } \vec{u}\sdot H_0\vec{u} \ge \l_{\min}\abs{\vec{u}}^2.
+	\]
+\end{oss}
+
+Per \hyperref[th:teoremaDirichlet]{Dirichlet}, dati iniziali vicini a \(\vec{R}_{eq}\) stabile generano un moto che vi rimane vicino; ciò vuol dire che il resto di Taylor potrà sempre essere stimato tramite l'elemento del primo ordine a meno di un \(\e\). Infatti
+\[
+	\abs{\vec{C}\big(\vec{R},\vec{R}_{eq}\big)} \le K\,\abs{\vec{R}-\vec{R}_{eq}}^2 \le \e\,\l_{\min}\abs{\vec{R}-\vec{R}_{eq}}
+\]
+fintanto che \(\abs{\vec{R}-\vec{R}_{eq}}\) è abbastanza piccolo.
+D'altronde nel caso di \(\vec{R}_{eq}\) stabile, \(\abs{\vec{R}-\vec{R}_{eq}}\) è piccolo ad ogni istante \(t\ge 0\).
+Quindi l'equazione linearizzata
+\[
+	M\,\ddot{\vec{R}} = -H_0\big(\vec{R}-\vec{R}_{eq}\big),\tag{\(\star\)}
+\]
+è vicina all'equazione iniziale in ogni istante \(t\ge 0\).
+
+Cerchiamo ora di risolvere l'equazione linearizzata.
+Definiamo\graffito{la definizione è lecita in quanto \(M\) è una matrice diagonale con elementi positivi}
+\[
+	\vec{X} = M^{\frac{1}{2}}\big(\vec{R}-\vec{R}_{eq}\big),
+\]
+dove \(M^{\frac{1}{2}}\) è la matrice diagonale con elementi \(\sqrt{M_{ii}}\).
+Ora. sfruttando la \((\star)\),
+\[
+	\begin{split}
+		\ddot{\vec{X}} & = M^{\frac{1}{2}}\ddot{\vec{R}} = -M^{\frac{1}{2}}M^{-1}H_0\big(\vec{R}-\vec{R}_{eq}\big) = -M^{-\frac{1}{2}}H_0\big(\vec{R}-\vec{R}_{eq}\big)\\
+		& = -(M^{-\frac{1}{2}}H_0 M^{-\frac{1}{2}}) M^{\frac{1}{2}}\big(\vec{R}-\vec{R}_{eq}\big)\\
+		& = -H\,\vec{X},
+	\end{split}
+\]
+dove \(H=M^{-\frac{1}{2}}H_0 M^{-\frac{1}{2}}\) è simmetrica e definita strettamente positiva. Da cui
+\[
+	M\,\ddot{\vec{R}} = -H_0 \big(\vec{R}-\vec{R}_{eq}\big) \iff M^{\frac{1}{2}}\ddot{\vec{X}} = -H_0 M^{-\frac{1}{2}} \vec{X}.
+\]
+
+\begin{oss}
+	Ingenuamente si potrebbe tentare di lavorare direttamente su
+	\[
+		\ddot{\vec{R}} = -M^{-1}H_0\big(\vec{R}-\vec{R}_{eq}\big).
+	\]
+	Ma, in generale, la matrice \(M^{-1} H_0\) non è simmetrica.
+\end{oss}
+\noindent
+\(H\), in quanto simmetrica e definita strettamente positiva, è diagonalizzabile.
+Pertanto esiste una base ortonormale \(\vec{v}_1,\ldots,\vec{v}_n\) di \(H\), tale che
+\[
+	H\,\vec{v}_i = \w_i^2 \vec{v}_i \qquad\text{con }\w_i \neq 0,
+\]
+dove gli \(\w_i^2\) sono gli autovalori associati; questa notazione serve a sottolinearne la positività.
+
+\begin{defn}{Frequenze normali}{freqenzeNormali}\index{Frequenze normali}
+	Sia \(\vec{R}_{eq}\) un punto di equilibrio stabile per il sistema.
+	Si definiscono \emph{frequenza normale} delle piccole oscillazioni, gli autovalori \(\w_i^2\) associati alla matrice
+	\[
+		H=M^{-\frac{1}{2}}H_0 M^{-\frac{1}{2}}. 
+	\]
+\end{defn}
+
+\begin{notz}
+	Gli autovalori \(\w_i^2\) prendono anche il nome di frequenze proprie o caratteristiche.
+\end{notz}
+
+\noindent
+Esprimendo i valori di \(\vec{X}\) tramite la base diagonalizzante per \(H\), avremo
+\[
+	\vec{X}(t) = y_1(t)\vec{v}_1 + \ldots + y_n(t)\vec{v}_n,
+\]
+dove
+\[
+	\ddot{y}_i(t) = -\w_i^2 y_i(t).
+\]
+Risolvendo questa equazione differenziale si ottiene
+\[
+	y_i(t) = y_i(0)\,\cos(\w_i t) + \frac{\dot{y}_i(0)}{\w_i}\,\sin(\w_i t) = a_i \cos(\w_i t + \j_i).
+\]
+Riportandoci in forma vettoriale:
+\[
+	\vec{X}(t) = a_1 \cos(\w_1 t + \j_1)\,\vec{v}_1 + \ldots + a_n \cos(\w_n t + \j_n)\,\vec{v}_n,
+\]
+da cui, ricordando la definizione di \(\vec{X}\), otteniamo infine
+\[
+	\vec{R}(t) = \vec{R}_{eq} + M^{-\frac{1}{2}}\vec{X}(t) = \vec{R}_{eq}+ a_1 \cos(\w_1 t + \j_1)\,M^{-\frac{1}{2}}\vec{v}_1 + \ldots + a_n \cos(\w_n t + \j_n)\,M^{-\frac{1}{2}}\vec{v}_n
+\]
+
+\begin{oss}
+	Per calcolare gli autovalori di \(H\), dobbiamo trovare le radici del suo polinomio caratteristico. Alternativamente possiamo ridurci ad \(H_0\):
+	\[
+		\begin{split}
+			\det(H-\l\,Id) & = \det(M^{-\frac{1}{2}} H_0 M^{-\frac{1}{2}} - \l\,Id) = \det\big[M^{-\frac{1}{2}}(H_0-\l\,M)M^{-\frac{1}{2}}\big]\\
+			& = \det(M^{-\frac{1}{2}})\,\det(H_0-\l\,M)\,\det(M^{-\frac{1}{2}}) = \frac{1}{\det M}\,\det(H_0-\l\,M).
+		\end{split}
+	\]
+	In particolare, dal momento che \(\det M \neq 0\), avremo
+	\[
+		\det(H-\l\,Id) = 0 \iff \det(H_0-\l\,M) = 0.
+	\]
+\end{oss}
+
+\begin{oss}
+	Anche per l'espressione dell'azione degli autovettori di \(H\) possiamo ricondurci ad \(H_0\), infatti:
+	\[
+		H\,\vec{v}_i = \w_i^2 \vec{v}_i \iff M^{-\frac{1}{2}} H_0 M^{-\frac{1}{2}} \vec{v}_i = \w_i^2 \vec{v}_i \iff H_0 \vec{u}_i = \w_i^2 M\,\vec{u}_i,
+	\]
+	dove \(\vec{u}_i = M^{-\frac{1}{2}}\vec{v}_i\).
+\end{oss}
+
+\begin{exeN}[Esercitazione 08/03]
+	Considerare il moto di un punto materiale, di massa \(m=1\), soggetto ad un potenziale
+	\[
+		U(x) = \frac{x^4}{4} + \a\,\frac{x^2}{2}.
+	\]
+	\begin{enumerate}
+		\item Trovare, al variare di \(\a\in \R\setminus\{0\}\), i punti di equilibrio del sistema e studiarne la stabilità.
+		\item Nei casi in cui \(x_{eq}\) è stabile, trovare l'equazione linearizzata associata e la frequenza normale delle piccole oscillazioni.
+	\end{enumerate}
+\end{exeN}
+
+\begin{sol}
+	\graffito{\(1)\)}Per definizione un punto \(x_{eq}\) è di equilibrio se \(U'(x_{eq}) = 0\).
+	Ora
+	\[
+		U'(x) = x^3 + \a\,x = x\,(x^2+\a).
+	\]
+	Quindi
+	\[
+		U'(x) = 0 \iff 	\begin{cases}
+			x = 0                        & \text{se }\a > 0   \\
+			x = 0 \vee x = \pm\sqrt{-\a} & \text{se }\a < 0.
+		\end{cases}
+	\]
+	Per cui i punti di equilibrio saranno \(x_1 = 0\) se \(\a>0\), oppure \(x_2=0,x_{3,4}=\pm\sqrt{-\a}\) se \(\a<0\). Valutiamone la stabilità:
+	\[
+		U''(x) = 3x^2+\a,
+	\]
+	quindi
+	\begin{gather*}
+		U''(x_1) = \a > 0 \qquad\text{se }\a > 0;\\
+		U''(x_2) = \a < 0 \qquad\text{se }\a < 0;\\
+		U''(x_{3,4}) = -3\a+\a = -2\a > 0 \qquad\text{se }\a < 0.
+	\end{gather*}
+	Applicando il \hyperref[th:teoremaDirichlet]{teorema di Dirichlet}, avremo che \(x_1,x_{3,4}\) sono punti di minimo e pertanto stabili per il sistema; mentre \(x_2\) è un punto di massimo e quindi instabile per il sistema.
+	
+	\graffito{\(2)\)}In generale sappiamo che l'equazione linearizzata associata ad un punto di equilibrio è data da
+	\[
+		M\,\ddot{\vec{x}} = -H_0\big(\vec{x}-\vec{x}_{eq}\big).
+	\]
+	Nel caso monodimensionale, \(H_0\) è semplicemente \(U''(x_{eq})\).
+	Quindi per il caso \(\a>0\) avremo
+	\[
+		\ddot{x} = -\a\,x \qquad\text{e}\qquad \w^2 = \a.
+	\]
+	Mentre, per il caso \(\a<0\), avremo
+	\begin{gather*}
+		\ddot{x} = -(-2\a)(x-\sqrt{-\a}) \qquad\text{e}\qquad \w^2 = -2\a;\\
+		\ddot{x} = -(-2\a)(x+\sqrt{-\a}) \qquad\text{e}\qquad \w^2 = -2\a.
+	\end{gather*}
+\end{sol}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 13/03/2017 - TERZA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Sistemi meccanici conservativi unidimensionali}
+
+L'equazione generale del moto, in un sistema conservativo unidimensionale, è data da
+\[
+	m\,\ddot{x}(t) = -U'\big(x(t)\big).
+\]
+
+\begin{oss}\label{oss:conservazioneUnidim}
+	Come al solito, quando si studia un sistema conservativo, è naturale domandarsi quando, in presenza di un'equazione di forze posizionali
+	\[
+		m\,\ddot{x} = F(x),
+	\]
+	sia lecito scrivere \(F(x) = -U'(x)\).
+	
+	Nel caso monodimensionale, ogni forza posizionale è conservativa in quanto continua. Infatti per il Teorema Fondamentale del Calcolo si ha
+	\[
+		U(x) = -\int_0^x F(t)\,\dd t.
+	\]
+\end{oss}
+
+\subsection{Pendolo matematico}
+
+In questo paragrafo discuteremo il modello del \emph{pendolo matematico}.
+Osserveremo in particolare come partendo da un sistema bidimensionale non conservativo e restringendoci all'unica direzione non banale, otterremo un'equazione conservativa unidimensionale.
+
+Il modello è costituito da una massa puntiforme \(m\), collegata attraverso un filo inestensibile di lunghezza \(l\) al punto di sospensione.
+Il moto di \(m\) sarà pertanto un moto circolare di raggio \(l\). L'equazione del moto sarà pertanto
+\[
+	m\,\ddot{\vec{x}} = - m\,\vec{g} + \vec{T} \qquad\qquad \input{Immagini/tikz/pendoloMatematico1.tikz}
+\]
+dove \(\vec{g}\) è l'accelerazione di gravità rivolta verso il basso e \(\vec{T}\) è la tensione del filo. In particolare, se definiamo con \(\q\) l'angolo che viene individuato dalla massa con la normale al punto di sospensione, avremo
+\[
+	\vec{x} = l\,\begin{pmatrix}\sin \q\\-\cos\q\end{pmatrix}, \qquad \vec{g} = \begin{pmatrix}0\\-g\end{pmatrix}, \qquad \vec{T} = T\,\begin{pmatrix}-\sin\q\\\cos \q\end{pmatrix}.
+\]
+Definiamo le componenti radiali \(\hat{e}_r\) e tangenziali \(\hat{e}_t\) del punto materiale:
+\[
+	\hat{e}_r = \begin{pmatrix}\sin\q\\\cos\q\end{pmatrix} \qquad\text{e}\qquad \hat{e}_t = \begin{pmatrix}\cos\q\\\sin\q\end{pmatrix} \qquad \qquad \input{Immagini/tikz/pendoloMatematico2.tikz}
+\]
+Proiettiamo il moto lungo queste componenti, le quali costituiscono chiaramente una base ortonormale. Per il vettore posizione avremo
+\[
+	\vec{x} = l\,	\begin{pmatrix}
+		\sin\q \\
+		-\cos \q	
+	\end{pmatrix}
+	= l\,\hat{e}_r \implies
+	\dot{\vec{x}} = l\,\dot{\q}\, 	\begin{pmatrix}
+		\cos\q \\
+		\sin\q
+	\end{pmatrix}
+	= l\,\dot{\q}\,\hat{e}_t,										
+\]
+da cui
+\[
+	\ddot{\vec{x}} = l\,\ddot{\q}\,\hat{e}_t + l\,\dot{\q}^2 	\begin{pmatrix}
+		-\sin\q \\
+		\cos\q
+	\end{pmatrix}
+	= l\,\ddot{\q}\,\hat{e}_t - l\,\dot{\q}^2 \hat{e}_r.												
+\]
+La tensione si proietta direttamente, infatti
+\[
+	\vec{T} = T\,\begin{pmatrix}-\sin\q\\\cos \q\end{pmatrix} = -T\,\hat{e}_r.
+\]
+Resta infine da scrivere \(\vec{g}\) nella nuova base, per farlo proiettiamo direttamente tramite pordotto scalare:
+\[
+	\vec{g}\sdot \hat{e}_r = \begin{pmatrix}0\\-g\end{pmatrix}\sdot\begin{pmatrix}\sin\q\\-\cos\q\end{pmatrix} = g\,\cos\q \qquad\text{e}\qquad
+	\vec{g}\sdot \hat{e}_t = \begin{pmatrix}0\\-g\end{pmatrix}\sdot\begin{pmatrix}\cos\q\\\sin\q\end{pmatrix} = -g\,\sin\q;
+\]
+da cui
+\[
+	\vec{g} = g\,\cos\q\,\hat{e}_r - g\,\sin\q\,\hat{e}_t.
+\]
+Sostituendo nell'equazione del moto otteniamo
+\[
+	m\,\ddot{\vec{x}} = -m\,\vec{g}+\vec{T} \iff m\,l\,\ddot{\q}\,\hat{e}_t - m\,l\,\dot{\q}^2 \hat{e}_r = m\,g\,\cos\q\,\hat{e}_r - m\,g\,\sin\q\,\hat{e}_t - T\,\hat{e}_r,
+\]
+che può essere espresso tramite il sistema
+\[
+	\left\{\begin{aligned}
+		m\,l\,\ddot{\q}   & = -m\,g\,\sin\q     \\
+		-m\,l\,\dot{\q}^2 & = m\,g\,\cos\q - T
+	\end{aligned}\right.
+\]
+La seconda ci dice immediatamente che la tensione dipende dalla velocità angolare, pertanto non è posizionale e tantomeno conservativa.
+
+\begin{remark}{Equazione del pendolo matematico}{equazionePendoloMatematico}
+	\[
+		m\,\l\,\ddot{\q} = -m\,g\,\sin\q.
+	\]
+\end{remark}
+
+\begin{notz}
+	Alternativamente possiamo scrivere l'equazione del pendolo matematico come
+	\[
+		\ddot{\q} = -\frac{g}{l}\,\sin\q = -\w^2\sin\q.
+	\]
+	Osserviamo che ha senso identificare \(g/l\) come una frequenza al quadrato in quanto ha le dimensioni del reciproco di un tempo al quadrato, infatti
+	\[
+		\left[ \frac{g}{l} \right]  = \left[ \frac{l}{t^2} \right]\,\frac{1}{[l]} = \frac{1}{[t]^2}.
+	\]
+\end{notz}
+\noindent
+Cerchiamo di esprimere quest'ultima equazione attraverso un "potenziale"\graffito{non possiamo parlare propriamente di potenziale in quanto le dimensioni fisiche sono diverse}, come avviene per le equazioni del moto conservative:
+\[
+	\ddot{\q} = -\w^2\sin\q = -\w^2 \frac{\pd}{\pd\q}(1-\cos\q) = -u'(\q),
+\]
+dove \(u(\q) = \w^2(1-\cos\q)\). Possiamo quindi scrivere l'energia del sistema, che in quanto conservativa sarà costante:
+\[
+	\frac{\dot{\q}^2}{2} + u(\q) = cost.
+\]
+Possiamo ricondurci alle dimensioni di un'energia moltiplicando ambo i membri per \(m\,l^2\), ottenendo
+\[
+	m\,l^2 \frac{\dot{\q}^2}{2} + m\,l^2 u(\q) = E,
+\]
+da cui
+
+\begin{remark}{Equazione dell'energia del sistema}{equazioneEnergiaSistema}
+	\[
+		\frac{\dot{\q}^2}{2}+u(\q) = \frac{E}{m\,l^2}.
+	\]
+\end{remark}
+\subsection{Piano delle fasi}
+
+L'equazione del pendolo ci dice che il moto di \(\q(t)\) a energia \(E\), si svolge sulla curva di livello di equazione
+\[
+	\dot{\q} = \pm\sqrt{2 \left( \frac{E}{m\,l^2}-u(\q) \right)}. \tag{\(\star\)}
+\]
+Per visualizzare meglio la struttura delle soluzioni, possiamo considerare il piano \((\q,\dot{\q})\) detto piano delle fasi. Nel nostro caso esso corrisponde all'insieme delle curve di livello \(\Gamma_E\)
+\[
+	\Gamma_E = \Set{(\q,\dot{\q}) | \frac{\dot{\q}^2}{2}+u(\q) = \frac{E}{m\,l^2}},
+\]
+al variare della costante \(E\).
+
+\begin{oss}
+	Il procedimento che applicheremo a questo scopo, è in generale applicabile per ottenere il grafico qualitativo di altri piani di fasi.
+\end{oss}
+\noindent
+Dal momento che \(\q\) è una variabile angolare, possiamo restringerci ad un dominio di ampiezza \(2\p\) come \([-\p,\p]\).
+
+\begin{oss}
+	Analogamente potremmo dire che \(u(\q)\) è periodica con \(T=2\p\).
+\end{oss}
+\noindent
+Per prima cosa facciamo un grafico qualitativo di \(u(\q) = \w^2(1-\cos\q)\):
+\[
+	\tikz{
+		\draw[-latex] (-3.5, 0) -- (3.5,0) node[above] {\(\q\)};
+		\draw[-latex] (0,-1) -- (0,2.5) node[right] {\(u(\q)\)};
+		\draw[domain=-pi-0.2:pi+0.2,smooth,variable=\x, compl, thick] plot ({\x},{1-cos(deg(\x))});
+		\draw[dashed, thin] (-pi, 0) -- (-pi, 2);
+		\draw[dashed, thin] (pi, 0) -- (pi, 2);
+		\draw[dashed, thin] (-pi, 2) -- (pi, 2);
+		\draw[dashed, thin] (-pi/3, 1/2) -- (pi/3, 1/2);
+		\draw[dashed, thin] (-pi/3, 0) -- (-pi/3, 1/2);
+		\draw[dashed, thin] (pi/3, 0) -- (pi/3, 1/2);
+		\node[below, font=\small] at (-pi, 0) {\(-\p\)};
+		\node[below, font=\small] at (pi, 0) {\(\p\)};
+		\node[below left, font=\small] at (0, 2) {\(2\w^2\)};
+		\node[below, font=\small] at (-pi/3,0) {\(\q_-\)};
+		\node[below, font=\small] at (pi/3, 0) {\(\q_+\)};
+		\node[above right, font=\small] at (0,1/2) {\(\frac{E}{m\,l^2}\)};
+	}
+\]
+Come si evince anche dal grafico, \(u(\q)\) ha un punto di equilibrio stabile in \(0\) e due punti di equilibrio instabili in \(\pm\p\).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 15/03/2017 - TERZA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Dobbiamo valutare tre casi al variare di \(\frac{E}{m\,l^2}\), che chiameremo rispettivamente sottocritico, critico e sovracritico.
+
+Per \(0<\frac{E}{m\,l^2}<2\w^2\), che è il caso disegnato nel grafico precedente, avremo che la porzione di grafico rilevante per la curva di livello, sarà compresa fra \(\q_-\) e \(\q_+\). In particolare avremo
+\[
+	\q_+ = \arccos \left( 1- \frac{E}{m\,l^2 w^2} \right) \qquad\text{e}\qquad \q_- = -\q_+.
+\]
+In particolare il grafico del radicando di \((\star)\) e la conseguente curva di livello saranno,
+\[
+	\tikz[baseline=-0.5ex]{
+		\draw[-latex] (-2, 0) -- (2,0) node[above] {\(\q\)};
+		\draw[-latex] (0,-1) -- (0,1.5) node[right] {\(2\left(\frac{E}{m\,l^2}-u(\q)\right)\)};
+		\draw[domain=-pi/3:pi/3,smooth,variable=\x, compl, thick] plot ({\x},{cos(deg(\x))-1/2});
+		\node[below, font=\small] at (-pi/3,0) {\(\q_-\)};
+		\node[below, font=\small] at (pi/3,0) {\(\q_+\)};
+	} \qquad\text{e}\qquad
+	\tikz[baseline=-0.5ex]{
+		\draw[-latex] (-2, 0) -- (2,0) node[above] {\(\q\)};
+		\draw[-latex] (0,-1) -- (0,1.5) node[right] {\(\dot{\q}\)};
+		\draw[domain=-pi/3+0.0001:pi/3-0.0001,smooth,variable=\x, compl, thick] plot ({\x},{sqrt(cos(deg(\x))-1/2)});
+		\draw[domain=-pi/3+0.0001:pi/3-0.0001,smooth,variable=\x, compl, thick] plot ({\x},{-sqrt(cos(deg(\x))-1/2)});
+		\draw[dashed, thin] (-pi/2, -1) -- (-pi/2, 1);
+		\draw[dashed, thin] (pi/2, -1) -- (pi/2, 1);
+		\node[below right, font=\small] at (-pi/3,0) {\(\q_-\)};
+		\node[below left, font=\small] at (pi/3,0) {\(\q_+\)};
+		\node[below left, font=\small] at (-pi/2,0) {\(-\p\)};
+		\node[below right, font=\small] at (pi/2,0) {\(\p\)};
+	}
+\]
+Come possiamo vedere il raccordo nella curva di livello è liscio, questo poiché, non essendo punti critici di \(u\), la derivata del radicando in \(\q_-\) e \(\q_+\) è diversa da zero.
+
+\begin{oss}
+	In realtà il raccordo non è solo continuo ma addirittura \(C^{\infty}\). Questo poiché l'espressione si ottiene come soluzione di un problema di Cauchy i cui dati sono \(C^{\infty}\) e la cui soluzione è pertanto parametrizzata come punti \(C^{\infty}\).
+\end{oss}
+\noindent
+Questa sorta di ellisse si espande all'aumentare di \(E\) fino al raggiungimento del caso critico, in cui \(\frac{E}{m\,l^2}= 2\w^2\). In questo caso \((\star)\) assume la forma
+\[
+	\dot{\q} = \pm \sqrt{2(2\w^2-\w^2+\w^2\cos\q)} = \pm\sqrt{2\w^2(1+\cos\q)}.
+\]
+In questo caso i grafici diventano
+\[
+	\tikz[baseline=-0.5ex]{
+		\draw[-latex] (-2, 0) -- (2,0) node[above] {\(\q\)};
+		\draw[-latex] (0,-1) -- (0,1.5) node[right] {\(2\w^2(1+\cos\q)\)};
+		\draw[scale=1/2, domain=-pi:pi,smooth,variable=\x, compl, thick] plot ({\x},{1+cos(deg(\x))});
+		\node[below, font=\small] at (-pi/2,0) {\(-\p\)};
+		\node[below, font=\small] at (pi/2,0) {\(\p\)};
+	} \qquad\text{e}\qquad
+	\tikz[baseline=-0.5ex]{
+		\draw[-latex] (-2, 0) -- (2,0) node[above] {\(\q\)};
+		\draw[-latex] (0,-1) -- (0,1.5) node[right] {\(\dot{\q}\)};
+		\draw[scale=1/2, domain=-pi+0.0001:pi-0.0001,smooth,variable=\x, compl, thick] plot ({\x},{sqrt(1+cos(deg(\x)))});
+		\draw[scale=1/2, domain=-pi+0.0001:pi-0.0001,smooth,variable=\x, compl, thick] plot ({\x},{-sqrt(1+cos(deg(\x)))});
+		\draw[dashed, thin] (-pi/2, -1) -- (-pi/2, 1);
+		\draw[dashed, thin] (pi/2, -1) -- (pi/2, 1);
+		\node[below left, font=\small] at (-pi/2,0) {\(-\p\)};
+		\node[below right, font=\small] at (pi/2,0) {\(\p\)};
+	}
+\]
+Osserviamo che in questo caso non vi è raccordo negli zeri. Questo poiché il termine dominante nell'espansione di taylor di \(2\w^2(1+\cos\q)\) negli zeri \(\pm\p\), è
+\[
+	\w^2(\q\mp\p)^2,
+\]
+pertanto, passando alla radice nella curva di livello, il termine dominante è lineare e il raccordo non sarà pertanto lisce.
+
+\begin{oss}
+	Questo mancato raccordo non nega l'osservazione precedente sul raccordo \(C^{\infty}\). Questa situazione vi si configura osservando che, in questo caso, il moto si compie unicamente nel semipiano superiore o in quello inferiore, senza mai attraversare l'asse \(\q\).
+\end{oss}
+\noindent
+Discutiamo infine il caso sovracritico in cui \(\frac{E}{m\,l^2}>2\w^2\). In tal caso i grafici qualitativi saranno
+\[
+	\tikz[baseline=-0.5ex]{
+		\draw[-latex] (-2, 0) -- (2,0) node[above] {\(\q\)};
+		\draw[-latex] (0,-1) -- (0,1.5) node[right] {\(2\left(\frac{E}{m\,l^2}-u(\q)\right)\)};
+		\draw[scale=1/2, domain=-pi:pi,smooth,variable=\x, compl, thick] plot ({\x},{1.5+cos(deg(\x))});
+		\draw[dashed, thin] (-pi/2, -1) -- (-pi/2, 1);
+		\draw[dashed, thin] (pi/2, -1) -- (pi/2, 1);
+		\draw[dashed, thin] (-pi, 0.25) -- (pi, 0.25);
+		\node[below left, font=\small] at (-pi/2,0) {\(-\p\)};
+		\node[below right, font=\small] at (pi/2,0) {\(\p\)};
+	} \qquad\text{e}\qquad
+	\tikz[baseline=-0.5ex]{
+		\draw[-latex] (-2, 0) -- (2,0) node[above] {\(\q\)};
+		\draw[-latex] (0,-1) -- (0,1.5) node[right] {\(\dot{\q}\)};
+		\draw[scale=1/2, domain=-pi+0.0001:pi-0.0001,smooth,variable=\x, compl, thick] plot ({\x},{sqrt(1.5+cos(deg(\x)))});
+		\draw[scale=1/2, domain=-pi+0.0001:pi-0.0001,smooth,variable=\x, compl, thick] plot ({\x},{-sqrt(1.5+cos(deg(\x)))});
+		\draw[dashed, thin] (-pi/2, -1) -- (-pi/2, 1);
+		\draw[dashed, thin] (pi/2, -1) -- (pi/2, 1);
+		\node[below left, font=\small] at (-pi/2,0) {\(-\p\)};
+		\node[below right, font=\small] at (pi/2,0) {\(\p\)};
+	}
+\]
+Possiamo infine riepilogare l'andamento qualitativo del moto sul piano delle fasi
+\[
+	\input{Immagini/tikz/pianoFasi.tikz}
+\]
+dove il verso delle curve è dato dal segno di \(\dot{\q}\).
+Esso è infatti positivo quando la velocità angolare si trova nel semipiano superiore e, viceversa, negativo quando è in quello inferiore.
+\subsection{Soluzioni analitiche}
+Discutiamo adesso le soluzioni analitiche, anche dette \emph{soluzioni per quadrature}.
+Cominciamo con il caso sottocritico, che ricordiamo essere quello in cui
+\[
+	0 < \frac{E}{m\,l^2} < 2\w^2.
+\]
+Scegliamo un istante iniziale \(t_0\) in cui \(\dot{\q}(t_0)>0\).
+Per \(t_0<t<t_1\), dove \(t_1\) è un istante ancora da determinare in cui \(\q(t_1)=\q_+\), avremo
+\[
+	\dot{\q} = +\sqrt{2 \left( \frac{E}{m\,l^2}-u(\q) \right)}.
+\]
+Per separazione di variabili e integrando fra \(t_0\) e \(t\) otteniamo
+\[
+	F\big(\q(t)\big) = \int_{\q_-}^{\q(t)} \frac{\dd \q}{\sqrt{2 \left( \frac{E}{m\,l^2}-u(\q) \right)}} = t-t_0
+\]
+Quest'ultima è la soluzione per quadratura valida per ogni \(t\in[t_0,t_1]\).
+Da ciò possiamo anche ottenere un'espressione per \(t_1\):
+\[
+	\q(t_1) = \q_+ \implies t_1 = t_0 + \int_{\q_-}^{\q_+} \frac{\dd\q}{\sqrt{2 \left( \frac{E}{m\,l^2}-u(\q) \right)}}.
+\]
+Osserviamo inoltre che \(F(\q)\) è invertibile, in particolare da \(F\big(\q(t)\big)=t-t_0\) otteniamo
+
+\begin{remark}{Soluzione analitica nel caso sottocritico}{soluzioneAnaliticaCasoSottocritico}
+	\[
+		\q(t) = F^{-1}(t-t_0).
+	\]
+\end{remark}
+
+\begin{oss}
+	\(F(\q_-)=0\) e \(F(\q)\) è monotona strettamente crescente per \(\q_-\le \q \le \q_+\), pertanto è invertibile.
+\end{oss}
+\noindent
+Osservando il piano delle fasi, ci aspettiamo che \(t_1\) sia finito per il caso sottocritico, ovvero che
+\[
+	\int_{\q_-}^{\q_+} \frac{\dd\q}{\sqrt{2 \left( \frac{E}{m\,l^2}-u(\q) \right)}} < +\infty.
+\]
+Dobbiamo pertanto studiare l'andamento del denominatore. Se \(\q\) è sufficientemente vicino a \(\q_-\), avremo
+\[
+	\frac{E}{m\,l^2} - u(\q) = c\,(\q-\q_-) + \bO\big((\q-\q_-)^2\big) \simeq c\,(\q-\q_-).
+\]
+Da cui
+\[
+	\int_{\q_-}^{\q_-+\e} \frac{\dd\q}{\sqrt{2 \left( \frac{E}{m\,l^2}-u(\q) \right)}} \simeq \int_{\q_-}^{\q_-+\e} \frac{\dd\q}{\sqrt{c\,(\q-\q_-)}} < +\infty.
+\]
+E analogamente si mostra
+\[
+	\int_{\q_+-\e}^{\q_+} \frac{\dd\q}{\sqrt{2 \left( \frac{E}{m\,l^2}-u(\q) \right)}} < +\infty.
+\]
+Ripetiamo il procedimento per istanti \(t\) in cui \(\dot{\q}<0\), ovvero per \(t_1\le t \le t_2\), dove \(t_2\) è un'istante ancora da determinare in cui \(\q(t_2)=\q_-\). In questo caso avremo
+\[
+	\dot{\q} = -\sqrt{2 \left( \frac{E}{m\,l^2}-u(\q) \right)}.
+\]
+Nuovamente per separazione di variabili e integrando fra \(t_1\) e \(t\) otteniamo
+\[
+	G\big(\q(t)\big) = \int_{\q(t)}^{\q_+} \frac{\dd\q}{\sqrt{2 \left( \frac{E}{m\,l^2}-u(\q) \right)}} = t-t_1.
+\]
+Osserviamo che
+\[
+	G\big(\q(t)\big) = \int_{\q_-}^{\q_+} \frac{\dd\q}{\sqrt{2 \left( \frac{E}{m\,l^2}-u(\q) \right)}} - F\big(\q(t)\big),
+\]
+inoltre anche \(G\) è invertibile, per cui
+\[
+	G\big(\q(t)\big) = t-t_1 \iff \q(t) = G^{-1}(t-t_1) = F^{-1} \bigg( \int_{\q(t)}^{\q_+} \frac{\dd\q}{\sqrt{2 \left( \frac{E}{m\,l^2}-u(\q) \right)}} + t_1-t \bigg).
+\]
+Calcolando \(t_2\), possiamo infine determinare il periodo del moto:
+\[
+	t_2 = t_1 + \int_{\q(t)}^{\q_+} \frac{\dd\q}{\sqrt{2 \left( \frac{E}{m\,l^2}-u(\q) \right)}} \implies T = 2\int_{\q(t)}^{\q_+} \frac{\dd\q}{\sqrt{2 \left( \frac{E}{m\,l^2}-u(\q) \right)}}.
+\]
+
+L'intero procedimento può essere ripetuto per il caso sovracritico in cui \(\frac{E}{m\,l^2} > 2\w^2\).
+Sia \(t_0\) l'istante in cui \(\q(t_0)=-\p\). Se \(\dot{\q}>0\) avremo
+\[
+	\dot{\q} = +\sqrt{2 \left( \frac{E}{m\,l^2}-u(\q) \right)}.
+\]
+Preso \(t>t_0\) e integrando per separazione di variabile fra questi due istanti otteniamo
+\[
+	f\big(\q(t)\big) = \int_{-\p}^{\q(t)} \frac{\dd \q}{\sqrt{2 \left( \frac{E}{m\,l^2}-u(\q) \right)}} = t-t_0.
+\]
+Anche in questo caso \(f\) è monotona strettamente crescente e pertanto invertibile, da cui
+
+\begin{remark}{Soluzione analitica nel caso sovracritico}{soluzioneAnaliticaCasoSovracritico}
+	\[
+		\q(t) = f^{-1}(t-t_0).
+	\]
+\end{remark}
+
+Osserviamo che in questo caso, come ci aspettiamo dal grafico, \(f\) è monotona crescente per ogni \(t\in\R\). Quindi l'inversa è globale.
+Il caso \(\dot{\q}<0\) si descrive in modo del tutto analogo.
+
+Discutiamo infine il caso critico in cui \(\frac{E}{m\,l^2}=2\w^2\). In questo caso saremo in grado di fornire una soluzione esplicita.
+Scegliamo la determinazione positiva \(\dot{\q}>0\) e l'istante iniziale \(t_0=0\) per cui
+\[
+	\q(0) = 0 \qquad\text{e}\qquad \dot{\q}(0) = 2\w.
+\]
+La curva di livello sarà data da
+\[
+	\dot{\q} = +\sqrt{2\w^2(1+\cos\q)} = \sqrt{2}\w\sqrt{1+\cos\q},
+\]
+ricordando che \(\frac{1+\cos\q}{2} = \cos^2 \frac{\q}{2}\), otteniamo
+\[
+	\dot{\q} = 2\w\,\cos \frac{\q}{2},
+\]
+dove la radice è certamente positiva in quanto
+\[
+	-\p<\q<\p \implies \cos \frac{\q}{2} > 0.
+\]
+Procediamo integrando fra \(0\) e \(t\) per separazione di variabili:
+\[
+	\begin{split}
+		2\w\,t & = \int_0^{\q(t)} \frac{\dd\q}{\cos \frac{\q}{2}} = 2\int_0^{\q(t)/2} \frac{\dd x}{\cos x} = 2\int_0^{\q(t)/2} \frac{\cos x\,\dd x}{\cos^2 x} = 2\int_0^{\q(t)/2} \frac{\dd(\sin x)}{1-\sin^2 x}\graffito{\(x=\q/2\)}\\
+		& = 2\int_0^{\sin \frac{\q(t)}{2}} \frac{\dd y}{1-y^2} = \int_0^{\sin \frac{\q(t)}{2}} \left( \frac{1}{1+y}+\frac{1}{1-y} \right)\,\dd y = \left[ \ln \frac{1+y}{1-y} \right]_0^{\sin \frac{\q(t)}{2}}\graffito{\(y=\sin x\)}\\
+		& = \ln \frac{1+\sin \frac{\q(t)}{2}}{1-\sin \frac{\q(t)}{2}}.
+	\end{split}
+\]
+Questa soluzione, oltre ad essere esplicita, è facilmente invertibile:
+\[
+	\begin{split}
+		\ln \frac{1+\sin \frac{\q(t)}{2}}{1-\sin \frac{\q(t)}{2}} = 2\w\,t & \iff \frac{1+\sin \frac{\q(t)}{2}}{1-\sin \frac{\q(t)}{2}} = e^{2\w\,t} \iff 1+\sin \frac{\q(t)}{2} = e^{2\w\,t} \left( 1-\sin \frac{\q(t)}{2} \right)\\
+		& \iff \sin \frac{\q(t)}{2} + e^{2\w\,t} \sin \frac{\q(t)}{2} = e^{2\w\,t}-1 \iff \sin \frac{\q(t)}{2} = \frac{e^{2\w\,t}-1}{e^{2\w\,t}+1}\\
+		& \iff \sin \frac{\q(t)}{2} = \frac{e^{\w\,t}-e^{-\w\,t}}{e^{\w\,t}+e^{-\w\,t}} = \tanh(\w\,t),
+	\end{split}
+\]
+da cui
+
+\begin{remark}{Soluzione analitica nel caso critico}{soluzioneAnaliticaCasoCritico}
+	\[
+		\q(t) = 2\arcsin\big(\tanh(\w\,t)\big).
+	\]
+\end{remark}
+
+\begin{oss}
+	Come ci aspettavamo dal piano delle fasi, nel caso critico si ha
+	\[
+		\q(t) \longrightarrow \pm \p \qquad\text{per }t \to \pm \infty.
+	\]
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 20/03/2017 - QUARTA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Moto unidimensionale generico}
+
+In questo paragrafo descriveremo i passaggi effettuati nel caso del pendolo matematico per un sistema unidimensionale generico.
+
+Consideriamo il moto in una dimensione descritto dall'equazione di Newton
+\[
+	m\,\ddot{x} = F(x) = -U'(x).
+\]
+Abbiamo \hyperref[oss:conservazioneUnidim]{già osservato} come, nel caso unidimensionale, quasi ogni funzione reale ammetta una primitiva.
+Pertanto, in ogni caso che ha senso di essere considerato, l'energia meccanica
+\[
+	E = m\,\frac{\dot{x}}{2} + U(x),
+\]
+è una grandezza conservata.
+Esplicitando \(\dot{x}\) è possibile ricavare, seppur non sempre in forma esplicita, l'equazione del moto
+\[
+	\dot{x} = \pm \sqrt{\frac{2}{m}\big(E-U(x)\big)}
+\]
+
+\begin{defn}{Curva di livello a energia costante}{curvaLivelloEnergiaCostante}\index{Curva di livello}
+	Consideriamo l'equazione del moto. Fissata l'energia \(E\), definiamo la curva di livello a energia \(E\) come
+	\[
+		\Sigma_E = \Set{(x,\dot{x}) | m\,\frac{\dot{x}}{2} + U(x) = E},
+	\]
+	ovvero i punti che soddisfano l'equazione del moto.
+\end{defn}
+\noindent
+L'analisi qualitativa del moto di una particella sottoposta al potenziale \(U\), si ottiene graficando il piano delle fasi \((x,\dot{x})\). Di seguito descriviamo il procedimento per punti:
+\begin{enumerate}
+	\item Graficare \(U(x)\).
+	\item Identificare i punti critici del potenziale \(U\).
+	      Ad essi corrispondono i cosiddetti \emph{livelli di energia critici}.
+	\item Disegnare i moti delle separatrici, cioè i moti in corrispondenza dei livelli di energia critici per massimi o flessi.
+	      Il grafico si ottiene da quello di \(U\), è sufficiente considerare la porzione di piano al di sotto della retta orizzontale alla quota del livello di energia critico, ma riflesso rispetto a quest'ultima.
+	      Nei punti in cui il grafico interseca la retta bisogna considerare diverse possibilità:
+	      \begin{itemize}
+		      \item Se il punto non è instabile, la tangente alla curva sarà verticale
+		      \item Se il punto è uno zero quadratico (tipicamente un massimo), la curva avrà una singolarità di punto angoloso.
+		      \item Se il punto è un flesso, cioè uno zero almeno cubico, la curva avrà una tangente orizzontale.
+	      \end{itemize}
+	\item Orientare i rami secondo il segno di \(\dot{x}\). Di conseguenza quelli del semipiano superiore si sposteranno verso destra, mentre quelli del semipiano inferiore verso sinistra.
+	\item Descrivere qualitativamente i moti, e disegnarli, per ogni livello di energia.
+	\item Se richiesto, ricavare la legge oraria, che in forma implicita è data da
+	      \[
+		      t-t_0 = \int_{x_0}^{x(t)} \frac{\dd x}{\sqrt{\frac{2}{m}\big(E-U(x)\big)}},
+	      \]
+	      dove \(x_0\) è un punto opportuno per il moto (tipicamente il punto di inversione della velocità o l'infinito).
+	      Se non fosse possibile calcolare la legge oraria in forma esplicita, è sempre possibile fare le seguenti analisi qualitative:
+	      \begin{description}
+		      \item[Curve chiuse lisce] Si tratta di oscillazioni periodiche limitate. Il cui periodo è dato da
+			      \[
+				      T = 2\int_{x_1}^{x_2} \frac{\dd x}{\sqrt{\frac{2}{m}\big(E-U(x)\big)}},
+			      \]
+			      dove \(x_1,x_2\) sono i punti di inversione della velocità.
+			      L'integrale è singolare per \(U(x)=E\), ma converge.
+		      \item[Curve aperte lisce] Si tratta di moti non periodici e non limitati.
+			      Le particelle vengono dall'infinito e vanno verso il punto di inversione \(x_0\).
+			      In questo tipo di moti siamo interessati a capire se le particelle arrivano in tempo finito all'infinito (o ad \(x_0\)) o meno. Per stabilirlo, è sufficiente studiare la convergenza di 
+			      \[
+				      t_{\infty} - t_0 = \int_{x_0}^{+\infty} \frac{\dd x}{\sqrt{\frac{2}{m}\big(E-U(x)\big)}}.
+			      \]
+			      Se l'integrale converge il tempo per raggiungere l'infinito è finito e la soluzione risulterà locale, altrimenti il tempo sarà infinito e la soluzione globale.
+			      In generale per verificare la convergenza, è sufficiente controllare se
+			      \[
+				      -U(x) \ge x^{2+\e}.
+			      \]
+		      \item[Sella separatrice] Potrebbe sembrare un moto chiuso, ma in questo caso il tempo per raggiungere la sella è sempre infinito.
+			      Da questo deriva che i punti di sella sono instabili.
+		      \item[Moduli separatori] La curva ha una singolarità di punto angoloso (tipicamente nei punti di massimo).
+			      La particella arriva nel punto critico in un tempo infinito.
+		      \item[Punti critici] Se la particella parte da un punto critico con velocità nulla, non si sposterà da quel punto.
+	      \end{description}
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 20/03/2017 - QUARTA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Moti in campo centrale}
+
+\begin{defn}{Forza centrale}{forzaCentrale}\index{Forza centrale}
+	Una forza \(\vec{F}\big(\vec{r}\big)\colon \R^n \to \R^n\) si dice \emph{centrale} se è esprimibile attraverso una forza scalare che dipende solo dalla distanza dall'origine, ovvero
+	\[
+		\vec{F}\big(\vec(r)\big) = F\big(\abs{\vec{r}}\big)\,\hat{r} \qquad\text{dove }\hat{r} = \frac{\vec{r}}{\abs{\vec{r}}}.
+	\]
+\end{defn}
+
+\begin{defn}{Coppia di forze centrali}{coppiaForzeCentrali}
+	Consideriamo il sistema composto da due punti nello spazio sottoposti a forze reciproche \(\vec{f}_{12}\) e \(\vec{f}_{21}\).
+	Le due forze sono una \emph{coppia di forze centrali} se sono opposte, se dipendono solo dalla distanza reciproca e se sono orientate come la congiungente delle particelle. Ovvero
+	\[
+		\vec{f}_{12}\big(\vec{r}_1,\vec{r}_2\big) = -\vec{f}_{21}\big(\vec{r}_1,\vec{r}_2\big) = F\big(\abs{\vec{r}_1-\vec{r}_2}\big)\,\frac{\vec{r}_1-\vec{r}_2}{\abs{\vec{r}_1-\vec{r}_2}}.
+	\]
+\end{defn}
+
+\begin{defn}{Forza attrattiva}{forzaAttrattiva}\index{Forza centrale!attrattiva}
+	Una forza centrale \(F\big(\vec{x}\big)\) si dice \emph{attrattiva in \(\vec{x}\)} se
+	\[
+		F\big(\vec{x}\big) < 0.
+	\]
+\end{defn}
+
+\begin{notz}
+	Se vale
+	\[
+		F\big(\vec{x}\big) < 0 \,\fa \vec{x},
+	\]
+	diremo che \(F\) è puramente attrattiva.
+\end{notz}
+
+\begin{defn}{Forza repulsiva}{forzaRepulsiva}\index{Forza centrale!repulsiva}
+	Una forza centrale \(F\big(\vec{x}\big)\) si dice \emph{repulsiva in \(\vec{x}\)} se
+	\[
+		F\big(\vec{x}\big) > 0.
+	\]
+\end{defn}
+
+\begin{notz}
+	Se vale
+	\[
+		F\big(\vec{x}\big) > 0 \,\fa \vec{x},
+	\]
+	diremo che \(F\) è puramente repulsiva.
+\end{notz}
+
+\begin{defn}{Centro di massa}{centroMassa}\index{Centro di massa}
+	In un sistema di \(n\) particelle, si definisce \emph{centro di massa} la posizione
+	\[
+		r_{CM} = \frac{\sum m_i \vec{r}_i}{\sum m_i}.
+	\]
+\end{defn}
+
+\begin{defn}{Massa ridotta}{massaRidotta}\index{Massa ridotta}
+	In un sistema di \(n\) particelle, chiamiamo \emph{massa ridotta} la quantità
+	\[
+		m = \frac{\sum m_i}{\prod m_i}.
+	\]
+\end{defn}
+
+\begin{oss}
+	Tale quantità soddisfa la relazione
+	\[
+		\frac{1}{m} = \sum_{i=1}^n \frac{1}{m_i}
+	\]
+\end{oss}

@@ -1,0 +1,510 @@
+%!TEX root = ../../main.tex
+\chapter{Moti vincolati}
+\section{Introduzione}
+
+\begin{defn}{Moto soggetto ad un vincolo}{motoSoggettoVincolo}\index{Moto vincolato}
+	Diremo che il moto \(\vec{x}\), sotto l'effetto di \(\vec{F}\), \emph{è soggetto ad un vincolo \(\Sigma\)}, se partendo su \(\Sigma\) il moto generato da \(\vec{F}\) su \(\Sigma\) vi rimane per tutti i tempi.
+\end{defn}
+
+\begin{ese}
+	Abbiamo già visto un esempio di moto vincolato con il pendolo in cui si aveva
+	\[
+		\vec{x}\in \Sigma \subseteq \R^2 \qquad\text{dove }\Sigma=\Set{\vec{x}:\abs{\vec{x}}=l}.
+	\]
+\end{ese}
+\noindent
+Nel contesto dei moti vincolati è conveniente studiare il sistema con coordinate adattate al vincolo.
+Supponiamo che \(\Sigma\) sia descritta in forma parametrica
+\[
+	\vec{x} = \vec{\j}(q_1,\ldots,q_s),
+\]
+dove \(s\) è la dimensione di \(\Sigma\)
+
+\begin{ese}
+	Nel caso del pendolo avevamo
+	\[
+		\vec{x} = l\, \begin{pmatrix}\sin\q\\-\cos\q\end{pmatrix} \equiv \j(\q).
+	\]
+\end{ese}
+\noindent
+Sappiamo che moti reali rendono stazionaria l'azione \(A_{t_1,t_2}^{\mathcal{L}}\).
+Sappiamo inoltre che moti che partono su \(\Sigma\) si mantengono su \(\Sigma\). Pertanto moti reali su \(\Sigma\) renderanno, a maggior ragione, stazionaria l'azione di \(A_{t_1,t_2}^{\mathcal{L}}\) rispetto all'azione sull'insieme ristretto dei moti
+\[
+	\mathcal{M}_{t_1,t_2}^{\Sigma}\big(\vec{\x}_1,\vec{\x}_2\big) \qquad\text{con }\vec{\x}_1,\vec{\x}_2 \in \Sigma;
+\]
+che è il sottoinsieme di \(M\) tale che \(\vec{x}(t)\in\Sigma\) per ogni \(t\).
+D'altronde
+\[
+	\vec{x}(t) \in \mathcal{M}_{t_1,t_2}^{\Sigma}\big(\vec{\x}_1,\vec{\x}_2\big) \implies \vec{x}(t) = \vec{\j}\big(q_1(t),\ldots,q_s(t)\big)
+\]
+per cui su tali moti avremo
+\[
+	\mathcal{L}\big(\vec{x}(t),\dot{\vec{x}}(t)\big) = \tilde{\mathcal{L}}\big(\vec{q}(t),\dot{\vec{q}}(t)\big),
+\]
+dove \(\tilde{\mathcal{L}}\) è definita come \hyperref[mk:cambiamentoVariabileEquazioneEL]{descritta nel capitolo precedente}.
+In questo caso \(s<n\) per cui la lagrangiana \(\tilde{\mathcal{L}}\) sarà ridotta rispetto a \(\mathcal{L}\).
+
+\begin{ese}
+	Considerando sempre il pendolo abbiamo
+	\[
+		\vec{x}(t) = l\,\begin{pmatrix}\sin\q(t)\\-\cos\q(t)\end{pmatrix} \implies \dot{\vec{x}}(t) = l\,\dot{\q}(t)\,\begin{pmatrix}\cos\q(t)\\\sin\q(t)\end{pmatrix}.
+	\]
+	Inoltre \(U=m\,g\,x_2\), per cui
+	\[
+		\tilde{\mathcal{L}}\big(\q(t),\dot{\q}(t)\big) = \frac{1}{2}m\,l^2\,\dot{\q}^2 + m\,g\,\cos\q.
+	\]
+	Possiamo quindi applicare le equazioni di Eulero-Lagrange
+	\[
+		\frac{\dd}{\dd t}\frac{\pd\tilde{\mathcal{L}}}{\pd\dot{\q}} = \frac{\pd\tilde{\mathcal{L}}}{\pd\q} \iff \frac{\dd}{\dd t} m\,l^2\,\dot{\q}(t) = -m\,g\,l\,\sin\big(\q(t)\big),
+	\]
+	da cui otteniamo l'equazione ridotta del moto
+	\[
+		\ddot{\q} = -\frac{g}{l}\sin\q.
+	\]
+\end{ese}
+\noindent
+Osserviamo che il procedimento applicato nell'esempio precedente al pendolo, ha avuto successo nonostante fossimo in presenza di forze non conservative. In generale infatti, un sistema di forze \(\vec{F}\) che mantiene \(\vec{x}\) sul vincolo non è conservativo e quanto detto non si applica.
+D'altronde è possibile modificare opportunamente la trattazione precedente ed assumere che la forza di vincolo sia conservativa.
+
+Nel caso del pendolo si aveva \(\vec{F}=m\,\vec{g}+\vec{T}\), dove
+\[
+	\vec{T} = -\hat{e}_r(m\,g\,\cos\q+m\,l\dot{\q}^2)
+\]
+che è chiaramente non conservativa (ad esempio non è posizionale).
+Osserviamo che \(\vec{F}\) si decompone naturalmente in una componente conservativa e in una non conservativa ortogonale al vincolo.
+In particolare segue che \(\vec{T}\) non compie lavoro sui moti su \(\Sigma\). Questo ci permetterà di dimostrare che tali moti sono trascurabili nella nostra trattazione.
+
+\begin{defn}{Sistema di vincoli}{sistemaVincoli}\index{Vincoli}
+	Nella nostra trattazione avremo che, data una superficie di vincolo \(\Sigma\), si ha
+	\[
+		\vec{x}\in\Sigma \iff 	\begin{cases}
+			G_1\big(\vec{x}\big) = 0 \\
+			\vdots                   \\
+			G_m\big(\vec{x}\big) = 0
+		\end{cases}.
+	\]
+	Dove se \(s\) è la dimensione di \(\Sigma\), si ha \(s=n-m\).
+\end{defn}
+
+\begin{notz}
+	Vincoli che rispettano tali condizioni si definiscono \emph{olonomi bilateri}.
+	In particolare un vincolo olonomo è indipendente dalle velocità; mentre un vincolo bilatero è descritto da una condizione del tipo \(G\big(\vec{x}\big)=0\).
+\end{notz}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 24/04/2017 - OTTAVA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Vincoli ideali}
+
+\begin{defn}{Sistema di vincoli regolari}{sistemaVincoliRegolari}\index{Vincoli!regolari}
+	Un sistema di vincoli
+	\[
+		\begin{cases}
+			G_1\big(\vec{x}\big) = 0 \\
+			\vdots                   \\
+			G_m\big(\vec{x}\big) = 0
+		\end{cases}
+		\qquad\text{con }\vec{x}\in\R^n, G_i\in C^{\infty}(\R^n,\R),
+	\]
+	si dice \emph{regolare} se è tale che
+	\[
+		\frac{\pd G_1}{\pd\vec{x}}\big(\vec{x}\big), \ldots, \frac{\pd G_m}{\pd\vec{x}}\big(\vec{x}\big),
+	\]
+	sono \(m\) vettori indipendenti per ogni \(\vec{x}\) che soddisfa il sistema.
+\end{defn}
+
+\begin{oss}
+	Un vincolo regolare definito da \(m\) equazioni ha la superficie \(\Sigma\) di dimensione \(s=n-m\).
+\end{oss}
+
+\begin{ese}
+	Nel caso del pendolo abbiamo visto che \(G\big(\vec{x}\big) = \abs{\vec{x}}^2-l^2\), ora
+	\[
+		\frac{\pd G}{\pd\vec{x}}\big(\vec{x}\big) = 2\vec{x} \neq 0,\,\fa \abs{\vec{x}} = l,
+	\]
+	per cui il vincolo è regolare.
+\end{ese}
+
+\begin{teor}{Sistema locale di coordinate adattate al vincolo}{sistemaLocaleCoordinateVincolo}
+	Sia \(\Sigma\) una superficie di vincolo associata ad un sistema di vincoli regolari.
+	Allora \(\Sigma\) ammette, almeno localmente attorno ad ogni \(\vec{x}_0\in\Sigma\), un sistema di coordinate adattato al vincolo.
+	Ovvero, se \(U_0\) è un aperto di \(\R^n\) e \(U_1\) un intorno di \(\vec{x}_0\in\Sigma\), esiste \(\vec{X}\colon U_0 \longleftrightarrow U_1\) tale che
+	\[
+		\vec{x} = \vec{X}(q_1,\ldots,q_s,q_{s+1},\ldots,q_n) \in \Sigma\cap U_1 \iff q_{s+1} = \ldots = q_n = 0.
+	\]
+\end{teor}
+
+\begin{proof}
+	Segue dal teorema della funzione implicita.
+\end{proof}
+
+\begin{oss}
+	La mappa
+	\[
+		\vec{\j}(q_1,\ldots,q_s) \equiv \vec{X}(q_1,\ldots,q_s,0,\ldots,0),
+	\]
+	fornisce una parametrizzazione locale di \(\Sigma\) in un intorno di \(\vec{x}_0\).
+\end{oss}
+
+\begin{ese}
+	Nel caso del pendolo \(G\big(\vec{x}\big)=\abs{\vec{x}}^2-l^2\).
+	Un sistema di coordinate adattate è fornito dalla seguente mappa
+	\[
+		\vec{x} = \vec{X}(\q,\d) = (l+\d)\,\begin{pmatrix}\sin\q\\-\cos\q\end{pmatrix},
+	\]
+	posto \(\d=0\) troviamo
+	\[
+		\vec{x} = l\,\begin{pmatrix}\sin\q\\-\cos\q\end{pmatrix} \equiv \vec{\j}(\q)
+	\]
+	che è una parametrizzazione, in questo caso specifico globale, del vincolo.
+\end{ese}
+
+\begin{defn}{Velocità compatibile con il vincolo}{velocitàCompatibileVincolo}
+	Diremo che \(\dot{\vec{x}}(t_0)\) è \emph{compatibile} con il sistema di vincoli \((G_1,\ldots,G_m)\) se è tangente alla superficie di vincolo.
+\end{defn}
+
+\begin{oss}
+	Tale definizione è naturale, infatti se \(\vec{x}(t)\in\Sigma\) avremo
+	\[
+		\begin{cases}
+			G_1\big(\vec{x}(t)\big) = 0 \\
+			\vdots                      \\
+			G_m\big(\vec{x}(t)\big) = 0
+		\end{cases} \implies
+		\begin{cases}
+			\dot{\vec{x}}(t) \sdot \frac{\pd G_1}{\pd\vec{x}}\big(\vec{x}(t)\big) = 0 \\
+			\vdots                                                                    \\
+			\dot{\vec{x}}(t) \sdot \frac{\pd G_m}{\pd\vec{x}}\big(\vec{x}(t)\big) = 0
+		\end{cases} \iff \dot{\vec{x}} \perp \frac{\pd G_i}{\pd\vec{x}}\big(\vec{x}\big)\,\fa i,
+	\]
+	ovvero \(\dot{\vec{x}} \in T_{\vec{x}}\Sigma\), dove \(T_{\vec{x}}\Sigma\) è lo spazio tangente a \(\Sigma\) passante per \(\vec{x}\).
+\end{oss}
+
+\begin{defn}{Sistema di punti materiale sottoposto a vincoli regolari}{sistemaPuntiMaterialiVincoliRegolari}
+	Consideriamo un sistema di punti materiali descritto dal vettore \(\vec{x}\in\R^n\) e dalla matrice delle masse \(M\), soggetto al sistema di forze \(\vec{F}\).
+	Diremo che tale \emph{sistema è sottoposto al sistema di vincoli regolari} \((G_1,\ldots,G_m)\) se ogni dato iniziale \(\vec{x}_0 = \vec{x}(t_0)\in\Sigma\) e \(\vec{v}_0=\dot{\vec{x}}(t_0)\in T_{\vec{x}\Sigma}\), evolve lungo le soluzioni di
+	\[
+		M\,\ddot{\vec{x}} = \vec{F}
+	\]
+	in modo tale da rimanere su \(\Sigma\) per ogni tempo.
+\end{defn}
+
+\begin{oss}
+	Avevamo già osservato che, in generale, un sistema meccanico sottoposto a vincoli regolari è associato ad un sistema di forze \(\vec{F}\) non conservativo, spesso neppure posizionale.
+	Infatti tipicamente si ha
+	\[
+		\vec{F} = \vec{F}\big(\vec{x},\dot{\vec{x}}\big).
+	\]
+	Detto ciò, in molti casi si osserva che \(\vec{F}\) ha una struttura speciale, ovvero è decomponibile in una forza conservativa e in una non conservativa ortogonale al vincolo.
+\end{oss}
+
+\begin{defn}{Forza non conservativa decomponibile}{forzaNonConservativaDecomponibile}
+	In un sistema sottoposto a vincoli regolari, consideriamo una forza \(\vec{F}=\vec{F}\big(\vec{x},\dot{\vec{x}}\big)\) non conservativa.
+	Diremo che \(\vec{F}\) è \emph{decomponibile} se può essere espressa come somma di una \emph{forza attiva conservativa} e di una \emph{reazione vincolare}, ovvero se
+	\[
+		\vec{F}\big(\vec{x},\dot{\vec{x}}\big) = -\frac{\pd}{\pd\vec{x}}U\big(\vec{x}\big) + \vec{R}\big(\vec{x},\dot{\vec{x}}\big).
+	\]
+\end{defn}
+
+\begin{defn}{Principio di D'Alembert}{principioDAlembert}\index{Principio di D'Alembert}
+	Consideriamo \(\vec{R}\) la reazione vincolare di una forza decomponibile.
+	Diremo che \(\vec{R}\) soddisfa il \emph{principio di D'Alembert} se \(\vec{R}\) è ortogonale al vincolo \(\Sigma\). Ovvero se
+	\[
+		\vec{R}\big(\vec{x},\vec{v}\big) \sdot \vec{\h} = 0 \qquad\text{per ogni }\vec{v},\vec{\h} \in T_{\vec{x}}\Sigma.
+	\]
+\end{defn}
+
+\begin{oss}
+	Possiamo pensare alla \(\vec{\h}\) nella definizione come allo spostamento infinitesimo da \(\vec{x}\) a \(\vec{x}+\vec{\h}\,\dd t\) associato ad una velocità \(\vec{\h}\).
+\end{oss}
+
+\begin{defn}{Sistema di vincoli ideali}{sistemaVincoliIdeali}\index{Vincoli!ideali}
+	Consideriamo un sistema meccanico \(M\,\ddot{\vec{x}}=\vec{F}\big(\vec{x},\dot{\vec{x}}\big)\) sottoposto al sistema di vincoli regolari \((G_1,\ldots,G_m)\).
+	Diremo che il sistema di vincoli è \emph{ideale} rispetto alla decomposizione
+	\[
+		\vec{F}\big(\vec{x},\dot{\vec{x}}\big) = -\frac{\pd}{\pd\vec{x}}U\big(\vec{x}\big) + \vec{R}\big(\vec{x},\dot{\vec{x}}\big)
+	\]
+	se \(\vec{R}\) soddisfa il principio di D'Alembert.
+\end{defn}
+
+\section{Sistemi di punti materiali sottoposti a sistemi di vincoli ideali}
+
+\begin{teor}{Stazionarietà per sistemi di vincoli ideali}{stazionarietàSistemiVincoliIdeale}
+	Consideriamo un sistema meccanico \(M\,\ddot{\vec{x}}=\vec{F} =-\frac{\pd U}{\pd\vec{x}}+\vec{R}\) sottoposto al sistema di vincoli ideali \((G_1,\ldots,G_m)\).
+	I moti reali compatibili con il vincolo rendono stazionaria l'azione di Lagrangiana
+	\[
+		\mathcal{L}\big(\vec{x},\dot{\vec{x}}\big) = \frac{1}{2}\dot{\vec{x}} \sdot M\,\dot{\vec{x}} - U\big(\vec{x}\big)
+	\]
+	rispetto a variazioni in \(\mathcal{V}_{\vec{x}}\Big(\mathcal{M}_{t_1,t_2}^{G_1,\ldots,G_m}\big(\vec{\x}_1,\vec{\x}_2\big)\Big)\).
+\end{teor}
+
+\begin{proof}
+	I moti reali compatibili con il vincolo sono le \(\vec{x}(t)\) soluzioni del sistema tali che \(\vec{x}(t)\in\Sigma\,\fa t\). Vogliamo quindi mostrare che tale \(\vec{x}(t)\) rende stazionaria l'azione
+	\[
+		A\big[\vec{x}(t)\big] = \int_{t_1}^{t_2}\left[\frac{1}{2}\dot{\vec{x}}(t)\sdot M\,\dot{\vec{x}}(t)-U\big(\vec{x}(t)\big)\right]\,\dd t,
+	\]
+	rispetto a variazioni \(\vec{y}_\e\in\mathcal{V}_{\vec{x}}\Big(\mathcal{M}_{t_1,t_2}^\Sigma\big(\vec{\x}_1,\vec{\x}_2\big)\Big)\) con \(\vec{\x}_1,\vec{\x}_2\in\Sigma\).
+	Ricordiamo inoltre che \(\vec{y}_\e(t)\) è tale che
+	\[
+		\vec{y}_0(t) = \vec{x}(t), \qquad \vec{y}_\e(t_1) = \vec{\x}_1, \qquad \vec{y}_\e(t_2) = \vec{\x}_2, \qquad \vec{y}_\e(t)\in\Sigma\,\fa t.
+	\]
+	Affinché l'azione sia resa stazionaria si deve avere
+	\[
+		\frac{\dd}{\dd\e}A\big[\vec{y}_\e(t)\big]\bigg|_{\e=0} = 0.
+	\]
+	Ora
+	\[
+		\vec{y}_\e(t) = \vec{x}(t)+\e\,\vec{z}(t)+\bO(\e^2) \qquad\text{con }\vec{z}(t) = \frac{\pd}{\pd\e}\vec{y}_\e(t)\bigg|_{\e=0}.
+	\]
+	Per cui
+	\[
+		\begin{split}
+			\frac{\dd}{\dd\e}A\big[\vec{y}_\e(t)\big]\bigg|_{\e=0} & = \frac{\dd}{\dd\e}\int_{t_1}^{t_2}\left[\frac{1}{2}\big(\dot{\vec{x}}(t)+\e\,\dot{\vec{z}}(t)\big)\sdot M\,\big(\dot{\vec{x}}(t)+\e\,\dot{\vec{z}}(t)\big)-U\big(\vec{x}(t)+\e\,\vec{z}(t)\big)\right]\,\dd t \bigg|_{\e=0}\\
+			& = \int_{t_1}^{t_2}\Big[\dot{\vec{x}}(t)\sdot M\,\dot{\vec{z}}(t)-\frac{\pd U}{\pd\vec{x}}\big(\vec{x}(t)\big)\sdot \vec{z}(t)\Big]\,\dd t.
+		\end{split}
+	\]
+	Ricordiamo che \(\vec{z}(t_1)=\vec{z}(t_2)=\vec{0}\) e integriamo per parti il primo addendo dell'integranda:
+	\[
+		\frac{\dd}{\dd\e}A\big[\vec{y}_\e(t)\big]\bigg|_{\e=0} = \int_{t_1}^{t_2}\Big[-M\,\ddot{\vec{x}}(t)-\frac{\pd U}{\pd\vec{x}}\big(\vec{x}(t)\big)\Big]\sdot \vec{z}(t)\,\dd t = - \int_{t_1}^{t_2}\Big[M\,\ddot{\vec{x}}(t)+\frac{\pd U}{\pd\vec{x}}\big(\vec{x}(t)\big)\Big]\sdot \vec{z}(t)\,\dd t
+	\]
+	Sfruttiamo l'equazione del moto
+	\[
+		M\,\ddot{\vec{x}} = -\frac{\pd U}{\pd\vec{x}}\big(\vec{x}\big) + \vec{R}\big(\vec{x},\dot{\vec{x}}\big) \implies M\,\ddot{\vec{x}} + \frac{\pd U}{\pd\vec{x}}\big(\vec{x}\big) = \vec{R}\big(\vec{x},\dot{\vec{x}}\big),
+	\]
+	da cui
+	\[
+		\frac{\dd}{\dd\e}A\big[\vec{y}_\e(t)\big]\bigg|_{\e=0} = -\int_{t_1}^{t_2}\vec{R}\big(\vec{x}(t),\dot{\vec{x}}(t)\big)\sdot \vec{z}(t)\,\dd t = 0,
+	\]
+	dove l'integranda è nulla per il principio di D'Alembert.
+	Il principio è verificato a patto che \(\dot{\vec{x}},\vec{z}\in T_{\vec{x}}\Sigma\).
+	Questo è banalmente vero per \(\dot{\vec{x}}\) poiché i dati iniziali sono compatibili con il vincolo, mostriamolo quindi per \(\vec{z}\). Di fatto osserviamo che \(\vec{z}(t)\in T_{\vec{x}}\Sigma\) per costruzione; ricordiamo infatti che
+	\[
+		\vec{y}(\e,t) = \vec{y}_\e(t)\in\Sigma,\,\fa t \in [t_1,t_2].
+	\]
+	Consideriamo quindi il \emph{moto virtuale}
+	\[
+		\vec{\tilde{x}}(s) = \vec{y}(s-t,t),
+	\]
+	con \(t\) fissato e \(s\in(t-\d\,t,t+\d\,t)\) che appartiene al vincolo per ogni \(s\) ed ha velocità
+	\[
+		\vec{\h} = \frac{\dd}{\dd s}\vec{\tilde{x}}(s)\bigg|_{s=t} = \frac{\dd}{\dd\e}\vec{y}_\e(t)\bigg|_{\e=0} = \vec{z}(t).\qedhere
+	\]
+\end{proof}
+
+\begin{notz}
+	Con \(\mathcal{M}_{t_1,t_2}^{G_1,\ldots,G_m}\big(\vec{\x}_1,\vec{\x}_2\big)\) indichiamo 
+	\[
+		\mathcal{M}_{t_1,t_2}^\Sigma = \Set{\vec{x}(t) \in \mathcal{M}_{t_1,t_2}\big(\vec{\x}_1,\vec{\x}_2\big) | \vec{x}(t) \in \Sigma,\,\fa t \in [t_1,t_2]}.
+	\]
+\end{notz}
+
+\begin{oss}
+	Grazie a questo teorema, le equazioni del moto sul vincolo in coordinate adattate \(\vec{q}\) sono semplicemente le equazioni di Eulero-Lagrange associate  alla lagrangiana ridotta
+	\[
+		\tilde{\mathcal{L}}\big(\vec{q},\dot{\vec{q}}\big) = \mathcal{L}\big(\vec{x},\dot{\vec{x}}\big)\bigg|_{\substack{\vec{x}=\vec{\j}(\vec{q})\\\dot{\vec{x}}=J(\vec{q})\,\dot{\vec{q}}}} = \frac{1}{2}\Big[J\big(\vec{q}\big)\,\dot{\vec{q}}\Big] \sdot M\,\Big[J\big(\vec{q}\big)\,\dot{\vec{q}}\Big] - U\big(\vec{\j}(\vec{q})\big).
+	\]
+	dove \(\vec{q}=(q_1,\ldots,q_s)\) con \(s=n-m\) e \(\vec{x}=\vec{X}(q_1,\ldots,q_s,0,\ldots,0)=\vec{\j}(q_1,\ldots,q_s)\). Ovvero per
+	\[
+		\tilde{\mathcal{L}}\big(\vec{q},\dot{\vec{q}}\big) = \frac{1}{2}\dot{\vec{q}} \sdot \tilde{M}\big(\vec{q}\big)\,\dot{\vec{q}} - V\big(\vec{q}\big),
+	\]
+	dove
+	\[
+		\tilde{M}\big(\vec{q}\big) = \tran{J}\big(\vec{q}\big)\,M\,J\big(\vec{q}\big) \qquad\text{e}\qquad V\big(\vec{q}\big) = U\big(\vec{\j}(\vec{q})\big).
+	\]
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 26/04/2017 - OTTAVA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Considerazione per casi dipendenti dal tempo}
+
+In questo paragrafo rivedremo alcune definizioni e teoremi esposti in precedenza nel caso in cui la dipendenza dal tempo sia esplicita. La dimostrazione dei teoremi verrà tralasciata in quanto analoga al caso stazionario.
+
+Per quanto riguarda la notazione, molte definizioni avranno lo stesso nome; è quindi lasciata sottintesa la dipendenza dal tempo nella nomenclatura.
+
+\begin{defn}{Sistema di vincoli}{sistemaVincoliTempo}
+	Consideriamo una superficie di vincolo \(\Sigma(t)\). Diremo che \(\vec{x}\in\Sigma(t)\) se e soltanto se
+	\[
+		\vec{x} \text{ soddisfa } 	\begin{cases}
+			G_1\big(\vec{x},t\big) = 0 \\
+			\vdots                     \\
+			G_m\big(\vec{x},t\big) = 0
+		\end{cases}
+	\]
+\end{defn}
+
+\begin{defn}{Sistema di vincoli regolare}{sistemaVincoliRegolareTempo}
+	Un sistema di vincoli \((G_1,\ldots,G_m)\) si dice \emph{regolare} se gli \(m\) vettori
+	\[
+		\frac{\pd G_1}{\pd\vec{x}}\big(\vec{x},t\big), \ldots, \frac{\pd G_m}{\pd\vec{x}}\big(\vec{x},t\big),
+	\]
+	sono indipendenti per ogni \(\vec{x}\in\Sigma(t)\).
+\end{defn}
+\noindent
+Osserviamo che se \(\vec{x}(t)\in\Sigma(t)\), allora
+\[
+	\begin{cases}
+		\dot{\vec{x}}(t) \sdot \frac{\pd G_1}{\pd\vec{x}}\big(\vec{x}(t),t\big) + \frac{\pd G_1}{\pd t}\big(\vec{x}(t),t\big) = 0 \\
+		\vdots                                                                                                                    \\
+		\dot{\vec{x}}(t) \sdot \frac{\pd G_m}{\pd\vec{x}}\big(\vec{x}(t),t\big) + \frac{\pd G_m}{\pd t}\big(\vec{x}(t),t\big) = 0
+	\end{cases}
+\]
+Da ciò segue una prima differenza con il caso indipendente dal tempo. Dato \(\vec{x}_0\in\Sigma(t)\) diremo infatti che \(\vec{v}_0\) è una velocità compatibile con il sistema di vincoli associati al punto \(\vec{x}_0\) se
+\[
+	\begin{cases}
+		\vec{v}_0 \sdot \frac{\pd G_1}{\pd\vec{x}}\big(\vec{x}_0,t_0\big) + \frac{\pd G_1}{\pd t}\big(\vec{x}_0,t_0\big) = 0 \\
+		\vdots                                                                                                               \\
+		\vec{v}_0 \sdot \frac{\pd G_m}{\pd\vec{x}}\big(\vec{x}_0,t_0\big) + \frac{\pd G_m}{\pd t}\big(\vec{x}_0,t_0\big) = 0
+	\end{cases}
+\]
+ma ciò non equivale, come nel caso stazionario, all'appartenere allo spazio tangente del vincolo. Infatti
+\[
+	\vec{\h} \in T_{\vec{x}_0}\Sigma(t_0) \iff 	\begin{cases}
+		\vec{\h} \sdot \frac{\pd G_1}{\pd \vec{x}}\big(\vec{x}_0,t_0\big) = 0 \\
+		\vdots                                                                \\
+		\vec{\h} \sdot \frac{\pd G_m}{\pd \vec{x}}\big(\vec{x}_0,t_0\big) = 0
+	\end{cases}
+\]
+
+\begin{teor}{Sistema locale di coordinate adattate al vincolo}{sistemaLocaleCoordinateVincoloTempo}
+	Sia \(\Sigma(t)\) una superficie di vincolo associata ad un sistema di vincoli regolari.
+	Allora \(\Sigma(t)\) ammette, almeno localmente attorno ad ogni \(\vec{x}_0\in\Sigma(t_0)\), un sistema di coordinate adattato al vincolo.
+	Ovvero, se \(U_0\) è un aperto di \(\R^n\) e \(U_1\) un intorno di \(\vec{x}_0\in\Sigma(t_0)\), esiste \(\vec{X}\colon U_0 \longleftrightarrow U_1\) tale che
+	\[
+		\vec{x} = \vec{X}(q_1,\ldots,q_s,q_{s+1},\ldots,q_n,t) \in \Sigma(t_0)\cap U_1 \iff q_{s+1} = \ldots = q_n = 0.
+	\]
+\end{teor}
+
+\begin{oss}
+	La mappa
+	\[
+		\vec{\j}(q_1,\ldots,q_s,t) \equiv \vec{X}(q_1,\ldots,q_s,0,\ldots,0,t),
+	\]
+	fornisce una parametrizzazione locale di \(\Sigma(t_0)\) in un intorno di \(\vec{x}_0\).
+\end{oss}
+
+\begin{defn}{Sistema di vincoli ideali}{sistemaVincoliIdealiTempo}
+	Consideriamo un sistema meccanico \(M\,\ddot{\vec{x}}=\vec{F}\big(\vec{x},\dot{\vec{x}},t\big)\) sottoposto al sistema di vincoli regolari \((G_1,\ldots,G_m)\) associati alla superficie di vincolo \(\Sigma(t)\).
+	Diremo che il sistema di vincoli è \emph{ideale} rispetto alla decomposizione
+	\[
+		\vec{F}\big(\vec{x},\dot{\vec{x}},t\big) = -\frac{\pd}{\pd\vec{x}}U\big(\vec{x}\big) + \vec{R}\big(\vec{x},\dot{\vec{x}},t\big)
+	\]
+	se \(\vec{R}\) soddisfa il principio di D'Alembert. Ovvero
+	\[
+		\vec{R}\big(\vec{x},\vec{v},t) \sdot \vec{\h} = 0
+	\]
+	per ogni \(\vec{v}\) compatibile con i vincoli e per ogni \(\vec{\h}\in T_{\vec{x}}\Sigma(t)\).
+\end{defn}
+
+\begin{teor}{Stazionarietà per sistemi di vincoli ideali}{stazionarietàSistemiVincoliIdealeTempo}
+	Consideriamo un sistema meccanico \(M\,\ddot{\vec{x}}=\vec{F}\big(\vec{x},\dot{\vec{x}},t\big)\) sottoposto al sistema di vincoli ideali \((G_1,\ldots,G_m)\) associato alla superficie di vincolo \(\Sigma(t)\).
+	I moti reali compatibili con il vincolo rendono stazionaria l'azione di Lagrangiana
+	\[
+		\mathcal{L}\big(\vec{x},\dot{\vec{x}}\big) = \frac{1}{2}\dot{\vec{x}} \sdot M\,\dot{\vec{x}} - U\big(\vec{x}\big)
+	\]
+	rispetto a variazioni in \(\mathcal{V}_{\vec{x}}\Big(\mathcal{M}_{t_1,t_2}^{\Sigma(t)}\big(\vec{\x}_1,\vec{\x}_2\big)\Big)\).
+\end{teor}
+
+\begin{oss}
+	Se \(\vec{\j}(q_1,\ldots,q_s,t\big)\) è una parametrizzazione di \(\Sigma(t)\), le equazioni del moto sul vincolo nelle coordinate \(q_1,\ldots,q_s\), altro non sono che le equazioni di Eulero-Lagrange per la lagrangiana ridotta
+	\[
+		\tilde{\mathcal{L}}\big(\vec{q},\dot{\vec{q}},t) = \mathcal{L}\big(\vec{x},\dot{\vec{x}}\big)\bigg|_{\substack{\vec{x}=\vec{\j}(\vec{q},t)\\\dot{\vec{x}}=\vec{\y}(\vec{q},\dot{\vec{q}},t)}},
+	\]
+	dove
+	\[
+		\vec{\y}\big(\vec{q},\dot{\vec{q}},t\big) = \frac{\pd\vec{\j}}{\pd\utilde{q}}\big(\vec{q},t\big) \sdot \dot{\utilde{q}} + \frac{\pd\vec{\j}}{\pd t}\big(\vec{q},t\big).
+	\]
+\end{oss}
+
+\begin{ese}
+	Consideriamo un punto materiale vincolato ad una guida circolare, di raggio \(l\), che ruota uniformemente con pulsazione \(\w\). Il punto è soggetto alla forza di gravità e ad una reazione vincolare \(\vec{R}\) che supponiamo soddisfi il principio di D'Alembert. La forza conservativa attiva avrà potenziale \(U\big(\vec{x}\big)=m\,g\,z\). Passando in coordinate adattate al vincolo avremo
+	\[
+		\vec{x} = \vec{\j}(\q,t) = l\, 	\begin{pmatrix}
+			\sin\q\,\cos(\w\,t) \\
+			\sin\q\,\sin(\w\,t) \\
+			-\cos\q
+		\end{pmatrix}
+	\]
+	che dipende esplicitamente dal tempo. Da cui
+	\[
+		\dot{\vec{x}}(t) = l\,\dot{\q}\, \begin{pmatrix}\cos\q\,\cos(\w\,t)\\\cos\q\,\sin(\w\,t)\\\sin\q\end{pmatrix} + \w\,l\, \begin{pmatrix}-\sin\q\,\sin(\w\,t)\\\sin\q\,\cos(\w\,t)\\0\end{pmatrix} = \vec{\y}(\q,\dot{\q},t)
+	\]
+	Possiamo quindi scrivere la lagrangiana ridotta
+	\[
+		\tilde{\mathcal{L}}(\q,\dot{\q},t) = \frac{m}{2}\,\abs{\dot{\vec{x}}}^2-m\,g\,z\bigg|_{\substack{\vec{x}=\vec{\j}(\q,t)\\\dot{\vec{x}}=\vec{\y}(\q,\dot{\q},t)}}
+	\]
+	Ora, ricordando che \(\abs{\vec{a}+\vec{b}}^2 = \abs{\vec{a}}^2+\abs{\vec{b}}^2+2\vec{a}\sdot\vec{b}\), avremo
+	\[
+		\abs{\dot{\vec{x}}}^2 = l^2 \dot{\q}^2 + \w^2 l^2 \sin^2\q,
+	\]
+	da cui
+	\[
+		\tilde{\mathcal{L}}(\q,\dot{\q},t) = \frac{m}{2}\,( l^2 \dot{\q}^2 + \w^2 l^2 \sin^2\q) + m\,g\,l\,\cos\q,
+	\]
+	che osserviamo essere, in questo caso specifico, indipendente dal tempo.
+	Applichiamo le equazioni di Eulero-Lagrange per trovare l'equazione del moto sul vincolo:
+	\[
+		\frac{\dd}{\dd t}\frac{\pd\tilde{\mathcal{L}}}{\pd\vec{\h}}\big(\q(t),\dot{\q}(t)\big) = \frac{\dd}{\dd t}(m\,l^2\,\dot{q}) = m\,l^2 \ddot{\q}(t),
+	\]
+	e
+	\[
+		\frac{\pd\tilde{\mathcal{L}}}{\pd\vec{\q}}\big(\q(t),\dot{\q}(t)\big) = m\,l^2 \left(\w^2 \sin\q(t)\,\cos\q(t)-\frac{g}{l}\sin\q(t)\right).
+	\]
+	Da cui
+	\[
+		m\,l^2 \ddot{\q} = m\,l^2 \sin\q\,\left(\w^2\cos\q- \frac{g}{l}\right) = -V'(\q).
+	\]
+	L'equazione del moto ammette una grandezza conservata
+	\[
+		E = \frac{m\,l^2}{2}\,\dot{\q}^2 + V(\q)
+	\]
+	la quale è conservata poiché, come al solito
+	\[
+		\frac{\dd}{\dd t}E = m\,l^2 \dot{\q}\,\ddot{\q} + V'(\q)\,\dot{\q} = 0 \iff \dot{\q}\,\big(m\,l^2\ddot{\q}+V'(\q)\big) = 0,
+	\]
+	che è vero per l'equazione del moto.
+	Il moto si ottiene quindi per quadratura dalle solite relazioni
+	\[
+		\dot{\q} = \pm \sqrt{\frac{2}{m\,l^2}\big(E-V(\q)\big)} \qquad\text{e}\qquad t-t_0 = \int_{\q_0}^{\q(t)} \frac{\dd\q}{\sqrt{\frac{2}{m\,l^2}\big(E-V(\q)\big)}}
+	\]
+	Da questo punto in poi si può procedere con uno studio qualitativo del moto come visto nel capitolo precedente.
+\end{ese}
+
+\begin{oss}
+	A differenza dell'esempio precedente, non sempre si arriva a dei risultati integrabili per quadrature.
+	L'energia \(E\) conservata in questo esercizio è un caso particolare della cosiddetta \emph{energia generalizzata} che è una grandezza conservata per le equazioni di Eulero-Lagrange associata a qualsiasi lagrangiana \(\mathcal{L}\big(\vec{q},\dot{\vec{q}}\big)\) indipendente dal tempo.
+	In questo caso, la conservazione dell'energia è conseguenza dell'indipendenza dal tempo della lagrangiana associata al sistema, oppure, come talvolta si dice, dell'invarianza di \(\mathcal{L}\) rispetto a traslazioni temporali.
+\end{oss}
+
+\begin{defn}{Energia generalizzata}{energiaGeneralizzata}\index{Energia generalizzata}
+	Consideriamo un sistema di coordinate \(\vec{q}\) adattate al vincolo. L'espressione dell'\emph{energia generalizzata} è data da
+	\[
+		E = \dot{\vec{q}} \sdot \frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}}\big(\vec{q},\dot{\vec{q}}\big) - \mathcal{L}\big(\vec{q},\dot{\vec{q}}\big).
+	\]
+\end{defn}
+
+\begin{oss}
+	Se \(\mathcal{L}\big(\vec{q},\dot{\vec{q}}\big) = \frac{1}{2}\dot{\vec{q}}\sdot M\big(\vec{q}\big)\,\dot{\vec{q}} - V\big(\vec{q}\big)\), l'espressione dell'energia generalizzata sarà
+	\[
+		E = \dot{\vec{q}}\sdot \frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}} - \frac{1}{2}\dot{\vec{q}}\sdot M\big(\vec{q}\big)\,\dot{\vec{q}} - V\big(\vec{q}\big) = V\big(\vec{q}\big) + \frac{1}{2}\dot{\vec{q}}\sdot M\big(\vec{q}\big)\,\dot{\vec{q}} = U+K, 
+	\]
+	ovvero l'energia generalizzata è un'energia meccanica "standard"
+\end{oss}
+
+\begin{prop}{Energia generalizzata conservata dalle equazioni di E-L}{energiaGeneralizzataConservata}
+	L'energia generalizzata è una grandezza conservata se \(\vec{q}(t)\) soddisfa le equazioni di Eulero-Lagrange.
+\end{prop}
+
+\begin{proof}
+	Dobbiamo mostrare che l'espressione dell'energia generalizzata è un integrale primo se \(\vec{q}(t)\) risolve le equazioni di Eulero-Lagrange, ovvero se
+	\[
+		\frac{\dd}{\dd t}\frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}}\big(\vec{q}(t),\dot{\vec{q}}(t)\big) = \frac{\pd\mathcal{L}}{\pd\vec{q}}\big(\vec{q}(t),\dot{\vec{q}}(t)\big).
+	\]
+	Calcoliamo quindi la derivata di \(E\) rispetto al tempo e mostriamo che è nulla:
+	\[
+		\frac{\dd}{\dd t}E = \ddot{\vec{q}}\sdot \frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}} + \dot{\vec{q}}\sdot \frac{\dd}{\dd t}\frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}} - \frac{\pd\mathcal{L}}{\pd\vec{q}}\sdot \dot{\vec{q}} - \frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}}\sdot\ddot{\vec{q}} = \dot{\vec{q}}\sdot \left[\frac{\dd}{\dd t}\frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}}-\frac{\pd\mathcal{L}}{\pd\vec{q}}\right] = 0,
+	\]
+	dove l'espressione in parentisi quadra è nulla poiché \(\vec{q}(t)\) risolve le equazioni di Eulero-Lagrange.
+\end{proof}

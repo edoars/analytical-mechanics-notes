@@ -1,0 +1,315 @@
+%!TEX root = ../../main.tex
+\chapter{Altre grandezze conservate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 03/05/2017 - NONA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In questo capitolo descriveremo altre grandezze conservate oltre l'energia per lagrangiane indipendenti dal tempo.
+
+Prima ricordiamo che se \(\mathcal{L}\big(\vec{q},\dot{\vec{q}},t\big) = \mathcal{L}\big(\vec{q},\dot{\vec{q}}\big)\) allora
+\[
+	E = E\big(\vec{q},\dot{\vec{q}}\big) = \dot{\vec{q}} \sdot \frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}}\big(\vec{q},\dot{\vec{q}}\big) - \mathcal{L}\big(\vec{q},\dot{\vec{q}}\big)
+\]
+è una grandezza conservata.
+Infatti, se \(\vec{q}(t)\) risolve le equazioni di Eulero-Lagrange, si ha
+\[
+	\begin{split}
+		\frac{\dd}{\dd t}E\big(\vec{q}(t),\dot{\vec{q}}(t)\big) & = \ddot{\vec{q}}(t) \sdot \frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}}\big(\vec{q}(t),\dot{\vec{q}}(t)\big) + \dot{\vec{q}}(t) \sdot \frac{\dd}{\dd t}\frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}}\big(\vec{q}(t),\dot{\vec{q}}(t)\big) - \frac{\pd\mathcal{L}}{\pd\vec{q}}\big(\vec{q}(t),\dot{\vec{q}}(t)\big) \sdot \dot{\vec{q}}(t)\\
+		& - \frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}}\big(\vec{q}(t),\dot{\vec{q}}(t)\big) \sdot \ddot{\vec{q}}(t) = \dot{\vec{q}}(t) \sdot \left(\frac{\dd}{\dd t}\frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}}\big(\vec{q}(t),\dot{\vec{q}}(t)\big)-\frac{\pd\mathcal{L}}{\pd\vec{q}}\big(\vec{q}(t),\dot{\vec{q}}(t)\big)\right),
+	\end{split}
+\]
+dove l'espressione tra parentesi è proprio l'equazione di Eulero-Lagrange.
+In particolare, se \(\mathcal{L}\) è una lagrangiana meccanica
+\[
+	\mathcal{L}\big(\vec{q},\dot{\vec{q}}\big) = \frac{1}{2}\dot{\vec{q}}\sdot M\big(\vec{q}\big)\,\dot{\vec{q}} - V\big(\vec{q}\big) \implies E = \frac{1}{2}\dot{\vec{q}}\sdot M\big(\vec{q}\big)\,\dot{\vec{q}} + V\big(\vec{q}\big).
+\]
+Quindi l'invarianza rispetto a traslazioni temporali comporta la conservazione dell'energia.
+Andiamo a studiare di seguito altre simmetrie e grandezze conservate
+
+\section{Variabili cicliche}
+
+\begin{defn}{Variabile ciclica}{variabileCiclica}\index{Variabile ciclica}
+	Consideriamo una lagrangiana \(\mathcal{L}\big(\vec{q},\dot{\vec{q}}\big)\) con \(\vec{q}=(q_1,\ldots,q_s)\). Diremo che una componente \(q_i\) di \(\vec{q}\) è una \emph{variabile ciclica} se \(\mathcal{L}\) è indipendente da \(\vec{q}_i\). Ovvero
+	\[
+		\mathcal{L}(q_1,\ldots,q_i,\ldots,q_s,\dot{q}_1,\ldots,\dot{q}_s) = \mathcal{L}(q_1,\ldots,q_{i-1},q_{i+1},\ldots,q_s,\dot{q}_1,\ldots,\dot{q}_s).
+	\]
+\end{defn}
+
+\begin{defn}{Momento coniugato}{momentoConiugato}\index{Momento coniugato}
+	Sia \(q_i\) una variabile ciclica per la lagrangana \(\mathcal{L}\). Definiamo \emph{momento coniugato} per \(\mathcal{L}\) la seguente quantità
+	\[
+		\frac{\pd\mathcal{L}}{\pd\dot{q}_i}\big(\vec{q},\dot{\vec{q}}\big).
+	\]
+\end{defn}
+
+\begin{prop}{Conservazione del momento coniugato}{conservazioneMomentoConiugato}
+	Sia \(q_i\) una variabile ciclica per la lagrangiana \(\mathcal{L}\). Allora il momento coniugato di \(\mathcal{L}\) si conserva.
+\end{prop}
+
+\begin{proof}
+	Supponiamo, per comodità di notazione, che \(q_s\) sia una variabile ciclica, in particolare avremo
+	\[
+		\frac{\pd\mathcal{L}}{\pd q_s}\big(\vec{q},\dot{\vec{q}}\big) = 0.
+	\]
+	Scrivendo le equazioni di Eulero-Lagrange per la coordinata \(s\), troviamo
+	\[
+		\frac{\dd}{\dd t}\frac{\pd\mathcal{L}}{\pd\dot{q}_s} = \frac{\pd\mathcal{L}}{\pd q_s} = 0,
+	\]
+	ovvero \(\frac{\pd\mathcal{L}}{\pd\dot{q}_s}\) è una grandezza conservata.
+\end{proof}
+
+\begin{oss}
+	In quanto grandezza conservata, avremo
+	\[
+		\frac{\pd\mathcal{L}}{\pd\dot{q}_s}\big(\vec{q}(t),\dot{\vec{q}}(t)\big) \equiv p_s
+	\]
+	se \(\vec{q}(t)\) è soluzione delle equazioni di Eulero-Lagrange.
+	Inoltre, nel caso in questa relazione sia invertibile per \(\dot{q}_s(t)\), cosa che tipicamente accade almeno localmente, avremo
+	\[
+		\dot{q}_s(t) = f\big(q_1(t),\ldots,q_{s-1}(t),\dot{q}_1(t),\ldots,\dot{q}_{s-1}(t),p_s\big),
+	\]
+	dove, in questa scrittura, \(f\) è la funzione ottenuta invertendo l'equazione precedente rispetto a \(\dot{q}_s\).
+	In tal caso è possibile ridurre di uno i gradi di libertà del sistema sostituendo \(\dot{q}_s\) nell'equazione del moto.
+\end{oss}
+
+\begin{ese}
+	Consideriamo un pendolo sferico, dove abbiamo
+	\[
+		\vec{x}  = l\, 	\begin{pmatrix}
+			\sin\a\,\cos\j \\
+			\sin\a\,\sin\j \\
+			1-\cos\a
+		\end{pmatrix}
+		\qquad\text{e}\qquad
+		\dot{\vec{x}} = l\,\dot{\a}\, \begin{pmatrix}\cos\a\,\cos\j\\\cos\a\,\sin\j\\\sin\a\end{pmatrix} + l\,\dot{\j}\,\sin\a \begin{pmatrix}-\sin\j\\\cos\j\\0\end{pmatrix}
+	\]
+	da cui
+	\[
+		\mathcal{L}(\a,\j,\dot{\a},\dot{\j}) = \frac{m\,l^2}{2}\,(\dot{\a}^2+\dot{\j}^2\sin^2\a) - m\,g\,l\,(1-cos\a).
+	\]
+	Osserviamo che \(\mathcal{L}(\a,\j,\dot{\a},\dot{\j})=\mathcal{L}(\a,\dot{\a},\dot{\j})\), ovvero \(\j\) è una variabile ciclica. Quindi
+	\[
+		A = \frac{\pd\mathcal{L}}{\pd\dot{\j}} \equiv m\,l^2 \dot{\j}\, \sin^2\a,
+	\]
+	è una grandezza conservata. Discutiamo l'invertibilità di tale equazione rispetto a \(\dot{\j}\).
+	\begin{itemize}
+		\item Caso \(A=0\): si ha se e solo se \(\dot{\j}\,\sin\a = 0\).
+		\item Caso \(A\neq 0\): si ha se e solo se \(\sin \a\neq 0\) e \(\dot{\j}\neq 0\). In tal caso la legge di conservazione del momento è invertibile e si ha
+		      \[
+			      \dot{\j} = \frac{A}{m\,l^2 \sin^2\a} = f(\a,\dot{\a},A).
+		      \]
+	\end{itemize}
+	Consideriamo ora la legge del moto ottenuta dalle equazioni di Eulero-Lagrange:
+	\[
+		m\,l^2\ddot{\a} = m\,l^2\,\dot{\j}^2 \sin\a\,\cos\a - m\,g\,l\,\sin\a.
+	\]
+	Nel primo caso si ha, come detto, \(\dot{\j}\,\sin\a = 0\), per cui l'equazione del moto si riduce a
+	\[
+		m\,l^2\ddot{\a} = -m\,g\,l\,\sin\a,
+	\]
+	ovvero all'equazione del pendolo semplice.
+	Nel secondo caso sostituiamo \(\dot{\j}\) nell'equazione del moto per ridurre di uno i gradi di libertà del sistema:
+	\[
+		m\,l^2\ddot{\a} = m\,l^2 \sin\a\,\cos\a\,\frac{A^2}{{(m\,l^2)}^2 \sin^4\a} - m\,g\,l\,\sin\a = \frac{A^2}{m\,l^2 \sin^3\a}\,\cos\a - m\,g\,l\,\sin\a.
+	\]
+\end{ese}
+\noindent
+Una volta ridotte le equazioni del moto è lecito chiedersi se tali equazioni "ridotte" siano il risultato delle equazioni di Eulero-Lagrange per qualche opportuna Lagrangiana.
+Una possibilità che sembra naturale, ma che verificheremo essere errata, è che la lagrangiana opportuna sia data dalla lagrangiana di partenza in cui è stato sostituito \(\dot{q}_s\) con la sua espressione data da \(f\), ovvero
+\[
+	\mathcal{L}\big(q_1,\ldots,q_{s-1},\dot{q}_1,\ldots,\dot{q}_{s-1},f(q_1,\ldots,q_{s-1},\dot{q}_1,\ldots,\dot{q}_{s-1},p_s)\big)
+\]
+Sfruttiamo l'esempio precedente per fornire un controesempio:
+nel contesto del pendolo sferico avremmo avuto
+\[
+	\begin{split}
+		\mathcal{L}\left(\a,\dot{\a},\frac{A}{m\,l^2 \sin^2\a}\right) & = \frac{m\,l^2}{2}\,\left(\dot{\a}^2+\frac{\sin^2\a\,A^2}{{(m\,l^2)}^2\sin^4 \a}\right) + m\,g\,l\,\cos\a\\
+		& = \frac{m\,l^2}{2}\,\dot{\a}^2 + \frac{1}{2}\,\frac{A^2}{m\,l^2 \sin^2\a} + m\,g\,l\,\cos\a.
+	\end{split}
+\]
+Se calcoliamo le equazioni del Eulero-Lagrange per tale lagrangiana, otteniamo
+\[
+	m\,l^2\ddot{\a} = -\frac{A^2}{m\,l^2 \sin^3\a}\,\cos\a - m\,g\,l\,\sin\a,
+\]
+che differisce dalle equazioni corrette per il segno del primo addendo.
+
+La scelta corretta della lagrangiana ridotta è data dalla cosiddetta \emph{lagrangiana di Routh}.
+
+\begin{defn}{Lagrangiana di Routh}{lagrangianaRouth}\index{Lagrangiana!di Routh}
+	Sia \(q_s\) una variabile ciclica per la lagrangiana \(\mathcal{L}\) e supponiamo che la legge di conservazione del momento coniugato \(p_s\) sia invertibile tramite la funzione \(f\), ovvero
+	\[
+		\dot{q}_s = f(q_1,\ldots,q_{s-1},\dot{q}_1,\ldots,\dot{q}_{s-1},p_s) \equiv f.
+	\]
+	Definiamo la \emph{lagrangiana di Routh} \(\mathcal{L}_R\big(q_1,\ldots,q_{s-1},\dot{q}_1,\ldots,\dot{q}_{s-1}\big)\) associata alle equazioni del moto ridotte come
+	\[
+		\mathcal{L}\big(q_1,\ldots,q_{s-1},\dot{q}_1,\ldots,\dot{q}_{s-1},f\big) - p_s f.
+	\]
+\end{defn}
+
+\begin{oss}
+	La scelta di tale lagrangiana è opportuna in quanto, sulle soluzioni delle equazioni del moto, questa soddisfa le equazioni di Eulero-Lagrange se e solo se le soddisfa la lagrangiana originale. Infatti
+	\[
+		p_s = \frac{\pd\mathcal{L}}{\pd\dot{q}_s} \implies \frac{\pd\mathcal{L}_R}{\pd q_i} = \frac{\pd\mathcal{L}}{\pd q_i} + \frac{\pd\mathcal{L}}{\pd\dot{q}_s}\,\frac{\pd f}{\pd q_i} - p_s \frac{\pd f}{\pd q_i} = \frac{\pd\mathcal{L}}{\pd q_i}
+	\]
+	per ogni \(i=1,\ldots,s-1\). Analogamente
+	\[
+		\frac{\pd\mathcal{L}_R}{\pd\dot{q}_i} = \frac{\pd\mathcal{L}}{\pd\dot{q}_i} + \frac{\pd\mathcal{L}}{\pd\dot{q}_s}\,\frac{\pd f}{\pd\dot{q}_i} - p_s \frac{\pd f}{\pd\dot{q}_i} = \frac{\pd\mathcal{L}}{\pd\dot{q}_i}
+	\]
+	per ogni \(i=1,\ldots,s-1\). Ciò mostra che
+	\[
+		\frac{\dd}{\dd t}\frac{\pd\mathcal{L}_R}{\pd\dot{q}_i} = \frac{\pd\mathcal{L}_R}{\pd q_i} \iff \frac{\dd}{\dd t}\frac{\pd\mathcal{L}}{\pd\dot{q}_i} = \frac{\pd\mathcal{L}}{\pd q_i}
+	\]
+	per ogni \(i=1,\ldots,s-1\).
+\end{oss}
+
+\begin{notz}
+	Chiaramente quanto detto si applica ad una qualsiasi variabile ciclica \(q_i\). La scelta di \(q_s\) è dovuta solo alla semplificazione nella notazione.
+\end{notz}
+
+\begin{ese}
+	Verifichiamo quanto detto nell'esempio del pendolo sferico. La lagrangiana di Routh sarà
+	\[
+		\begin{split}
+			\mathcal{L}_R\left(\a,\dot{\a},\frac{A}{m\,l^2 \sin^2\a}\right) & = \frac{m\,l^2}{2}\,\dot{\a}^2 + \frac{A^2}{2m\,l^2 \sin^2\a} + m\,g\,l\,\cos\a - \frac{A^2}{m\,l^2 \sin^2\a}\\
+			& = \frac{m\,l^2}{2}\,\dot{\a}^2 - \frac{A^2}{2m\,l^2 \sin^2\a} + m\,g\,l\,\cos\a
+		\end{split},
+	\]
+	la cui equazione di Eulero-Lagrange è proprio
+	\[
+		m\,l^2\ddot{\a} = \frac{A^2}{m\,l^2 \sin^3\a}\,\cos\a - m\,g\,l\,\sin\a,
+	\]
+	che è corretta.
+\end{ese}
+
+\section{Teorema di N\"other}
+
+In questo paragrafo studieremo il caso di lagrangiane invarianti rispetto a un gruppo di trasformazioni con un parametro continuo.
+
+\begin{defn}{Gruppo di trasformazioni}{gruppoTrasformazioni}
+	Un \emph{gruppo di trasformazioni} \(G\) da \(\Omega\) in sé stesso è un insieme di trasformazioni invertibili \(g\colon \Omega \to \Omega\) tale che, detta \(\cdot\) una qualche legge di composizione,
+	\begin{enumerate}
+		\item \(g_1,g_2\in G \implies g_1 \cdot g_2\in G.\)
+		\item \((g_1\cdot g_2)\cdot g_3 = g_1 \cdot (g_2 \cdot g_3).\)
+		\item Esiste \(I\in G\) tale che \(g\cdot I = I \cdot g = g\) per ogni \(g\in G\).
+		\item Per ogni \(g\in G\) esiste \(g^{-1}\in G\) tale che \(g^{-1}\cdot g = g \cdot g^{-1}=I\).
+	\end{enumerate}
+\end{defn}
+\noindent
+Noi siamo interessati al caso di un gruppo parametrizzato da \(\a\in\R\) tale che
+\[
+	g_\a \colon \R^n \longrightarrow \R^n.
+\]
+Supporremo inoltre che
+\begin{itemize}
+	\item \(g_\a \cdot g_\b = g_{\a+\b}\) per ogni \(\a,\b\in \R\).
+	\item \(I=g_0\).
+	\item \(g_\a\) è derivabile in \(\a\) per ogni \(\a\in\R\).
+\end{itemize}
+
+\begin{ese}[Gruppo delle traslazioni]
+	Prendiamo \(\vec{q}\in\R^3\) e consideriamo il seguente gruppo di trasformazioni
+	\[
+		g_\a\big(\vec{q}\big) = \vec{q} + \a\,\hat{n}_0,
+	\]
+	dove \(\hat{n}_0\) è un vettore unitario. Si vede facilmente che le proprietà da noi cercate sono soddisfatte in quanto
+	\begin{itemize}
+		\item \(g_\a \circ g_\b\big(\vec{q}\big) = \vec{q} + (\a+\b)\,\hat{n}_0 = g_{\a+\b}\big(\vec{q}\big).\)
+		\item \(g_0\big(\vec{q}\big) = \vec{q}\).
+		\item \(g_\a\) è chiaramente differenziabile in \(\a\).
+	\end{itemize}
+\end{ese}
+
+\begin{ese}[Gruppo delle rotazioni attorno all'asse \(\hat{z}\)]
+	Prendiamo \(\vec{q}\in\R^3\) e consideriamo il seguente gruppo di trasformazioni
+	\[
+		g_a\big(\vec{q}\big) = 	\begin{pmatrix}
+			\cos\a & -\sin\a & 0  \\
+			\sin\a & \cos\a  & 0  \\
+			0      & 0       & 1
+		\end{pmatrix} \begin{pmatrix}q_1\\q_2\\q_3\end{pmatrix}
+	\]
+	Anche in questo caso si mostra facilmente che le proprietà sono soddisfatte.
+\end{ese}
+
+\begin{defn}{Lagrangiana invariante per gruppi di trasformazioni}{lagrangianaInvarianteGruppoTrasformazione}
+	Diremo che la lagrangiana \(\mathcal{L}\big(\vec{q},\dot{\vec{q}}\big)\) è \emph{invariante rispetto al gruppo di trasformazioni} di elementi \(g_\a\) se
+	\[
+		\mathcal{L}\big(\vec{q},\dot{\vec{q}}\big) = \mathcal{L}\left(g_\a\big(\vec{q}\big),\frac{\pd g_\a}{\pd\utilde{q}}\big(\vec{q}\big) \sdot \dot{\utilde{q}}\right) \qquad\text{dove }\frac{\pd g_\a}{\pd\utilde{q}}\big(\vec{q}\big) \sdot \dot{\utilde{q}} = \frac{\dd}{\dd t} g_\a\big(\vec{q}\big).
+	\]
+\end{defn}
+
+\begin{teor}{di N\"other}{teoremaNoether}\index{Teorema!di N\"other}
+	Sia \(\mathcal{L}\) una lagrangiana invariante rispetto a un gruppo di trasformazioni di parametro \(\a\in\R\). Allora il sistema ammette la seguente grandezza conservata
+	\[
+		I\big(\vec{q},\dot{\vec{q}}\big) = \frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}}\big(\vec{q},\dot{\vec{q}}\big) \sdot \vec{f}\big(\vec{q}\big) \qquad\text{dove }\vec{f}\big(\vec{q}\big) = \frac{\dd}{\dd\a}g_\a\big(\vec{q}\big)\bigg|_{\a=0}.
+	\]
+\end{teor}
+
+\begin{proof}
+	Supponiamo che \(\mathcal{L}\) sia invariante rispetto al gruppo di trasformazioni \(g_\a\), quindi per definizione
+	\[
+		\mathcal{L}\big(\vec{q},\dot{\vec{q}}\big) = \mathcal{L}\left(g_\a\big(\vec{q}\big),\frac{\pd g_\a}{\pd\utilde{q}}\big(\vec{q}\big) \sdot \dot{\utilde{q}}\right).
+	\]
+	Ciò significa che \(\mathcal{L}\) non dipende da \(\a\), per cui
+	\[
+		\frac{\dd}{\dd\a}\mathcal{L}\left(g_\a\big(\vec{q}\big),\frac{\pd g_\a}{\pd\utilde{q}}\big(\vec{q}\big) \sdot \dot{\utilde{q}}\right)\bigg|_{\a=0} = 0.
+	\]
+	Quindi, sviluppando la derivata, si ottiene
+	\[
+		\frac{\pd\mathcal{L}}{\pd\vec{q}}\sdot \underbrace{\frac{\dd}{\dd\a}g_\a\big(\vec{q}\big) \bigg|_{\a=0}}_{=\vec{f}(\vec{q})} + \frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}} \sdot \frac{\pd \vec{f}\big(\vec{q}\big)}{\pd\utilde{q}}\,\dot{\utilde{q}} = 0.
+	\]
+	Se \(\vec{q}=\vec{q}(t)\) è soluzione delle equazioni di Eulero-Lagrange e \(\dot{\vec{q}}=\dot{\vec{q}}(t)\), allora la precedente espressione diventa
+	\[
+		\frac{\dd}{\dd t}\frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}}\big(\vec{q}(t),\dot{\vec{q}}(t)\big) \sdot \vec{f}\big(\vec{q}(t)\big) + \frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}}\big(\vec{q}(t),\dot{\vec{q}}(t)\big) \sdot \frac{\pd \vec{f}\big(\vec{q}(t)\big)}{\pd\utilde{q}}\,\dot{\utilde{q}}(t) = 0,
+	\]
+	ovvero
+	\[
+		\frac{\dd}{\dd t}\left[\frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}}\big(\vec{q}(t),\dot{\vec{q}}(t)\big)\sdot\vec{f}\big(\vec{q}(t)\big)\right] = 0,
+	\]
+	quindi \(I\big(\vec{q},\dot{\vec{q}}\big)\) è conservata.
+\end{proof}
+
+\begin{ese}[Sistemi di particelle invarianti per traslazioni]
+	Supponiamo di avere un sistema di particelle \(\vec{x}^{(1)},\ldots,\vec{x}^{(N)} \in \R^3\) di masse \(m_1,\ldots,m_N\) e definiamo
+	\[
+		\vec{x} = \begin{pmatrix}\vec{x}^{(1)}\\\vdots\\\vec{x}^{(N)}\end{pmatrix}\in\R^{3N}
+	\]
+	e \(M\) la matrice delle masse.
+	La lagrangiana meccanica associata al sistema è pertanto
+	\[
+		\mathcal{L}\big(\vec{x},\dot{\vec{x}}\big) = \sum_{j=1}^N \frac{m_j}{2}\,\abs{\dot{\vec{x}}^{(j)}}^2-U\big(\vec{x}^{(1)},\ldots,\vec{x}^{(N)}\big) = \frac{1}{2}\dot{\vec{x}} \sdot M\,\dot{\vec{x}}-U\big(\vec{x}\big).
+	\]
+	Supponiamo che il sistema sia invariante per traslazioni nella direzione \(\hat{e}_1\), ovvero
+	\[
+		U\big(\vec{x}^{(1)},\ldots,\vec{x}^{(N)}\big) = U\big(\vec{x}^{(1)}+\a\,\hat{e}_1,\ldots,\vec{x}^{(N)+\a\,\hat{e}_1}\big).
+	\]
+	Quindi \(\mathcal{L}\) è invariante rispetto al gruppo di trasformazioni di elementi
+	\[
+		g_\a\big(\vec{x}\big) = \vec{x} + \a\,\begin{pmatrix}\hat{e}_1\\\vdots\\\hat{e}_1\end{pmatrix}.
+	\]
+	Possiamo quindi applicare il teorema di N\"other calcolando prima \(f\):
+	\[
+		\vec{f}\big(\vec{x}\big) = \frac{\dd}{\dd\a}g_\a\big(\vec{x}\big)\bigg|_{\a=0} = \begin{pmatrix}\hat{e}_1\\\vdots\\\hat{e}_1\end{pmatrix}.
+	\]
+	Pertanto la grandezza conservata è
+	\[
+		I\big(\vec{x},\dot{\vec{x}}\big) = \frac{\pd\mathcal{L}}{\pd\dot{\vec{x}}}\sdot \vec{f}\big(\vec{x}\big) = M\,\dot{\vec{x}} \sdot \begin{pmatrix}\hat{e}_1\\\vdots\\\hat{e}_1\end{pmatrix} = \left[\sum_{j=1}^N m_j \dot{\vec{x}}^{(j)}\right] \sdot \hat{e}_i \equiv \vec{P} \sdot \hat{e}_i,
+	\]
+	dove \(\vec{P}\) è la quantità di moto totale.
+	
+	Osserviamo che se il sistema fosse invariante pere traslazioni anche rispetto a \(\hat{e}_2\) e \(\hat{e}_3\), allora \(\vec{P}\sdot \hat{e}_k\) sarebbe conservata per \(k=1,2,3\), ovvero
+	\[
+		\vec{P} = \sum_{j=1}^N m_j\dot{\vec{x}}^(j)
+	\]
+	è conservata.
+\end{ese}
+
+\begin{ese}[Sistemi di particelle invarianti per rotazioni]
+	Se in un sistema analogo al precedente \(U\) è invariante sotto rotazioni rispetto all'asse \(\hat{e}_k\), tramite il teorema di N\"other si dimostra che \(\vec{L}\sdot \hat{e}_k\) è conservata, dove
+	\[
+		\vec{L} = \sum_{j=1}^N m_j\vec{x}^{(j)} \wedge \dot{\vec{x}}^{(j)}
+	\]
+	è il momento angolare totale.
+\end{ese}

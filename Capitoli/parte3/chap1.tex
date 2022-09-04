@@ -1,0 +1,471 @@
+%!TEX root = ../../main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 03/03/2017 - SESTA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Calcolo delle variazioni e introduzione alla meccanica Lagrangiana}
+
+La meccanica Lagrangiana nasce con l'intento di stabilere se le soluzioni del sistema
+\[
+	M\,\ddot{\vec{R}} = -\frac{\pd U}{\pd\vec{R}}\big(\vec{R}\big)
+\]
+soddisfano un principio di massimo/minimo/stazionarietà.
+L'approccio che ne deriva, risulta particolarmente utile per lo studio di sistemi di punti materiali sottoposti a vincoli.
+
+Nonostante la trattazione si possa affrontare nella piena generalità attraverso il sistema scritto sopra, per semplicità, i concetti che introdurremo più avanti saranno descritti dal punto di vista di un singolo corpo in \(\R^3\). In particolare, l'equazione del moto sarà
+\[
+	m\,\ddot{\vec{x}} = -\frac{\pd U}{\pd \vec{x}}\big(\vec{x}\big) \qquad\text{con }\vec{x}\in \R^3. \tag{\(\star\)}
+\]
+
+\section{Spazio dei moti}
+
+\begin{defn}{Punto materiale animato da un moto}{puntoMaterialeAnimato}
+	Dato un punto materiale di massa \(m\), diremo che \emph{è animato da un moto \(\vec{x}(t)\)}, se \(\vec{x}(t)\) è la sua legge oraria.
+\end{defn}
+
+\begin{defn}{Spazio dei moti}{spazioMoti}\index{Spazio dei moti}
+	Definiamo lo \emph{spazio di tutti i possibili moti} di tempo iniziale e finale \(t_1,t_2\) e di corrispondenti dati iniziali e finali \(\x_1,\x_2\) come
+	\[
+		\mathcal{M}_{t_1,t_2}\big(\vec{\x}_1,\vec{\x}_2\big) = \Set{\vec{x}(t)\in C^{\infty}\big([t_1,t_2],\R^3\big) | \vec{x}(t_1)=\vec{\x}_1, \vec{x}(t_2)=\vec{\x}_2}.
+	\]
+\end{defn}
+
+\begin{oss}
+	\(\mathcal{M}_{t_1,t_2}\big(\vec{\x}_1,\vec{\x}_2\big)\) è uno spazio vettoriale. La generica \(\vec{x}(t)\in \mathcal{M}_{t_1,t_2}\big(\vec{\x}_1,\vec{\x}_2\big)\) sarà del tipo
+	\[
+		\tikz{
+			\coordinate (A) at (1,1);
+			\coordinate (B) at (3,3);
+			\coordinate (C1) at (1,4);
+			\coordinate (C2) at (2.5,0.5);
+			\draw[-latex] (-1,0) -- (4,0) node[above] {\(t\)};
+			\draw[-latex] (0,-1) -- (0,4) node[right] {\(\R^3\)};
+			\draw[thick, compl] (A) .. controls (C1) and (C2) .. (B) node[pos=0.5, yshift=-10, black] {\(\vec{x}(t)\)};
+			\draw[dashed, thin] (0,1) node[left] {\(\vec{\x}_1\)} -- (A) -- (1,0) node[below] {\(t_1\)};
+			\draw[dashed, thin] (0,3) node[left] {\(\vec{\x}_2\)} -- (B) -- (3,0) node[below] {\(t_2\)};
+		}
+	\]
+	Come specificato nella definizione, lo spazio dei moti è l'insieme di tutti i possibili moti, d'altronde solo alcuni di essi corrispondono a moti reali.
+\end{oss}
+
+\begin{defn}{Densità lagrangiana}{densitàLagrangiana}\index{Densità lagrangiana}
+	In un sistema meccanico, definiamo la generica \emph{densità lagrangiana} come una mappa
+	\[
+		\mathcal{L}\colon \R^6 \longrightarrow \R, \big(\vec{x}(t),\dot{\vec{x}}(t)\big) \longmapsto \mathcal{L}\big(\vec{x}(t),\dot{\vec{x}}(t)\big)
+	\]
+	di classe \(C^{\infty}\)
+\end{defn}
+
+\begin{notz}
+	Spesso si fa riferimento alla densità lagrangiana solo con il termine \emph{lagrangiana}.
+\end{notz}
+
+\begin{oss}
+	Nel caso dell'equazione \((\star)\), la densità lagrangiana di interesse è
+	\[
+		\mathcal{L}\big(\vec{\x},\vec{\h}\big) = \frac{m}{2}\,\abs{\vec{\h}}^2-U\big(\vec{\x}\big).
+	\]
+\end{oss}
+
+\begin{defn}{Funzionale d'azione}{funzionaleAzione}\index{Funzionale d'azione}
+	Dato un sistema meccanico con lagrangiana \(\mathcal{L}\), definiamo \emph{funzionale d'azione} la mappa
+	\[
+		A\colon \mathcal{M}_{t_1,t_2}\big(\vec{\x}_1,\vec{\x}_2\big) \longrightarrow \R \qquad \qquad A\big[\vec{x}\big] = \int_{t_1}^{t_2} \mathcal{L}\big(\vec{x}(t),\dot{\vec{x}}(t)\big)\,\dd t.
+	\]
+\end{defn}
+
+\begin{notz}
+	Le parentesi quadre nell'espressione di \(A\big[\vec{x}\big]\), servono per ricordare che \(\vec{x}\) non è una variabile ma identifica l'intera traiettoria.
+\end{notz}
+
+\begin{defn}{Variazione di una traiettoria}{variazioneTraiettoria}\index{Variazione traiettoria}
+	Data \(\vec{x}\in \mathcal{M}_{t_1,t_2}\big(\vec{\x}_1,\vec{\x}_2\big)\), diremo che la funzione \(\vec{y}(\e,t)\equiv \vec{y}_\e(t)\) è una \emph{variazione di \(\vec{x}\)}, se
+	\begin{itemize}
+		\item \(\vec{y}\) è \(C^{\infty}\) nei suoi argomenti su \((-\e_0,\e_0) \times [t_1,t_2]\).
+		\item Per ogni \(\e\) fissato in \((-\e_0,\e_0)\) si ha \(\vec{y}_\e(t)\in \mathcal{M}_{t_1,t_2}\big(\vec{\x}_1,\vec{\x}_2\big)\).
+		\item Per \(\e=0\), \(\vec{y}\) coincide con \(\vec{x}\), ovvero \(\vec{y}_0(t) \equiv \vec{x}(t)\).
+	\end{itemize}
+\end{defn}
+
+\begin{notz}
+	Il parametro \(\e\) di \(\vec{y}\) è detto \emph{parametro di deformazione}.
+\end{notz}
+
+\begin{oss}
+	La grandezza di \(\e\) identifica quanto \(\vec{y}_\e\) si discosta da \(\vec{x}\). Come visibile dal grafico in figura:
+	\[
+		\tikz{
+			\coordinate (A) at (1,1);
+			\coordinate (B) at (3,3);
+			\coordinate (C1) at (1,4);
+			\coordinate (C2) at (2.5,0.5);
+			\draw[-latex] (-1,0) -- (4,0) node[above] {\(t\)};
+			\draw[-latex] (0,-1) -- (0,4) node[right] {\(\R^3\)};
+			\draw[thick, compl] (A) .. controls (C1) and (C2) .. (B) node[pos=0.70, yshift=8] {\(\vec{x}(t)\)};
+			\draw (A) .. controls (0.5,4.5) and (2.5,1.5) .. (B);
+			\draw (A) .. controls (1.5,3) and (3,0.5) .. (B) node[pos=0.6, yshift=-8] {\(\vec{y}_\e(t)\)};
+			\draw[dashed, thin] (0,1) node[left] {\(\vec{\x}_1\)} -- (A) -- (1,0) node[below] {\(t_1\)};
+			\draw[dashed, thin] (0,3) node[left] {\(\vec{\x}_2\)} -- (B) -- (3,0) node[below] {\(t_2\)};
+		}
+	\]
+\end{oss}
+
+\begin{oss}
+	Dato che \(\vec{y}(\e,t)\) è di classe \(C^{\infty}\) in \(\e\), possiamo svilupparlo in serie di Taylor attorno ad \(\e=0\), in particolare osserveremo
+	\[
+		\vec{y}(\e,t) = \vec{x}(t)+\e\,\vec{z}(t)+\bO(\e^2) \qquad\text{dove }\vec{z}(t) = \frac{\pd\vec{y}_\e(t)}{\pd \e}\bigg|_{\e=0}
+	\]
+	Inoltre, dato che per costruzione \(\vec{y}(\e,t_1)=\vec{\x}_1\) e \(\vec{y}(\e,t_2)=\vec{\x}_2\), avremo
+	\[
+		\frac{\pd}{\pd\e}\vec{y}(\e,t_1) = \vec{0} \qquad\text{e}\qquad \frac{\pd}{\pd\e}\vec{y}(\e,t_2) = \vec{0}.
+	\]
+	per cui \(\vec{z}(t_1)=\vec{z}(t_2)=\vec{0}\) e quindi \(\vec{z}\in \mathcal{M}_{t_1,t_2}\big(\vec{0},\vec{0}\big)\equiv \mathcal{M}_{t_1,t_2}^0\).
+\end{oss}
+
+\begin{defn}{Spazio delle variazioni}{spazioVariazioni}\index{Spazio delle variazioni}
+	Dato un moto \(\vec{x} \in \mathcal{M}_{t_1,t_2}\big(\vec{\x}_1,\vec{\x}_2\big)\) se ne definisce lo \emph{spazio delle variazioni} sul suo spazio dei moti come l'insieme delle variazioni di \(\vec{x}\) e si scrive
+	\[
+		\mathcal{V}_{\vec{x}} \Big(\mathcal{M}_{t_1,t_2}\big(\vec{\x}_1,\vec{\x}_2\big)\Big).
+	\]
+\end{defn}
+
+\begin{notz}
+	Quanto non vi sono ambiguità sulla scelta dello spazio dei moti, scriveremo \(\mathcal{V}_{\vec{x}}\) per indicare \(\mathcal{V}_{\vec{x}}\Big(\mathcal{M}_{t_1,t_2}\big(\vec{\x}_1,\vec{\x}_2\big)\Big)\).
+\end{notz}
+
+\begin{defn}{Punto di stazionarietà del funzionale d'azione}{puntoStazionarietàFunzionale}
+	Una traiettoria \(\vec{x}\in \mathcal{M}_{t_1,t_2}\big(\vec{\x}_1,\vec{\x}_2\big)\) si definisce \emph{punto di stazionarietà} del funzionale d'azione \(A\big[\vec{x}\big]\) se 
+	\[
+		\frac{\dd}{\dd\e}A\big[\vec{y}_\e\big]\bigg|_{\e = 0} = 0 \qquad\text{per ogni }\vec{y}\in \mathcal{V}_{\vec{x}}. 
+	\]
+\end{defn}
+
+\begin{oss}
+	Talvolta può essere conveniente considerare le variazioni su un sottospazio \(M\subseteq \mathcal{M}_{t_1,t_2}\big(\vec{\x}_1,\vec{\x}_2\big)\) quando \(\vec{x}\in M\).
+	Tale sottospazio risulterà essere lo spazio di tutte le traiettorie possibili con qualche vincolo.
+	
+	In questo caso la definizione di stazionarietà è del tutto analoga, in particolare diremo che \(A\) è stazionaria in \(\vec{x}\in M\) rispetto a variazioni in \(M\) se
+	\[
+		\frac{\dd}{\dd\e} A\big[\vec{y}_\e\big] \bigg|_{\e = 0} \qquad\text{per ogni }\vec{y}\in \mathcal{V}_{\vec{x}}(M) = \Set{\vec{y}\in \mathcal{V}_{\vec{x}} | \vec{y}_\e(t) \in M}.
+	\]
+\end{oss}
+
+\section{Equazioni di Eulero-Lagrange}
+
+Le equazioni di Eulero-Lagrange sono molto importanti in meccanica Lagrangiana poiché, come vederemo in questo paragrafo, le loro soluzioni sono punti stazionari del funzionale.
+Cominciamo con l'osservare a cosa corrisponde, in formule, la condizione di stazionarietà per \(A\big[\vec{x}\big]\). Ricordiamo che per definizione si deve avere
+\[
+	\frac{\dd}{\dd\e} A\big[\vec{y}_\e\big] \bigg|_{\e=0} = 0\,\fa \vec{y}_\e\in \mathcal{V}_{\vec{x}}.
+\]
+Scriviamo esplicitamente la derivata:
+\[
+	\frac{\dd}{\dd\e} A\big[\vec{y}_\e\big] = \frac{\dd}{\dd\e}\int_{t_1}^{t_2} \mathcal{L}\big(\vec{y}_\e(t),\dot{\vec{y}}_\e(t)\big)\,\dd t = \int_{t_1}^{t_2} \frac{\dd}{\dd \e}\mathcal{L}\big(\vec{y}_\e(t),\dot{\vec{y}}_\e(t)\big)\,\dd t,
+\]
+dove ho potuto portare dentro la derivata in quanto \(\mathcal{L}\) è di classe \(C^{\infty}\) e pertanto continua. Ora
+\[
+	\frac{\dd}{\dd\e}\mathcal{L}\big(\vec{y}_\e(t),\dot{\vec{y}}_\e(t)\big) = \frac{\pd}{\pd\vec{\x}}\mathcal{L}\big(\vec{y}_\e(t),\dot{\vec{y}}_\e(t)\big)\sdot \frac{\pd}{\pd\e}\vec{y}_\e(t) + \frac{\pd}{\pd\vec{\h}}\mathcal{L}\big(\vec{y}_\e(t),\dot{\vec{y}}_\e(t)\big) \sdot \frac{\pd}{\pd\e}\dot{\vec{y}}(t).
+\]
+Da cui
+\[
+	\frac{\dd}{\dd\e} A\big[\vec{x}\big] \bigg|_{\e=0} = \int_{t_1}^{t_2}\left[\frac{\pd}{\pd\vec{\x}}\mathcal{L}\big(\vec{y}_\e(t),\dot{\vec{y}}_\e(t)\big)\sdot \frac{\pd}{\pd\e}\vec{y}_\e(t) + \frac{\pd}{\pd\vec{\h}}\mathcal{L}\big(\vec{y}_\e(t),\dot{\vec{y}}_\e(t)\big) \sdot \frac{\pd}{\pd\e}\dot{\vec{y}}(t)\right]\,\dd t \bigg|_{\e=0}
+\]
+Avevamo osservato in precedenza come fosse possibile sviluppare \(\vec{y}\) in serie di Taylor attorno a \(\e=0\), in particolare
+\[
+	\vec{y}_\e(t) = \vec{x}(t) + \e\,\vec{z}(t) + \bO(\e^2) \qquad\text{e}\qquad \dot{\vec{y}}_\e(t) = \dot{\vec{x}}(t) + \e\,\dot{\vec{z}}(t) + \bO(\e^2),
+\]
+da cui
+\[
+	\frac{\pd}{\pd\e}\vec{y}_\e(t) \bigg|_{\e=0} = \vec{z}(t) \qquad\text{e}\qquad \frac{\pd}{\pd\e}\dot{\vec{z}}(t) \bigg|_{\e=0} = \dot{\vec{z}}(t).
+\]
+Ne segue
+\[
+	\frac{\dd}{\dd\e} A\big[\vec{x}\big] \bigg|_{\e=0} = \int_{t_1}^{t_2}\left[\frac{\pd}{\pd\vec{\x}}\mathcal{L}\big(\vec{x}(t),\dot{\vec{x}}(t)\big)\sdot \vec{z}(t) + \frac{\pd}{\pd\vec{\h}}\mathcal{L}\big(\vec{x}(t),\dot{\vec{x}}(t)\big) \sdot \dot{\vec{z}}(t)\right]\,\dd t.
+\]
+In prima conclusione, avremo quindi che \(A\) è stazionaria in \(\vec{x}\) rispetto a variazioni di \(\vec{y}\in \mathcal{V}_{\vec{x}}\) se e soltanto se
+\[
+	\int_{t_1}^{t_2}\left[\frac{\pd}{\pd\vec{\x}}\mathcal{L}\big(\vec{x}(t),\dot{\vec{x}}(t)\big)\sdot \vec{z}(t) + \frac{\pd}{\pd\vec{\h}}\mathcal{L}\big(\vec{x}(t),\dot{\vec{x}}(t)\big) \sdot \dot{\vec{z}}(t)\right]\,\dd t = 0, \,\fa \vec{z} \in \mathcal{M}_{t_1,t_2}^0.
+\]
+Cerchiamo ora di manipolare l'integrale integrando per parti la seconda parte dell'integranda:
+\[
+	\begin{split}
+		\int_{t_1}^{t_2} \frac{\pd}{\pd \vec{\h}}\mathcal{L}\big(\vec{x}(t),\dot{\vec{x}}(t)\big) \sdot \dot{\vec{z}}(t)\,\dd t & = \frac{\pd}{\pd \vec{\h}}\mathcal{L}\big(\vec{x}(t),\dot{\vec{x}}(t)\big) \sdot \vec{z}(t)\bigg|_{t_1}^{t_2} - \int_{t_1}^{t_2} \left(\frac{\dd}{\dd t}\frac{\pd\mathcal{L}}{\pd\vec{\h}}\big(\vec{x}(t),\dot{\vec{x}}(t)\big)\right)\sdot\vec{z}(t)\,\dd t\\
+		& = - \int_{t_1}^{t_2} \left(\frac{\dd}{\dd t}\frac{\pd\mathcal{L}}{\pd\vec{\h}}\big(\vec{x}(t),\dot{\vec{x}}(t)\big)\right)\sdot\vec{z}(t)\,\dd t
+	\end{split}
+\]
+in quanto \(\vec{z}(t_1)=\vec{z}(t_2)=\vec{0}\).
+Pertanto \(A\) è stazionario in \(\vec{x}\), rispetto a variazioni \(\vec{y}\in \mathcal{V}_{\vec{x}}\), se e soltanto se
+\[
+	\int_{t_1}^{t_2}\left[\frac{\pd \mathcal{L}}{\pd\vec{\x}}\big(\vec{x}(t),\dot{\vec{x}}(t)\big) - \frac{\dd}{\dd t}\frac{\pd \mathcal{L}}{\pd\vec{\h}}\big(\vec{x}(t),\dot{\vec{x}}(t)\big)\right]\sdot \vec{z}(t)\,\dd t = 0, \,\fa \vec{z} \in \mathcal{M}_{t_1,t_2}^0.
+\]
+Questa scrittura favorisce la seguente definizione
+
+\begin{defn}{Equazioni di Eulero-Lagrange}{equazioniEuleroLagrange}\index{Equazioni di Euelero-Lagrange}
+	Si definiscono le \emph{equazioni di Eulero-Lagrange} per la lagrangiana \(\mathcal{L}\) come
+	\[
+		\frac{\pd \mathcal{L}}{\pd\vec{\x}}\big(\vec{x}(t),\dot{\vec{x}}(t)\big) = \frac{\dd}{\dd t}\frac{\pd \mathcal{L}}{\pd\vec{\h}}\big(\vec{x}(t),\dot{\vec{x}}(t)\big)
+	\]
+\end{defn}
+
+\begin{teor}{Caratterizzazione della stazionarietà del funzionale}{caratterizzazioneStazionarietàFunzionale}
+	Il funzionale \(A\) è stazionario in \(\vec{x}\) rispetto a variazioni \(\vec{y}\in\mathcal{V}_{\vec{x}}\) se e soltanto se sono soddisfatte le equazioni di Eulero-Lagrange.
+\end{teor}
+
+\begin{proof}
+	\graffito{\(\Leftarrow)\)}Dalla precedente caratterizzazione della stazionarietà di \(A\):
+	\[
+		\int_{t_1}^{t_2}\left[\frac{\pd \mathcal{L}}{\pd\vec{\x}}\big(\vec{x}(t),\dot{\vec{x}}(t)\big) - \frac{\dd}{\dd t}\frac{\pd \mathcal{L}}{\pd\vec{\h}}\big(\vec{x}(t),\dot{\vec{x}}(t)\big)\right]\sdot \vec{z}(t)\,\dd t = 0, \,\fa \vec{z} \in \mathcal{M}_{t_1,t_2}^0,
+	\]
+	segue immediatamente che le equazioni di Eulero-Lagrange sono condizione sufficiente per la stazionarietà.
+	
+	\graffito{\(\Rightarrow)\)}Supponiamo per assurdo che
+	\[
+		\vec{\j}(t) := \frac{\pd \mathcal{L}}{\pd\vec{\x}}\big(\vec{x}(t),\dot{\vec{x}}(t)\big) - \frac{\dd}{\dd t}\frac{\pd \mathcal{L}}{\pd\vec{\h}}\big(\vec{x}(t),\dot{\vec{x}}(t)\big)
+	\]
+	non sia identicamente nulla.
+	Allora esiste \(\bar{t}\in(t_1,t_2)\) tale che \(\vec{\j}(\bar{t})\neq \vec{0}\).
+	In tal caso possiamo facilmente esibire una \(\vec{z}\in \mathcal{M}_{t_1,t_2}^0\) tale che
+	\[
+		\int_{t_1}^{t_2} \vec{\j}(t) \sdot \vec{z}(t) \neq 0
+	\]
+	che negherebbe l'ipotesi di stazionarietà di \(A\).
+	Esplicitamente prendiamo \(\vec{z}(t) = \vec{\j}(\bar{t})\a(t)\) con \(\a(t)\) una funzione da definire tale che \(\a(t_1)=\a(t_2)=0\).
+	La condizione di stazionarietà diventa
+	\[
+		\int_{t_1}^{t_2}\vec{\j}(t) \sdot \vec{z}(t)\,\dd t = \int_{t_1}^{t_2} \vec{\j}(t) \sdot \vec{\j}(\bar{t})\a(t)\,\dd t.
+	\]
+	Scelgo \(a\colon [t_1,t_2] \to [0,+\infty)\) con \(\a(t)\neq 0\) solo in un opportuno intorno di \(\bar{t}\). Osserviamo ora che
+	\[
+		\vec{\j}(t) \sdot \vec{\j}(\bar{t}) \bigg|_{t = \bar{t}} = \abs{\j(\bar{t})}^2 > 0.
+	\]
+	Per la permanenza del segno applicata a \(\vec{\j}\) continua, esiste un intorno \(I\) di \(\bar{t}\) su cui 
+	\[
+		\vec{\j}(t) \sdot \vec{\j}(\bar{t}) \ge \frac{\abs{\j(\bar{t})}^2}{2} > 0.
+	\]
+	Ora se \(\a(t)\) è diversa da zero solo su \(I\), allora
+	\[
+		\int_{t_1}^{t_2} \vec{\j}(t)\sdot \vec{\j}(\bar{t})\a(t)\,\dd t \ge \frac{\abs{\vec{\j}(\bar{t})}^2}{2}\,\int_{t_1}^{t_2} \a(t)\,\dd t > 0,
+	\]
+	in quanto
+	\[
+		\int\limits_{I}\a(t)\,\dd t > 0.
+	\]
+	Ciò è assurdo per l'ipotesi di stazionarietà. Da cui la tesi.
+\end{proof}
+
+\begin{oss}
+	Se \(\mathcal{L}\big(\vec{\x},\vec{\h}\big)=\frac{1}{2}m\,\abs{\vec{\h}}^2-U\big(\vec{\x}\big)\), avremo
+	\[
+		\frac{\pd\mathcal{L}}{\pd \vec{\x}} = -\frac{\pd U}{\pd\vec{\x}} \qquad\text{e}\qquad \frac{\pd \mathcal{L}}{\pd \vec{\h}} = m\,\vec{\h}.
+	\]
+	Quindi le equazioni di Euelero-Lagrange diventano 
+	\[
+		-\frac{\pd U}{\pd \vec{\x}}\big(\vec{x}(t)\big) = \frac{\dd}{\dd t}m\,\dot{\vec{x}}(t) = m\,\ddot{\vec{x}}(t).
+	\]
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 05/03/2017 - SESTA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Principio di minima azione}
+
+\begin{teor}{Soluzioni del moto sono minimi delle variazioni}{soluzioniMotoMinimiVariazioni}
+	Sia \(\vec{x}_0(t) \in \mathcal{M}_{t_1,t_2}\big(\vec{\x}_1,\vec{\x}_2\big)\) soluzione dell'equazione del moto. Allora \(\vec{x}_0\) è un minimo locale delle variazioni, ovvero
+	\[
+		\ex \d > 0 : \,\fa I = [\q_1,\q_2] \subseteq [t_1,t_2] \qquad\text{con }\q_2-\q_1 \le \d,
+	\]
+	tale che \(x_0\) è un minimo per l'azione ristretta ad \(I\):
+	\[
+		A\big[\vec{x}\big] = \int_{\q_1}^{\q_2} \mathcal{L}\big(\vec{\x},\vec{\h}\big)\,\dd t.
+	\]
+\end{teor}
+
+\begin{proof}
+	Dobbiamo mostrare che \(A\big[\vec{y}(\e,t)\big]\Big|_I\) ammette minimo in \(\e=0\) per ogni \(\vec{y}\in \mathcal{M}\).
+	Per farlo è sufficiente verificare che la derivata prima è nulla e la derivata seconda è positiva.
+	Abbiamo già fornito una \hyperref[th:caratterizzazioneStazionarietàFunzionale]{caratterizzazione della stazionarietà}, procediamo quindi con il calcolo della derivata seconda.
+	Nel sistema meccanico del singolo corpo \((\star)\) abbiamo osservato che l'espressione della lagrangiana corrisponde a
+	\[
+		\mathcal{L}\big(\vec{y},\dot{\vec{y}}\big) = \frac{m}{2}\,\abs{\dot{\vec{y}}}^2 - U\big(\vec{y}\big).
+	\]
+	Pertanto
+	\[
+		\frac{\dd}{\dd \e}A\big[\vec{y}_\e\big]\bigg|_I = \frac{\dd}{\dd\e} \int_{\q_1}^{\q_2} \left(\frac{m}{2}\,\abs{\dot{\vec{y}}}^2 - U\big(\vec{y}\big)\right)\,\dd t.
+	\]
+	Ora
+	\[
+		\frac{\dd}{\dd\e} \frac{m}{2}\,\abs{\dot{\vec{y}}}^2 = m\,\abs{\dot{\vec{y}}}\,\frac{\dot{\vec{y}}}{\abs{\dot{\vec{y}}}} \sdot \frac{\pd}{\pd \e}\dot{\vec{y}} = \frac{\pd}{\pd\e}\dot{\vec{y}} \sdot m\,\dot{\vec{y}},
+	\]
+	e
+	\[
+		\frac{\dd}{\dd\e} U\big(\vec{y}\big) = \frac{\pd}{\pd\vec{x}}U\big(\vec{y}\big) \sdot \frac{\pd}{\pd\e} \vec{y}.
+	\]
+	Quindi
+	\[
+		\frac{\dd}{\dd \e}A\big[\vec{y}_\e\big]\bigg|_I = \int_{\q_1}^{\q_2} \left(\frac{\pd}{\pd\e}\dot{\vec{y}} \sdot m\,\dot{\vec{y}} - \frac{\pd}{\pd\vec{x}}U\big(\vec{y}\big) \sdot \frac{\pd}{\pd\e} \vec{y}\right)\,\dd t.
+	\]
+	Per ottenere la derivata seconda dobbiamo derivare nuovamente l'integranda. In particolare
+	\[
+		\frac{\dd}{\dd\e} \left(\frac{\pd}{\pd\e}\dot{\vec{y}} \sdot m\,\dot{\vec{y}}\right) = \frac{\pd^2}{\pd\e^2} \dot{\vec{y}} \sdot m\,\dot{\vec{y}} + \frac{\pd}{\pd\e}\dot{\vec{y}} \sdot m\,\frac{\pd}{\pd\e} \dot{\vec{y}},
+	\]
+	e
+	\[
+		\frac{\dd}{\dd\e}\left(\frac{\pd}{\pd\vec{x}}U\big(\vec{y}\big) \sdot \frac{\pd}{\pd\e} \vec{y}\right) = \left(\frac{\pd^2}{\pd\vec{x}\utilde{x}}U\big(\vec{y}\big)\,\frac{\pd}{\pd\e}\vec{y}\right) \sdot \frac{\pd}{\pd\e}\utilde{y} + \frac{\pd}{\pd\vec{x}}U\big(\vec{y}\big) \sdot \frac{\pd^2}{\pd\e^2}\vec{y},
+	\]
+	dove, per chiarezza di notazione, indichiamo
+	\[
+		\left(\frac{\pd^2}{\pd\vec{x}\utilde{x}}U\big(\vec{y}\big) \, \frac{\pd}{\pd\e}\vec{y}\right) \sdot \frac{\pd}{\pd\e}\utilde{y} = \sum_{i,j}^n \frac{\pd^2}{\pd x_i x_j}U\big(\vec{y}\big)\,\frac{\pd}{\pd \e}y_i \, \frac{\pd}{\pd\e} y_j.
+	\]
+	Quindi avremo la derivata seconda di \(A\big[\vec{y}_\e\big]\) ristretta ad \(I\) come
+	\[
+		\int_{\q_1}^{\q_2} \left[\frac{\pd^2}{\pd\e^2} \dot{\vec{y}} \sdot m\,\dot{\vec{y}} + \frac{\pd}{\pd\e}\dot{\vec{y}} \sdot m\,\frac{\pd}{\pd\e} \dot{\vec{y}} - \left(\frac{\pd^2}{\pd\vec{x}\utilde{x}}U\big(\vec{y}\big) \, \frac{\pd}{\pd\e}\vec{y}\right) \sdot \frac{\pd}{\pd\e}\utilde{y} - \frac{\pd}{\pd\vec{x}}U\big(\vec{y}\big) \sdot \frac{\pd^2}{\pd\e^2}\vec{y}\right]\,\dd t
+	\]
+	Sviluppando \(\vec{y}_\e\) con Taylor attorno a \(\e=0\), fino al secondo ordine, otteniamo
+	\[
+		\vec{y}_\e(t) = \vec{x}_0(t)+\e\,\vec{z}_0(t)+\frac{\e^2}{2}\,\vec{w}_0(t)+\bO(\e^3),
+	\]
+	da cui
+	\[
+		\frac{\pd}{\pd\e}\vec{y} = \vec{z}_0+\e\,\vec{w}_0+\bO(\e^2) \qquad\text{e}\qquad \frac{\pd^2}{\pd\e^2}\vec{y} = \vec{w}_0+\bO(\e).
+	\]
+	Calcolando in \(\e=0\) avremo
+	\[
+		\vec{y}(0,t) = \vec{x}_0(t); \qquad \frac{\pd}{\pd\e}\vec{y}(0,t) = \vec{z}_0(t); \qquad \frac{\pd^2}{\pd\e^2}\vec{y}(0,t) = \vec{w}_0(t).
+	\]
+	Sostituendo tutto nella derivata seconda di \(A\) ristretta ad \(I\) e calcolata in \(\e=0\), otteniamo
+	\[
+		\int_{\q_1}^{\q_2} \left[\dot{\vec{w}}_0 \sdot m\,\dot{\vec{x}}_0+\dot{\vec{z}}_0 \sdot m\,\dot{\vec{z}}_0 - \left(\frac{\pd^2}{\pd\vec{x}\utilde{x}}U\big(\vec{x}_0\big) \, \vec{z}_0\right) \sdot \utilde{z}_0 - \frac{\pd}{\pd\vec{x}}U\big(\vec{x}_0\big) \sdot \vec{w}_0\right]\,\dd t.
+	\]
+	Affinché la tesi sia vera, dobbiamo verificare che tale derivata seconda sia positiva.
+	Consideriamo il primo e il quarto addendo dell'integranda e integriamo per parti il primo addendo:
+	\[
+		\begin{split}
+			\int_{\q_1}^{\q_2} \left(\dot{\vec{w}}_0 \sdot m\,\dot{\vec{x}}_0 - \frac{\pd}{\pd\vec{x}}U\big(\vec{x}_0\big)\sdot\vec{w}_0\right)\,\dd t & = \int_{\q_1}^{\q_2} \dot{\vec{w}}_0 \sdot m\,\dot{\vec{x}}_0\,\dd t - \int_{\q_1}^{\q_2} \frac{\pd}{\pd\vec{x}}U\big(\vec{x}_0\big)\sdot\vec{w}_0\,\dd t = \vec{w}_0\sdot m\,\dot{\vec{x}}_0 \bigg|_{\q_1}^{\q_2}\\
+			& - \int_{\q_1}^{\q_2} \vec{w}_0 \sdot m\,\ddot{\vec{x}}_0\,\dd t - \int_{\q_1}^{\q_2} \frac{\pd}{\pd\vec{x}}U\big(\vec{x}_0\big)\sdot\vec{w}_0\,\dd t\\
+			& = \vec{w}_0\sdot m\,\dot{\vec{x}}_0 \bigg|_{\q_1}^{\q_2} - \int_{\q_1}^{\q_2} \vec{w}_0 \sdot \left(m\,\ddot{\vec{x}}_0 + \frac{\pd}{\pd \vec{x}}U\big(\vec{x}_0\big)\right)\,\dd t\\
+			& = 0,
+		\end{split}
+	\]
+	dove il primo termine è nullo in quanto \(\vec{w}_0 \in \mathcal{M}_{\q_1,\q_2}^0\), mentre il secondo termine è nullo poiché \(\vec{x}_0\) risolve l'equazione di Newton, che pertanto annulla l'integranda.
+	Restano da stimare i due addendi rimasti:
+	\[
+		\dot{\vec{z}}_0 \sdot m\,\dot{\vec{z}}_0 = m\,\abs{\dot{\vec{z}}_0}^2.
+	\]
+	L'ultimo addendo rimasto, è una forma quadratica con l'hessiano di \(U\), che è simmetrico, diagonalizzabile e pertanto con autovalori reali:
+	\[
+		\vec{z}_0 \sdot H\big(\vec{x}_0\big)\,\vec{z}_0 \le \abs{\vec{z}_0}^2 K \qquad\text{con }K = \max_i \max_{t\in[t_1,t_2]} \big\lvert \l_i\big(\vec{x}_0\big)\big\rvert
+	\]
+	Tramite il TFC stimiamo \(\vec{z}_0\) e \(\abs{\vec{z}_0}^2\):
+	\[
+		\vec{z}_0 = \vec{z}_0(\q_1) + \int_{\q_1}^t \dot{\vec{z}}_0(s)\,\dd s \le \underbrace{\vec{z}_0(\q_1)}_{=0} + \int_{\q_1}^{\q_2} \dot{\vec{z}}_0(s)\,\dd s = \int_{\q_1}^{\q_2} \dot{\vec{z}}_0(s)\,\dd s
+	\]
+	Da cui, usando Cauchy-Schwartz, otteniamo
+	\[
+		\begin{split}
+			\abs{\vec{z}_0}^2 & \le \bigg\lvert \int_{\q_1}^{\q_2} \dot{\vec{z}}_0\,\dd t \bigg\rvert^2 \le \bigg(\int_{\q_1}^{\q_2} \abs{\dot{\vec{z}}_0}\,\dd t\bigg)^2 \overset{C-S}{\le} \norma{\dot{\vec{z}}_0}_2^2 \big(\sqrt{\q_2-\q_1}\big)^2\\
+			& = \int_{\q_1}^{\q_2} \abs{\dot{\vec{z}}_0(s)}^2\,\dd s\, (\q_2-\q_1).
+		\end{split}
+	\]
+	Riepilogando
+	\[
+		\begin{split}
+			\frac{\pd^2}{\pd\e^2} A\bigg|_{\e=0} & \ge m\int_{\q_1}^{\q_2}\abs{\dot{\vec{z}}_0}^2\,\dd t - K\int_{\q_1}^{\q_2}(\q_2-\q_1)\int_{\q_1}^{\q_2} \abs{\dot{\vec{z}}_0(s)}^2\,\dd s\,\dd t\\
+			& = m\int_{\q_1}^{\q_2}\abs{\dot{\vec{z}}_0}^2\,\dd t- K\,(\q_2-\q_1)^2 \int_{\q_1}^{\q_2} \abs{\dot{\vec{z}}_0(s)}^2\,\dd s\\
+			& = \big[m-K\,(\q_2-\q_1)^2\big]\int_{\q_1}^{\q_2} \abs{\dot{\vec{z}}_0}^2\,\dd t
+		\end{split}
+	\]
+	che è positivo purché
+	\[
+		\q_2-\q_1 \le \sqrt{\frac{m}{K}} = \d,\,\fa \vec{y}_\e \in \mathcal{V}_{\vec{x}}.\qedhere
+	\]
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 19/04/2017 - SETTIMA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Invarianza del principio di stazionarietà}
+
+La condizione di stazionarietà per \(A_{t_1,t_2}^{\mathcal{L}}\), descritta attraverso il formalismo Lagrangiano, è una condizione intrinseca, ovvero indipendente dal sistema di coordinate utilizzato. Diremo pertanto che è \emph{invariante} rispetto al cambiamento di coordinate e che, analogamente, le equazioni di Eulero-Lagrange ne sono \emph{covarianti}.
+Questo comportamento giustifica in parte l'utilizzo di tale formalismo, infatti ciò non accade per le equazioni di Newton.
+
+Mostriamo formalmente la covarianza delle equazioni di Eulero-Lagrange:
+Sia
+\[
+	\vec{\g}\colon \R^n \longrightarrow \R^n \text{ invertibile localmente} \qquad\text{e}\qquad \vec{\phi} = \vec{\g}^{-1}
+\]
+e supponiamo di avere il seguente cambio di coordinate associato a tali funzioni
+\[
+	\vec{x} = \vec{\phi}\big(\vec{q}\big) \longleftrightarrow \vec{q} = \vec{\g}\big(\vec{x}\big).
+\]
+Ogni moto \(\vec{x}(t)\) può pertanto essere letto come un moto \(\vec{q}(t)\) attraverso \(\vec{x}(t) = \vec{\phi}\big(\vec{q}(t)\big)\). Per cui
+\[
+	\dot{\vec{x}}(t) = \frac{\pd\vec{\phi}}{\pd\utilde{q}}\big(\vec{q}(t)\big)\,\dot{\utilde{q}}(t).
+\]
+Quindi
+
+\begin{remark}{Cambiamento di variabile per le equazioni di E-L}{cambiamentoVariabileEquazioneEL}
+	\[
+		\mathcal{L}\big(\vec{x}(t),\dot{\vec{x}}(t)\big) = \mathcal{L}\left(\vec{\phi}\big(\vec{q}(t)\big),\frac{\pd\vec{\phi}}{\pd\utilde{q}}\big(\vec{q}(t)\big)\,\dot{\utilde{q}}(t)\right) \equiv \tilde{\mathcal{L}}\big(\vec{q}(t),\dot{\vec{q}}(t)\big).
+	\]
+\end{remark}
+\noindent
+A questo punto avremo
+\[
+	A_{t_1,t_2}^{\mathcal{L}}\big[\vec{x}\big] = A_{t_1,t_2}^{\tilde{\mathcal{L}}}\big[\vec{q}\big] \qquad\text{con }\vec{x}(t) = \vec{\phi}\big(\vec{q}(t)\big)
+\]
+con \(\vec{x}(t)\) che rende stazionaria \(A\equiv A_{t_1,t_2}^{\mathcal{L}}\) se e solo se \(\vec{q}(t)=\vec{\g}\big(\vec{x}(t)\big)\) rende stazionaria \(\tilde{A}\equiv A_{t_1,t_2}^{\tilde{\mathcal{L}}}\).
+Inoltre, poiché ciò accade se e solo se sono verificate le equazioni di Eulero-Lagrange, segue la covarianza:
+
+\begin{remark}{Covarianza delle equazioni di Eulero-Lagrange}{covarianzaEquazioniEL}
+	\(\vec{x}(t)\in \mathcal{M}_{t_1,t_2}\big(\vec{\x}_1,\vec{\x}_2\big)\) è soluzione di
+	\[
+		\frac{\dd}{\dd t}\frac{\pd\mathcal{L}}{\pd\dot{\vec{x}}}\big(\vec{x}(t),\dot{\vec{x}}(t)\big) = \frac{\pd\mathcal{L}}{\pd\vec{x}}\big(\vec{x}(t),\dot{\vec{x}}(t)\big)
+	\]
+	se e soltanto se \(\vec{q}(t)=\vec{\g}\big(\vec{x}(t)\big)\in \mathcal{M}_{t_1,t_2}\big(\vec{\g}(\vec{\x}_1),\vec{\g}(\vec{\x}_2)\big)\) è soluzione di
+	\[
+		\frac{\dd}{\dd t}\frac{\pd\tilde{\mathcal{L}}}{\pd\dot{\vec{q}}}\big(\vec{q}(t),\dot{\vec{q}}(t)\big) = \frac{\pd\tilde{\mathcal{L}}}{\pd\vec{q}}\big(\vec{q}(t),\dot{\vec{q}}(t)\big).
+	\]
+\end{remark}
+\noindent
+Questo comportamento non si ripete per le equazioni di Newton. Consideriamo la lagrangiana meccanica
+\[
+	\mathcal{L}\big(\vec{x},\dot{\vec{x}}\big) = \frac{1}{2}\dot{\vec{x}} \sdot M\,\dot{\vec{x}} - U\big(\vec{x}\big).
+\]
+Se \(\vec{x}=\vec{\phi}\big(\vec{q}\big)\), abbiamo già osservato che
+\[
+	\dot{\vec{x}} = \frac{\pd\vec{\phi}}{\pd\utilde{q}}\big(\vec{q}\big)\,\dot{\utilde{q}},
+\]
+quindi
+\[
+	\tilde{\mathcal{L}}\big(\vec{q},\dot{\vec{q}}\big) = \frac{1}{2}\left[\frac{\pd\vec{\phi}}{\pd\utilde{q}}\big(\vec{q}\big)\,\dot{\utilde{q}}\right] \sdot M\,\left[\frac{\pd\vec{\phi}}{\pd\utilde{q}}\big(\vec{q}\big)\,\dot{\utilde{q}}\right] - U\big(\vec{\phi}(\vec{q})\big).
+\]
+In coordinate
+\[
+	\dot{x}_i = \sum_{j=1}^n \frac{\pd\phi_i}{\pd q_j}\big(\vec{q}\big)\,\dot{q}_j = \sum_{j=1}^n J_{i j}\big(\vec{q}\big)\,\dot{q}_j \implies \dot{\vec{x}} = J\big(\vec{q}\big)\,\dot{\vec{q}},
+\]
+dove con \(J\) indichiamo lo Jacobiano di \(\vec{\phi}\). Quindi
+\[
+	\begin{split}
+		\frac{1}{2}\left[\frac{\pd\vec{\phi}}{\pd\utilde{q}}\big(\vec{q}\big)\,\dot{\utilde{q}}\right] \sdot M\,\left[\frac{\pd\vec{\phi}}{\pd\utilde{q}}\big(\vec{q}\big)\,\dot{\utilde{q}}\right] & = \frac{1}{2}\Big[ J\big(\vec{q}\big)\,\dot{\vec{q}} \Big] \sdot M\,\Big[ J\big(\vec{q}\big)\,\dot{\vec{q}} \Big]  = \frac{1}{2}\sum_{i,j,k} \Big[J_{i j}\big(\vec{q}\big)\,\dot{q}_j\Big]\,\mathcal{M}_{ii}\,\Big[J_{i k}\big(\vec{q}\big)\,\dot{q}_k\Big]\\
+		& = \frac{1}{2}\sum_{j,k}\dot{q}_j\,\sum_{i}\Big[\Big(\tran{J}\big(\vec{q}\big)\Big)_{j i}\,\mathcal{M}_{i i}\,J_{i k}\big(\vec{q}\big)\Big]\,\dot{q}_k\\
+		& = \frac{1}{2}\dot{\vec{q}} \sdot\Big[\tran{J}\big(\vec{q}\big)\,M\,J\big(\vec{q}\big)\Big]\,\dot{\vec{q}},
+	\end{split}
+\]
+da cui
+\[
+	\tilde{\mathcal{L}}\big(\vec{q},\dot{\vec{q}}\big) =\frac{1}{2}\dot{\vec{q}} \sdot\Big[\tran{J}\big(\vec{q}\big)\,M\,J\big(\vec{q}\big)\Big]\,\dot{\vec{q}} - U\big(\vec{\phi}(\vec{q})\big) = \frac{1}{2}\dot{\vec{q}} \sdot \tilde{M}\big(\vec{q}\big)\,\dot{\vec{q}} - U\big(\vec{\phi}\big(\vec{q})\big).
+\]
+Le equazioni di Newton diventano pertanto
+\[
+	\frac{\dd}{\dd t}\Big(\tilde{M}\big(\vec{q}\big)\,\dot{\vec{q}}\Big) = -\frac{\pd}{\pd\vec{q}}U\big(\vec{\phi}(\vec{q})\big) + \frac{1}{2}\dot{\utilde{q}} \sdot \frac{\pd\tilde{M}}{\pd\vec{q}}\,\dot{\utilde{q}}
+\]
+che non ha la struttura delle equazioni di Newton. Infatti sviluppando il primo membro si ottiene un termine che dipende dalla variazione di \(\tilde{M}\) che non appare nella scrittura originale.
+
+\begin{oss}
+	Aggiungendo la dipendenza dal tempo si ottiene lo stesso risultato:
+	\[
+		\mathcal{L}\big(\vec{x},\dot{\vec{x}},t\big) \longleftrightarrow \tilde{\mathcal{L}}\big(\vec{q},\dot{\vec{q}},t\big) = \mathcal{L}\left(\vec{\phi}\big(\vec{q},t\big),\frac{\pd\vec{\phi}}{\pd\utilde{q}}\big(\vec{q},t\big)\,\dot{\utilde{q}}+\frac{\pd\vec{\phi}}{\pd t}\big(\vec{q},t\big),t\right).
+	\]
+\end{oss}

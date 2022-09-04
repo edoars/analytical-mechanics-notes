@@ -1,0 +1,302 @@
+%!TEX root = ../../main.tex
+\chapter{Cambiamenti di sistemi di riferimento}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 05/05/2017 - NONA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Stabiliamo una notazione che utilizzeremo nel corso del capitolo.
+Definiamo un sistema "fisso" \(k\) ed un sistema "mobile" \(K\) in \(\R^3\) definiti dai seguenti versori e dalle origini \(O,O'\):
+\[
+	k = (O,\hat{e}_1,\hat{e}_2,\hat{e}_3) \qquad\text{e}\qquad K = (O',\hat{\h}_1,\hat{\h}_2,\hat{\h}_3).
+\]
+I vettori in minuscolo faranno riferimento al sistema di riferimento fisso, mentre quelli in maiuscolo al sistema mobile. Quindi in generale avremo
+\[
+	\vec{v} = v_1\hat{e}_1 + v_2\hat{e}_2 + v_3\hat{e}_3 \qquad\text{e}\qquad \vec{V} = V_1\hat{\h}_1 + V_2\hat{\h}_2 + V_3\hat{\h}_3.
+\]
+\section{Leggi di trasformazione della posizione}
+
+Preso un punto materiale \(P\) che si muove nello spazio, vogliamo descriverne il moto sia nelle coordinate di \(k\) che in quelle di \(K\). I sistemi sono visibili graficamente nella figura seguente
+\[
+	\input{Immagini/tikz/sistemiRiferimentoFissoMobile.tikz}
+\]
+Le coordinate di \(P\) possono essere espresse nei due sistemi di riferimento:
+\[
+	\overrightarrow{OP} = q_1\hat{e}_1 + q_2\hat{e}_2 + q_3\hat{e}_3 \qquad\text{e}\qquad \overrightarrow{O'P} = Q_1\hat{\h}_1 + Q_2\hat{\h}_2 + Q_3\hat{\h}_3,
+\]
+inoltre
+\[
+	\overrightarrow{OP} = \overrightarrow{OO'} + \overrightarrow{O'P} \iff q_1\hat{e}_1 + q_2\hat{e}_2 + q_3\hat{e}_3 = r_1\hat{e}_1 + r_2\hat{e}_2 + r_3\hat{e}_3 + Q_1\hat{\h}_1 + Q_2\hat{\h}_2 + Q_3\hat{\h}_3,
+\]
+da cui si ottiene la relazione
+\[
+	\begin{pmatrix}
+		q_1 \\q_2\\q_3
+	\end{pmatrix} =
+	\begin{pmatrix}
+		r_1 \\r_2\\r_3
+	\end{pmatrix} +
+	\begin{pmatrix}
+		Q_1 {(\hat{\h}_1)}_1 + Q_2{(\hat{\h}_2)}_1 + Q_3{(\hat{\h}_3)}_1 \\
+		Q_1 {(\hat{\h}_1)}_2 + Q_2{(\hat{\h}_2)}_2 + Q_3{(\hat{\h}_3)}_2 \\
+		Q_1 {(\hat{\h}_1)}_3 + Q_2{(\hat{\h}_2)}_3 + Q_3{(\hat{\h}_3)}_3
+	\end{pmatrix}
+	\qquad\text{dove }{(\hat{\h}_i)}_j = \hat{\h}_i \sdot \hat{e}_j.
+\]
+Possiamo quindi introdurre la matrice di rotazione \(B\) definita dalle proiezioni delle \(\hat{\h}_i\) sulle \(\hat{e}_j\):
+\[
+	B = \begin{pmatrix}
+		{(\hat{\h}_1)}_1 & {(\hat{\h}_2)}_1 & {(\hat{\h}_3)}_1  \\
+		{(\hat{\h}_1)}_2 & {(\hat{\h}_2)}_2 & {(\hat{\h}_3)}_2  \\
+		{(\hat{\h}_1)}_3 & {(\hat{\h}_2)}_3 & {(\hat{\h}_3)}_3
+	\end{pmatrix} =
+	\begin{pmatrix}
+		\hat{\h}_1 & \hat{\h}_2 & \hat{\h}_3
+	\end{pmatrix}
+\]
+
+\begin{oss}
+	\(B\) è la matrice di rotazione che descrive la posizione di \((\hat{\h}_1,\hat{\h}_2,\hat{\h}_3)\) rispetto al sistema fisso.
+	Inoltre \(B\) è una matrice ortogonale, in quanto \(\hat{\h}_i \sdot \hat{\h}_j = \d_{i,j}\)\graffito{una matrice ortogonale è tale che \(B^{-1}=\tran{B}\)}.
+	Ricordiamo che una matrice ortogonale ha determinante \(\pm 1\), infatti
+	\[
+		Id = B^{-1} B = \tran{B}\,B \implies 1 = \det\tran{B}\,\det B = (\det B)^2.
+	\]
+	In particolare \(\det B=1\) se la terna \((\hat{\h}_1,\hat{\h}_2,\hat{\h}_3)\) è destrorsa.
+\end{oss}
+
+Dalla matrice di rotazione deduciamo la legge di trasformazione della posizione:
+
+\begin{remark}{Legge di trasformazione della posizione}{leggeTrasformazionePosizione}
+	\[
+		\vec{q} = \vec{r} + B\,\vec{Q}.
+	\]
+\end{remark}
+
+\begin{oss}
+	Il sistema mobile \(K\) può essere dipendente dal tempo, cioè vi è la possibilità che
+	\[
+		\vec{r} = \vec{r}(t) \qquad\text{e}\qquad B=B(t).
+	\]
+	In generale faremo sempre questa assunzione, ed esplicitamente la legge di trasformazione sarà
+	\[
+		\vec{q}(t) = \vec{r}(t) + B(t)\,\vec{Q}(t).
+	\]
+\end{oss}
+
+\section{Legge di trasformazione della velocità}
+
+Ci occupiamo ora di ottenere una legge analoga per le velocità. Derivando la legge della posizione avremo
+\[
+	\dot{\vec{q}} = \dot{\vec{r}} + \dot{B}\,\vec{Q} + B\,\dot{\vec{Q}}.
+\]
+Cerchiamo di semplificare il termine \(\dot{B}\,\vec{Q}\):
+\[
+	\dot{B}\,\vec{Q} = \dot{B}\,B^{-1}B\,\vec{Q} = \dot{B}\tran{B}\,B\,\vec{Q} = M\,B\,\vec{Q} = M\,\big(\vec{q}-\vec{r}\big),
+\]
+dove \(M=\dot{B}\,B^{-1}=\dot{B}\tran{B}\).
+Osserviamo che \(M\) è antisimmetrica, ovvero \(\tran{M}=-M\), infatti
+\[
+	B\tran{B} = Id \implies \frac{\dd}{\dd t}(B\tran{B}) = 0 \iff \dot{B}\tran{B} + B\tran{\dot{B}} = 0,
+\]
+da cui
+\[
+	\tran{M} = \tran{(\dot{B}\tran{B})} = B\tran{\dot{B}} = -\dot{B}\tran{B} = -M.
+\]
+In particolare, un quanto matrice antisimmetrica, \(M\) sarà della forma
+\[
+	M = \begin{pmatrix}
+		0       & a_{12}  & a_{13} \\
+		-a_{12} & 0       & a_{23} \\
+		-a_{13} & -a_{23} & 0
+	\end{pmatrix} =
+	\begin{pmatrix}
+		0     & -\w_3 & \w_2  \\
+		\w_3  & 0     & -\w_1 \\
+		-\w_2 & \w_1  & 0
+	\end{pmatrix},
+\]
+dove \(\w_1,\w_2,\w_3\) sono le componenti di un opportuno vettore \(\w\). Questa notazione serve ad evidenziare che applicare \(M\) ad un vettore \(\vec{v}\) è come calcolare il prodotto vettoriale \(\vec{\w}\wedge\vec{v}\), infatti
+\[
+	M\,\vec{v} = 	\begin{pmatrix}
+		0     & -\w_3 & \w_2  \\
+		\w_3  & 0     & -\w_1 \\
+		-\w_2 & \w_1  & 0
+	\end{pmatrix} \begin{pmatrix}v_1\\v_2\\v_3\end{pmatrix} =
+	\begin{pmatrix}
+		-\w_3 v_2 + \w_2 v_3 \\
+		\w_3 v_1 - \w_1 v_3  \\
+		-\w_2 v_1 + \w_1 v_2
+	\end{pmatrix} = 
+	\begin{vmatrix}
+		\hat{i} & \hat{j} & \hat{k} \\
+		\w_1    & \w_2    & \w_3    \\
+		v_1     & v_2     & v_3
+	\end{vmatrix} = \vec{\w} \wedge \vec{v}.
+\]
+Riepilogando la nostra attuale legge di trasformazione delle velocità è
+\[
+	\dot{\vec{q}} = \dot{\vec{r}} + M\,B\,\vec{Q} + B\,\dot{\vec{Q}} = \dot{\vec{r}} + \vec{\w}\wedge\big(\vec{q}-\vec{r}\big) + B\,\dot{\vec{Q}},
+\]
+dove il primo addendo è detto \emph{velocità di traslazione} e il secondo \emph{velocità rotazionale di trascinamento}.
+
+\begin{oss}
+	In questa scrittura, \(\vec{\w}\) ha l'interpretazione fisica della velocità angolare istantanea della terna \((\hat{\h}_1,\hat{\h}_2,\hat{\h}_3)\) rispetto al sistema fisso. Questa interpretazione può essere verificata analiticamente, infatti
+	\[
+		\begin{split}
+			\dot{B} & = \frac{\dd}{\dd t}\begin{pmatrix}\hat{\h}_1 & \hat{\h}_2 & \hat{\h}_3\end{pmatrix} = \begin{pmatrix}\frac{\dd\hat{\h}_1}{\dd t} & \frac{\dd\hat{\h}_2}{\dd t} & \frac{\dd\hat{\h}_3}{\dd t}\end{pmatrix} = \dot{B}\tran{B}\,B = M\,B = M\,\begin{pmatrix}\hat{\h}_1 & \hat{\h}_2 & \hat{\h}_3\end{pmatrix}\\
+			& = \begin{pmatrix}M\,\hat{\h}_1 & M\,\hat{\h}_2 & M\,\hat{\h}_3\end{pmatrix} = \begin{pmatrix}\vec{w}\wedge\hat{\h}_1 & \vec{w}\wedge\hat{\h}_2 & \vec{w}\wedge\hat{\h}_3\end{pmatrix}
+		\end{split}
+	\]
+	per cui
+	\[
+		\frac{\dd\hat{\h}_i}{\dd t} = \vec{\w}\wedge\hat{\h}_i \qquad\text{per }i=1,2,3,
+	\]
+	in particolare \(\dd\hat{\h}_i=\w\,\dd t \wedge \hat{\h}_i\).
+	Ciò mostra esplicitamente la validità dell'interpretazione precedente.
+\end{oss}
+
+\begin{ese}
+	Consideriamo il caso in cui \(\hat{\h}_3\) coincida con \(\hat{e}_3\) e \(\hat{\h}_1,\hat{\h}_2\) ruotino attorno ad esso. Troviamo esplicitamente \(\vec{\w}\) per convincerci del significato fisico. Il sistema è quello rappresentato in figura:
+	\[
+		\tikz[scale=0.67]{
+			\draw[-latex, thick, contrast] (0,0) -- (-2.83,-2.83) node[below, black] {\(\hat{e}_1\)};
+			\draw[-latex, thick, contrast] (0,0) -- (4,0) node[below, black] {\(\hat{e}_2\)};
+			\draw[-latex, thick, contrast] (0,0) -- (0,4) node[left, black] {\(\hat{e}_3\)};
+			\draw[-latex, thick, compl] (0,0) -- (1.04,-3.86) node[right, black] {\(\hat{\h}_1\)};
+			\draw[-latex, thick, compl] (0,0) -- (3.46,2) node[right, black] {\(\hat{\h}_2\)};
+			\draw[-latex, thick, compl] (0,0) -- (0,4) node[right, black] {\(\hat{\h}_3\)};
+			\draw (225:0.3) arc[radius=0.3, start angle=225, end angle= 285];
+			\node[font=\footnotesize] at (250:0.9) {\(\a(t)\)};
+		}
+	\]
+	La matrice di rotazione è data da
+	\[
+		B = \begin{pmatrix}\hat{\h}_1 & \hat{\h}_2 & \hat{\h}_3\end{pmatrix} = 	\begin{pmatrix}
+			\cos\a & -\sin\a & 0  \\
+			\sin\a & \cos\a  & 0  \\
+			0      & 0       & 1
+		\end{pmatrix}
+	\]
+	Da cui possiamo calcolare \(M=\dot{B}\tran{B}\):
+	\[
+		M = \dot{\a}\, 	\begin{pmatrix}
+			-\sin\a & -\cos\a & 0  \\
+			\cos\a  & -\sin\a & 0  \\
+			0       & 0       & 0
+		\end{pmatrix}
+		\begin{pmatrix}
+			\cos\a  & \sin\a & 0  \\
+			-\sin\a & \cos\a & 0  \\
+			0       & 0      & 0
+		\end{pmatrix} = 
+		\dot{\a}\, 	\begin{pmatrix}
+			0 & -1 & 0  \\
+			1 & 0  & 0  \\
+			0 & 0  & 0
+		\end{pmatrix}
+	\]
+	Infine possiamo associare ad \(M\) il vettore \(\vec{\w}=(0,0,\dot{\a})\), il quale, come ci aspettavamo, ha le caratteristiche di una velocità angolare.
+\end{ese}
+\noindent
+Per completare la legge di trasformazione delle velocità, portiamo \(\vec{\w}\) nelle coordinate del sistema mobile:
+\[
+	\vec{\w} = \w_1\hat{e}_1 + \w_2\hat{e}_2 + \w_3\hat{e}_3 = \Omega_1\hat{\h}_1 + \Omega_2\hat{\h}_2 + \Omega_3\hat{\h}_3 = B\,\vec{\Omega}.
+\]
+Quindi
+\[
+	\vec{\w} \wedge \big(\vec{q}-\vec{r}\big) = \vec{\w} \wedge B\,\vec{Q} = B\,\vec{\Omega} \wedge B\,\vec{Q} = B\,\big(\vec{\Omega} \wedge \vec{Q}\big),
+\]
+dove l'ultima uguaglianza è vera poiché il prodotto vettoriale è covariante rispetto alle rotazioni.
+Infine, scrivendo
+\[
+	\dot{\vec{r}} = B\,\vec{V} \qquad\text{con }\vec{V} = B^{-1}\dot{\vec{r}},
+\]
+possiamo scrivere la legge di trasformazione delle velocità:
+
+\begin{remark}{Legge di trasformazione delle velocità}{leggeTrasformazioneVelocità}
+	\[
+		\dot{\vec{q}} = B\,\big(\vec{V} + \vec{\Omega}\wedge\vec{Q} + \dot{\vec{Q}}\big).
+	\]
+\end{remark}
+
+\section{Legge di trasformazione delle forze}
+
+Tramite queste leggi di trasformazione possiamo calcolare le equazioni del moto in \(K\) corrispondenti, nel sistema fisso, a
+\[
+	m\,\ddot{\vec{q}} = \vec{f}\big(\vec{q}\big) = - \frac{\pd U}{\pd\vec{q}}\big(\vec{q}\big).
+\]
+Queste ultime corrispondono alle equazioni di Eulero-Lagrange per la lagrangiana meccanica
+\[
+	\mathcal{L}\big(\vec{q},\dot{\vec{q}}\big) = \frac{m}{2}\,\abs{\dot{\vec{q}}}^2 -U\big(\vec{q}\big).
+\]
+Ci basta quindi applicare le leggi di trasformazioni a \(\mathcal{L}\) per trovare la corrispondente lagrangiana \(\tilde{\mathcal{L}}\big(\vec{Q},\dot{\vec{Q}}\big)\) nel sistema mobile.
+\[
+	\tilde{\mathcal{L}}\big(\vec{Q},\dot{\vec{Q}}\big) = \frac{m}{2}\big\lvert B\,\big(\vec{V}+\vec{\Omega}\wedge\vec{Q} + \dot{\vec{Q}}\big)\big\rvert^2 - U\big(\vec{r}+B\,\vec{Q}\big).
+\]
+Osserviamo che \(B\) è una matrice ortogonale, per cui \(\abs{B\,\vec{v}}^2=\abs{\vec{v}}^2\), infatti
+\[
+	\abs{B\,\vec{v}}^2 = B\,\vec{v} \sdot B\,\vec{v} = \vec{v}\sdot \big(\tran{B}\,B\,\vec{v}\big) = \vec{v}\sdot\vec{v} = \abs{\vec{v}}^2.
+\]
+Per cui otteniamo
+
+\begin{remark}{Lagrangiana meccanica nel sistema mobile}{lagrangianaMeccanicaSistemaMobile}
+	\[
+		\tilde{\mathcal{L}}\big(\vec{Q},\dot{\vec{Q}}\big) = \frac{m}{2}\abs{\vec{V}+\vec{\Omega}\wedge\vec{Q} + \dot{\vec{Q}}}^2 - U\big(\vec{r}+B\,\vec{Q}\big).
+	\]
+\end{remark}
+\noindent
+Per il calcolo delle equazioni di Eulero-Lagrange è utile sviluppare il modulo della  lagrangiana, ottenendo
+\[
+	\tilde{\mathcal{L}}\big(\vec{Q},\dot{\vec{Q}}\big) = \frac{m}{2}\Big[\abs{\vec{V}}^2+\abs{\vec{\Omega}\wedge\vec{Q}}^2+\abs{\dot{\vec{Q}}}^2+2\vec{V}\sdot\big(\vec{\Omega}\wedge\vec{Q}\big)+2\vec{V}\sdot\dot{\vec{Q}}+2\dot{\vec{Q}}\sdot\big(\vec{\Omega}\wedge\vec{Q}\big)\Big] - U\big(\vec{r}+B\,\vec{Q}\big).
+\]
+Inoltre sfruttiamo la seguente proprietà del prodotto vettoriale
+\[
+	\vec{u}\sdot\big(\vec{v}\wedge\vec{w}\big) = \vec{w}\sdot\big(\vec{u}\wedge\vec{v}\big) = \vec{v}\sdot\big(\vec{w}\wedge\vec{u}\big),
+\]
+per ottenere le seguenti relazioni
+\begin{gather*}
+	\abs{\vec{\Omega}\wedge\vec{Q}}^2 = \big(\vec{\Omega}\wedge\vec{Q}\big) \sdot \big(\vec{\Omega}\wedge\vec{Q}\big) = \vec{Q} \sdot \Big(\big(\vec{\Omega}\wedge\vec{Q}\big)\wedge\vec{\Omega}\Big);\\
+	\vec{V} \sdot \big(\vec{\Omega}\wedge\vec{Q}\big) = \vec{Q} \sdot \big(\vec{V}\wedge\vec{\Omega}\big);\\
+	\dot{\vec{Q}}\sdot\big(\vec{\Omega}\wedge\vec{Q}\big) = \vec{Q}\sdot\big(\dot{\vec{Q}}\wedge\vec{\Omega}\big).
+\end{gather*}
+Procediamo quindi con il calcolo delle equazioni di Eulero-Lagrange:
+\[
+	\frac{\pd\tilde{\mathcal{L}}}{\pd\dot{\vec{Q}}} = m\,\big(\dot{\vec{Q}}+\vec{V}+\vec{\Omega}\wedge\vec{Q}\big),
+\]
+analogamente
+\[
+	\frac{\pd\tilde{\mathcal{L}}}{\pd\vec{Q}} = m\,\big(\vec{\Omega}\wedge\vec{Q}\big)\wedge\vec{\Omega} + m\,\vec{V}\wedge\vec{\Omega} + m\,\dot{\vec{Q}}\wedge\vec{\Omega} - \frac{\pd U}{\pd\vec{Q}}\big(\vec{r}+B\,\vec{Q}\big),
+\]
+dove
+\[
+	\frac{\pd U}{\pd Q_i}\big(\vec{r}+B\,\vec{Q}\big) = \sum_j \frac{\pd U}{\pd q_j}\big(\vec{r}+B\,\vec{Q}\big)\,\underbrace{\frac{\pd\big(B\,\vec{Q}\big)_j}{\pd Q_i}}_{=B_{ji}} = \sum_j B_{ji}\frac{\pd U}{\pd q_j}\big(\vec{r}+B\,\vec{Q}\big),
+\]
+da cui definiamo
+\[
+	\vec{F} = -\frac{\pd U}{\pd\vec{Q}}\big(\vec{r}+B\,\vec{Q}\big) = -\tran{B}\,\frac{\pd U}{\pd\vec{q}}\big(\vec{r}+B\,\vec{Q}\big) = B^{-1}\vec{f}.
+\]
+Possiamo a questo punto calcolare l'equazione di Eulero-Lagrange:
+\[
+	\begin{split}
+		\frac{\dd}{\dd t}\frac{\pd\tilde{\mathcal{L}}}{\pd\dot{\vec{Q}}} = \frac{\pd\tilde{\mathcal{L}}}{\pd\vec{Q}}  \iff & m\,\ddot{\vec{Q}} +m\,\dot{\vec{V}} + m\,\dot{\vec{\Omega}}\wedge\vec{Q} + m\,\vec{\Omega}\wedge\dot{\vec{Q}} = -m\,\vec{\Omega} \wedge\big(\vec{\Omega}\wedge\vec{Q}\big) \\
+		& -m\,\vec{\Omega}\wedge\vec{V} -m\,\vec{\Omega}\wedge\dot{\vec{Q}}+\vec{F}
+	\end{split}
+\]
+le quali ci forniscono
+
+\begin{remark}{Equazioni del moto nel sistema mobile}{equazioniMotoSistemaMobile}
+	\[
+		m\,\ddot{\vec{Q}} = \vec{F} - m\,\dot{\vec{\Omega}}\wedge\vec{Q}-2m\,\vec{\Omega}\wedge\dot{\vec{Q}}-m\,\vec{\Omega}\wedge\big(\vec{\Omega}\wedge\vec{Q}\big) -m\,\big(\dot{\vec{V}}+\vec{\Omega}\wedge\vec{V}\big).
+	\]
+\end{remark}
+
+\begin{notz}
+	Le forze aggiunte a \(\vec{F}\) si dicono \emph{forze fittizie}, in particolare:
+	\begin{itemize}
+		\item Il termine \(-2m\,\vec{\Omega}\wedge\dot{\vec{Q}}\) si dice \emph{forza di Coriolis}.
+		\item Il termine \(-m\,\vec{\Omega}\wedge\big(\vec{\Omega}\wedge\vec{Q}\big)\) si dice \emph{forza centrifuga}.
+		\item Il termine \(-m\,\dot{\vec{\Omega}}\wedge\vec{Q}\) si dice \emph{forza inerziale di rotazione}.
+		\item Il termine \(-m\,\big(\dot{\vec{V}}+\vec{\Omega}\wedge\vec{V}\big)\) si dice \emph{forza inerziale di traslazione}.
+	\end{itemize}
+\end{notz}

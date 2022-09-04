@@ -1,0 +1,40 @@
+\tikz[scale=2]{
+	\draw[-latex] (-0.3, 0) -- (5,0) node[above] {\(\r\)};
+	\draw[-latex] (0,-1.5) -- (0,1.5) node[right] {\(\dot{\r}\)};
+	%Sottocritico
+	\draw[domain=0.690983:1.80802,variable=\x, compl!50, thick, samples=100,
+	postaction={decorate, decoration={markings, mark=between positions 0.25 and 0.75 step 0.5 with {\arrow{>}}}}
+	] plot ({\x},{sqrt(-0.8-1/(\x*\x)+2/\x)});
+	\draw[domain=0.690983:1.80802,variable=\x, compl!50, thick, samples=100,
+	postaction={decorate, decoration={markings, mark=between positions 0.25 and 0.75 step 0.5 with {\arrow{<}}}}
+	] plot ({\x},{-sqrt(-0.8-1/(\x*\x)+2/\x)});
+	\draw[domain=0.61265:2.72076,variable=\x, compl!50, thick, samples=100,
+	postaction={decorate, decoration={markings, mark=between positions 0.25 and 0.75 step 0.5 with {\arrow{>}}}}
+	] plot ({\x},{sqrt(-0.6-1/(\x*\x)+2/\x)});
+	\draw[domain=0.61265:2.72076,variable=\x, compl!50, thick, samples=100,
+	postaction={decorate, decoration={markings, mark=between positions 0.25 and 0.75 step 0.5 with {\arrow{<}}}}
+	] plot ({\x},{-sqrt(-0.6-1/(\x*\x)+2/\x)}) node[above right] {\(V_{min}<E<0\)};
+	%Critico
+	\draw[domain=0.544467:4.8,variable=\x, contrast!70, thick, samples=100,
+	postaction={decorate, decoration={markings, mark=between positions 0.25 and 0.75 step 0.5 with {\arrow{>}}}}
+	] plot ({\x},{sqrt(-0.3-1/(\x*\x)+2/\x)});
+	\draw[domain=0.544467:4.8,variable=\x, contrast!70, thick, samples=100,
+	postaction={decorate, decoration={markings, mark=between positions 0.25 and 0.75 step 0.5 with {\arrow{<}}}}
+	] plot ({\x},{-sqrt(-0.3-1/(\x*\x)+2/\x)}) node[above left] {\(E=0\)};
+	%Sovracritico
+	\draw[domain=0.5:4.8,variable=\x, compl, thick, samples=100,
+	postaction={decorate, decoration={markings, mark=between positions 0.25 and 0.75 step 0.5 with {\arrow{>}}}}
+	] plot ({\x},{sqrt(-1/(\x*\x)+2/\x)});
+	\draw[domain=0.5:4.8,variable=\x, compl, thick, samples=100,
+	postaction={decorate, decoration={markings, mark=between positions 0.25 and 0.75 step 0.5 with {\arrow{<}}}}
+	] plot ({\x},{-sqrt(-1/(\x*\x)+2/\x)});
+	\draw[domain=0.4143:4.8,variable=\x, compl, thick, samples=100,
+	postaction={decorate, decoration={markings, mark=between positions 0.25 and 0.75 step 0.5 with {\arrow{>}}}}
+	] plot ({\x},{sqrt(1-1/(\x*\x)+2/\x)});
+	\draw[domain=0.4143:4.8,variable=\x, compl, thick, samples=100,
+	postaction={decorate, decoration={markings, mark=between positions 0.25 and 0.75 step 0.5 with {\arrow{<}}}}
+	] plot ({\x},{-sqrt(1-1/(\x*\x)+2/\x)}) node[above left] {\(E>0\)};
+
+	\fill (1,0) circle (0.03);
+	\node[below] at (1,0) {\(\r_0\)};
+}

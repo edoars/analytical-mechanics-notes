@@ -1,0 +1,476 @@
+%!TEX root = ../../main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 29/03/2017 - QUINTA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Moti in campo gravitazionale e leggi di Keplero}
+
+Come per il moto armonico, anche il moto generato dal potenziale gravitazionale è una caso di notevole importanza.
+Si dimostra infatti che i potenziali associati a questi moti, sono gli unici che generano moti limitati tutti periodici.
+
+\section{Introduzione}
+
+I moti in campo gravitazionale studiano il moto di due corpi attratti da una forza
+\[
+	F\big(\abs{\vec{r}}\big) = -G\,\frac{m_1 m_2}{\abs{\vec{r}}^2} \qquad\text{con }G = 6,67\cdot 10^{-11} \frac{m^3}{kg\cdot s^2}.
+\]
+In generale si tratta di risolvere il problema di due corpi in moti a campo centrale.
+In particolare, tale problema ci permette di ricavare informazioni sul moto del pianeta \(P\) attorno al sole \(S\)
+\[
+	\tikz[baseline=-0.5ex]{
+		\coordinate (S) at (-2,-1);
+		\coordinate (P) at (2,1);
+		\draw[dashed] (-1,-0.5) -- (1,0.5);
+		\draw[->] (S) -- (-1, -0.5);
+		\draw[->] (P) -- (1,0.5);
+		\fill (S) circle (0.06);
+		\fill (P) circle (0.03);
+		\node[below] at (S) {\(S\)};
+		\node[left, font=\footnotesize] at (S) {\(\vec{r}_1\)};
+		\node[above, font=\footnotesize] at (S) {\(m_1\)};
+		\node[above] at (P) {\(P\)};
+		\node[right, font=\footnotesize] at (P) {\(\vec{r}_2\)};
+		\node[below, font=\footnotesize] at (P) {\(m_2\)};
+	}\qquad \qquad
+	\text{con }\vec{r} = \vec{r}_2 - \vec{r}_1
+\]
+Nel caso planetario le masse hanno valori particolari:
+\[
+	m_1 = M_S = 2\cdot 10^{30}kg \qquad\text{e}\qquad m_2 = m_P << M_S.
+\]
+Questo fa sì che il baricentro sia spostato verso il sole, ovvero
+\[
+	\vec{R} = \frac{M_S \vec{r}_1 + m_P \vec{r}_2}{M_S + m_P} \simeq \vec{r}_1 \qquad\text{e}\qquad \vec{r}_2 = \vec{R} + \frac{M_S}{M_S + m_P}\,\vec{r} \simeq \vec{R} + \vec{r}.
+\]
+Per tutti i fini pratici possiamo assumere che il baricentro coincida con il centro del sole.
+L'equazione del moto è pertanto
+\[
+	m\,\ddot{\vec{r}} = -G\,\frac{M_S m_P}{\abs{\vec{r}}^2}\,\hat{r} = -\frac{k}{\abs{\vec{r}}^2}\,\hat{r},
+\]
+dove \(m\) è la massa ridotta:
+\[
+	m = \left( \frac{1}{M_S} + \frac{1}{m_P} \right)^{-1} \simeq \left( \frac{1}{m_P} \right)^{-1} = m_P.
+\]
+
+\section{Soluzione del moto}
+
+La strategia risolutiva è la stessa utilizzata in generale nei moti in campo centrale. In questo particolare caso vedremo come molte informazione possono essere ottenute in modo esplicito.
+Cominciamo con l'osservare che
+\[
+	F\big(\abs{\vec{r}}\big) = -\frac{k}{\abs{\vec{r}}^2} = -V'\big(\abs{\vec{r}}\big) \qquad\text{dove }V\big(\abs{\vec{r}}\big) = -\frac{k}{\abs{\vec{r}}}.
+\]
+Si ottengono le equazioni conservative dell'energia meccanica e del momento angolare:
+\[
+	E = \frac{1}{2}\,m\,\abs{\dot{\vec{r}}}^2 - \frac{k}{\abs{\vec{r}}} \qquad\text{e}\qquad \vec{L} = m\,\vec{r} \wedge \dot{\vec{r}}.
+\]
+Dove imponiamo \(\vec{L} \neq \vec{0}\) per escludere casi banali.
+
+Come abbiamo già discusso, per via della conservazione del momento angolare, il moto si svolge sul piano perpendicolare a \(\hat{L}\) e passante per l'origine.
+Passando in coordinate \(\hat{x}', \hat{y}', \hat{z}'\) adatte a \(\vec{L}\), quindi con \(\hat{z}'=\hat{L}\), e successivamente in coordinate polari, avremo
+\[
+	\vec{r} = \r(t)\, 	\begin{pmatrix}
+		\cos\q(t) \\
+		\sin\q(t) \\
+		0
+	\end{pmatrix}
+\]
+Come sappiamo questo ci permette di ridurre il moto radiale ad un moto unidimensionale.
+Ad esso associamo un potenziale efficace
+\[
+	V_{eff}(\r) = V(\r) + \frac{L^2}{2\,m\,\r^2}
+\]
+per cui si hanno le seguenti leggi di conservazione:
+\[
+	E = \frac{1}{2}\,m\,\dot{\r}^2 + V_{eff}(\r) \qquad\text{e}\qquad L = m\,\r^2\dot{\q}.
+\]
+Dallo studio di \(V_{eff}\) si ottiene il seguente grafico qualitativo del potenziale efficace:
+
+\bigskip
+\begin{minipage}{0.5\textwidth}
+	\begin{tikzpicture}[scale=2]
+		\draw[-latex] (-0.3, 0) -- (3,0) node[above] {\(\r\)};
+		\draw[-latex] (0,-1) -- (0,2.5) node[right] {\(V_{eff}(\r)\)};
+		\draw[domain=0.3:2.8,smooth,variable=\x, compl, thick] plot ({\x},{(1-2*\x)/(2*\x^2)});
+		\draw[dashed, thin] (0,-0.5) node[left, font=\footnotesize] {\(V_{min}\)} -- (1,-0.5) -- (1,0) node[above, font=\footnotesize] {\(\r_0\)};
+	\end{tikzpicture}
+\end{minipage} \quad
+\begin{minipage}{0.4\textwidth}
+	Dove
+	\(\displaystyle
+	\r_0 = \frac{L^2}{m\,k}
+	\)
+	è il punto critico di \(V_{eff}(\r)\), mentre \(V_{min}\) è il valore del minimo:
+	\[
+		V_{min} = V_{eff}(\r_0) = -\frac{m\,k^2}{2L^2}
+	\]
+\end{minipage}
+
+\bigskip
+\noindent
+Da cui il piano delle fasi
+\[
+	\input{Immagini/tikz/pianoFasiGravitazionale.tikz}
+\]
+Nel caso critico, scegliendo \(\r_0\) come dato iniziale, si ha
+\[
+	\r(t) \equiv \r_0 = \frac{L^2}{m\,k} \qquad\text{e}\qquad \q(t) = \q_0 + w_1 t.
+\]
+Dove il periodo del moto angolare sarà
+\[
+	T = T_1 = \frac{2\p\,L^3}{m\,k^2} = 2\p\, \left( \frac{L^2}{m\,k} \right)^{3/2} \sqrt{\frac{m}{k}} = 2\p\,\sqrt{\frac{m}{k}}\,\r_0^{3/2},
+\]
+da cui la pulsazione
+\[
+	\w_1 = \frac{2\p}{T_1} = \frac{m\,k^2}{L^3}.
+\]
+La successiva discussione avrà come fine le soluzioni analitiche dei moti con orbite chiuse e periodiche, le quali abbiamo visto essere in corrispondenza di \(V_{min}<E<0\).
+Il moto periodico avviene attorno ai due punti di inversione \(\r_-\) e \(\r_+\) che sono soluzione di \(V_{eff}(\r)=E\). Esplicitamente:
+\[
+	p_{\pm} = \frac{k}{2\abs{E}} \pm \sqrt{\frac{k^2}{4E^2}-\frac{L^2}{2m\,\abs{E}}},
+\]
+da cui
+\[
+	\begin{split}
+		V_{eff}-E & = -\frac{k}{\r} + \frac{L^2}{2m\,\r^2}+\abs{E} = \frac{\abs{E}}{\r^2}\, \left( \r^2- \frac{k}{\abs{E}}\,\r + \frac{L^2}{2m\,\abs{E}} \right)\\
+		& = \frac{\abs{E}}{\r^2}\,(\r-\r_+)(\r-\r_-).
+	\end{split}
+\]
+Da questa relazione deduciamo due relazioni notevoli utili per i calcoli:
+\[
+	\begin{cases}
+		\r_++\r_- = \frac{k}{\abs{E}} \\
+		\r_+\r_- = \frac{L^2}{2m\,\abs{E}}.
+	\end{cases}
+\]
+Calcoliamo ora il periodo del moto radiale:
+\[
+	\begin{split}
+		T_0 & = 2 \int_{\r_-}^{\r_+} \frac{\dd \r}{\sqrt{\frac{2}{m}\big(E-V_{eff}(\r)\big)}} = 2 \int_{\r_-}^{\r_+} \frac{\dd \r}{\sqrt{\frac{2}{m}\,\frac{\abs{E}}{\r^2}\,(\r_+-\r)(\r-\r_-)}}\\
+		& = \sqrt{\frac{2m}{\abs{E}}}\,\int_{\r_-}^{\r_+}\frac{\r\,\dd\r}{\sqrt{(\r_+-\r)(\r-\r_-)}}\graffito{\(y=\frac{\r-\r_-}{\r_+-\r}\)}\\
+		& = \sqrt{\frac{2m}{\abs{E}}}\,\int_0^{+\infty} \frac{\r_+ y+\r_-}{1+y}\,\sqrt{\frac{1+y}{\r_+-\r_-}\,\frac{1+y}{\r_+ y-\r_- y}}\,\frac{\r_+-\r_-}{(1+y)^2}\,\dd y = \sqrt{\frac{2m}{\abs{E}}}\,\int_0^{+\infty} \frac{\r_+ y + \r_-}{\sqrt{y}\,(1+y)^2}\,\dd y \graffito{\(z=\sqrt{y}\)}\\
+		& = 2\sqrt{\frac{2m}{\abs{E}}}\,\int_0^{+\infty} \frac{\r_+ z^2+\r_-}{(1+z^2)^2}\,\dd z = 2\sqrt{\frac{2m}{\abs{E}}}\,\int_0^{+\infty} \frac{\r_+\,z^2+\r_- (1+z^2-z^2)}{(1+z^2)^2}\,\dd z\\
+		& = 2\sqrt{\frac{2m}{\abs{E}}}\,\bigg(\int_0^{+\infty} \frac{\r_-}{1+z^2}\,\dd z + \int_0^{+\infty} (\r_+-\r_-)\,\frac{z^2}{(1+z^2)^2}\,\dd z \bigg),
+	\end{split}
+\]
+ora
+\[
+	\int_0^{+\infty} \frac{\r_-}{1+z^2}\,\dd z = \r_-\arctan z \bigg|_0^{+\infty} = \r_- \frac{\p}{2},
+\]
+mentre
+\[
+	\begin{split}
+		(\r_+-\r_-)\,\int_0^{+\infty} \frac{z^2}{(1+z^2)^2}\,\dd z & = (\r_+-\r_-)\,\int_0^{+\infty} \frac{2z}{(1+z^2)^2}\,\frac{z}{2}\,\dd z\\
+		& = (\r_+-\r_-)\, \bigg(-\frac{1}{1+z^2}\,\frac{z}{2}\bigg|_0^{+\infty}+\frac{1}{2}\int_0^{+\infty}\frac{\dd z}{1+z^2}\bigg)\\
+		& = (\r_+-\r_-)\,\frac{1}{2}\arctan z\bigg|_0^{+\infty} = \frac{\r_+-\r_-}{2}\,\frac{\p}{2}.
+	\end{split}
+\]
+Ricordando le relazioni notevoli dedotte in precedenza, concludiamo
+\[
+	T_0 = 2\sqrt{\frac{2m}{\abs{E}}} \left( \r_- \frac{\p}{2} + \frac{\r_+-\r_-}{2}\,\frac{\p}{2} \right) = \p\,\sqrt{\frac{2m}{\abs{E}}}\,\frac{\r_++\r_-}{2},
+\]
+quindi
+
+\begin{remark}{Periodo del moto radiale}{periodoRadialeGravitazionale}
+	\[
+		T_0 = \p\,\sqrt{\frac{2m}{\abs{E}}}\,\frac{k}{2\abs{E}}.
+	\]
+\end{remark}
+\noindent
+Il moto sarà pertanto descritto da
+\[
+	\r(t) = \r(t+T_0) \qquad\text{dove } t = \int_{\r_-}^{\r(t)} \frac{\dd\r}{\sqrt{\frac{2}{m}\big(E-V_{eff}(\r)\big)}} \text{ per }t_0\le t \le \frac{T_0}{2},
+\]
+che è risolubile esplicitamente utilizzando la strategia precedente.
+
+Per il moto angolare sfruttiamo la relazione di \(\dot{\q}\) con \(L\):
+\[
+	\dot{\q} = \frac{L}{m\,\r^2} \implies \q(t) = \int_0^t \frac{L}{m\,\r^2(s)}\,\dd s \graffito{supposto \(\q_0=0\)}.
+\]
+In questa forma la soluzione richiede una scrittura esplicita di \(\r(s)\) che non è conveniente.
+Aggiungiamo e togliamo \(\w_1\) all'integranda:
+\[
+	\q(t) = \int_0^t \left(\frac{L}{m\,\r^2(s)}-\w_1+\w_1\right)\,\dd s \qquad\text{dove }\w_1 = \frac{1}{T_0}\,\int_0^{T_0} \frac{L}{m\,\r^2(s)}\,\dd s,
+\]
+segue
+\[
+	\q(t) = \w_1 t + \int_0^t f(s)\,\dd s
+\]
+dove \(f\) è periodica a media nulla di periodo \(T_0\).
+
+Ricordiamo che il moto complessivo è periodico se il rapporto tra il periodo del moto radiale e quello associato alla pulsazione \(\w_1\) è razionalmente proporzionale.
+Per studiare cosa avviene nel nostro caso, è necessario calcolare \(T_1\). Sappiamo che
+\[
+	\frac{2\p}{T_1} = \w_1 = \frac{1}{T_0}\,\int_0^{T_0} \frac{L}{m\,\r^2(t)}\,\dd t = \frac{1}{T_0}\,2\int_0^{T_0/2} \frac{L}{m\,\r^2(t)}\,\dd t,
+\]
+effettuando la sostituzione \(\r=\r(t)\) e ricordando che
+\[
+	\dot{\r} = \frac{\dd \r}{\dd t} = \sqrt{\frac{2}{m}\big(E-V_{eff}(\r)\big)},
+\]
+si ottiene
+\[
+	\frac{2\p}{T_1} = \frac{1}{T_0}\,2 \int_{\r_-}^{\r_+} \frac{L}{m\,\r^2}\,\frac{\dd \r}{\sqrt{\frac{2}{m}\big(E-V_{eff}(\r)\big)}},
+\]
+da cui, eseguendo le stesse sostituzioni operate nel calcolo dell'integrale precedente si ottiene
+
+\begin{remark}{Rapporto dei periodi}{rapportoPeriodiGravitazionale}
+	\[
+		\frac{T_0}{T_1} = 1.
+	\]
+\end{remark}
+
+\section{Moto complessivo}
+
+Scegliamo come dati iniziali del moto
+\[
+	\r(0) = \r_- \qquad\text{e}\qquad \q(0) = 0.
+\]
+Nel paragrafo precedente abbiamo visto che il periodo del moto angolare coincide con quello del moto radiale, pertanto
+\[
+	\r \left( \frac{T_0}{2} \right) = \r_+ \qquad\text{e}\qquad \q \left( \frac{T_0}{2} \right) = \p.
+\]
+Il grafico qualitativo del moto complessivo sarà pertanto
+\[
+	\tikz[scale=1.5]{
+		\coordinate (P) at (0.78,0.57);
+		\draw[-latex] (-4,0) -- (3,0) node[above] {\(x'\)};
+		\draw[-latex] (0,-2) -- (0,2) node[right] {\(y'\)};
+		\draw[thick, compl] (-1,0) ellipse (2 and 1.25);
+		\fill (1,0) circle (0.03);
+		\draw[->] (0,0) -- (P);
+		\draw[->, thin] (-1.7,-0.2) -- (-2.96,-0.2);
+		\draw[->, thin] (-1.3,-0.2) -- (0,-0.2);
+		\draw (0:0.3) arc[radius=0.3, start angle=0, end angle=36.42];
+		\node[below right] at (1,0) {\(\r_-\)};
+		\node at (-1.5,-0.2) {\(\r_+\)};
+		\node[above] at (36.42:0.5) {\(\r\)};
+		\node at (18.21:0.4) {\(\q\)};
+	}
+\]
+Vorremmo mostrare che tale moto formi un'ellisse.
+Osserviamo che in questo caso è possibile scrivere \(\r=\r(\q)\), in quanto
+\[
+	\dot{\q} = \frac{L}{m\,\r^2} > 0,
+\]
+per cui \(\q(t)\) è strettamente crescente e di conseguenza invertibile. Scrivendo \(t=\q(t)\) è quindi possibile ottenere una scrittura di \(\r(\q)\). Ad esempio si potrebbe osservare
+\[
+	\frac{\dd\r}{\dd\q} = \frac{\dot{\r}}{\dot{\q}} = \pm \frac{\sqrt{\frac{2}{m}\big(E-V_{eff}(\r)\big)}}{\frac{L}{m\,\r^2}} \implies \dd\q = \pm \frac{L\,\dd\r}{m\,\r^2\,\sqrt{\frac{2}{m}\big(E-V_{eff}(\r)\big)}}
+\]
+ma il calcolo risulterebbe poco agevole.
+Procediamo in modo alternativo: definiamo
+\[
+	u(\q) = \frac{1}{\r(\q)}
+\]
+e calcoliamone derivata seconda.
+\[
+	\frac{\dd}{\dd\q}u(\q) = -\frac{1}{\r^2(\q)}\,\frac{\dd\r}{\dd\q} = -\frac{1}{\r^2(\q)}\,\frac{\dot{\r}}{\dot{\q}} = -\frac{m}{L}\,\dot{\r}; \graffito{dove \(\r^2(\q)\dot{\q}=\frac{L}{m}\)}
+\]
+da cui
+\[
+	\frac{\dd^2}{\dd\q^2}u(\q) = -\frac{m}{L}\,\frac{\dd}{\dd\q}\dot{\r}(t) = -\frac{m}{L}\,\frac{\dd}{\dd\q}\dot{\r}\big(t(\q)\big) = -\frac{m}{L}\,\ddot{\r}\,\frac{\dd t(\q)}{\dd \q},
+\]
+osservando che
+\[
+	\frac{\dd t(\q)}{\dd\q} = \frac{\dd \q^{-1}(t)}{\dd\q} = \frac{1}{\dot{\q}} \qquad\text{e}\qquad m\,\ddot{\r} = -V_{eff}'(\r),
+\]
+si ottiene
+\[
+	\begin{split}
+		\frac{\dd^2}{\dd\q^2}u(\q) & = \frac{V_{eff}'(\r)}{L\,\dot{\q}} = \frac{V_{eff}'(\r)}{\frac{L^2}{m\,\r^2}} = \frac{m\,\r^2}{L^2}\,\left( \frac{k}{\r^2}-\frac{L^2}{m\,\r^3} \right) = \frac{m\,k}{L^2}-\frac{1}{\r}\\
+		& = \frac{m\,k}{L^2}-u(\q).
+	\end{split}
+\]
+Posto 
+\[
+	u_0 = \frac{1}{\r_0} = \frac{m\,k}{L^2} \implies \frac{\dd^2}{\dd\q^2}u(\q) = u_0-u(\q).
+\]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 31/03/2017 - QUINTA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Questa espressione è facilmente risolubile in quanto corrisponde all'equazione dell'oscillatore armonico, pertanto
+\[
+	u(\q) = u_0+A\,\cos(\q+\j).
+\]
+In particolare, in corrispondenza dei punti iniziali da noi scelti, avremo \(\j=0\) e \(A>0\), da cui
+\[
+	u(\q) = u_0+A\,\cos\q.
+\]
+Inoltre
+\[
+	\frac{1}{\r_-} = u(0) = u_0+A \qquad\text{e}\qquad \frac{1}{\r_+} = u(\p) = u_0-A,
+\]
+da cui
+\[
+	0 < A < u_0 \implies A = u_0 e \qquad\text{con } 0 < e < 1.
+\]
+Riepilogando
+\[
+	u(\q) = u_0(1+e\,\cos\q) \iff \frac{1}{\r(\q)} = \frac{1}{\r_0}\,(1+e\,\cos\q),
+\]
+quindi
+
+\begin{remark}{Equazione della traiettoria}{equazioneTraiettoriaGravitazionale}
+	\[
+		\r(\q) = \frac{\r_0}{1+e\,\cos\q}.
+	\]
+\end{remark}
+
+\begin{oss}
+	La costante \(e\) può essere scritta esplicitamente osservando che
+	\[
+		\r_- = \r(0) = \frac{\r_0}{1+e} \qquad\text{oppure}\qquad \r_+ = \r(\p) = \frac{\r_0}{1-e}
+	\]
+\end{oss}
+\noindent
+Mostriamo ora che l'espressione d \(\r(\q)\) è quella di un'ellisse in coordinate polari di eccentricità \(e\) centrata in uno dei due fuochi:
+\[
+	\tikz[scale=1.5]{
+		\coordinate (P) at (0.78,0.57);
+		\draw[-latex] (-4,0) -- (3,0) node[above] {\(x'\)};
+		\draw[-latex] (0,-2) -- (0,2) node[right] {\(y'\)};
+		\draw[thick, compl] (-1,0) ellipse (2 and 1.25);
+		\fill (1,0) circle (0.03);
+		\fill (-2,0) circle (0.03);
+		\draw[->] (0,0) -- (P);
+		\draw[->] (-2,0) -- (P) node[pos=0.5, yshift=6] {\(\r'\)};
+		\draw[->, thin] (-1.7,-0.2) -- (-2.96,-0.2);
+		\draw[->, thin] (-1.3,-0.2) -- (0,-0.2);
+		\draw[->, thin] (-2.7, -0.4) -- (-2.96, -0.4);
+		\draw[->, thin] (-2.3, -0.4) -- (-2, -0.4);
+		\draw (0:0.3) arc[radius=0.3, start angle=0, end angle=36.42];
+		\node[below right] at (1,0) {\(\r_-\)};
+		\node at (-1.5,-0.2) {\(\r_+\)};
+		\node at (28:0.7) {\(\r\)};
+		\node[font=\footnotesize] at (18.21:0.4) {\(\q\)};
+		\node at (-2.5,-0.4) {\(\r_-\)};
+		\node[above] at (-2,0) {\(F'\)};
+		\node[below right] at (0,0) {\(O\equiv F\)};
+	}
+\]
+Per verificarlo, mostriamo che la somma delle distanze \(\r,\r'\) dai due fuochi \(F,F'\) si mantiene costante.
+Per pitagora
+\[
+	\r' = \sqrt{(\abs{\overline{OF'}}+\r\,\cos\q)^2+\r^2\sin^2\q}.
+\]
+Osservando che
+\[
+	F'=(-\r_+ + \r_-, 0) \qquad\text{e}\qquad \r_+-\r_- = \r_0 \left( \frac{1}{1-e} - \frac{1}{1+e} \right) = \frac{2e}{1-e^2}\,\r_0,
+\]
+si ottiene
+\[
+	\begin{split}
+		\r' & = \sqrt{(\r_+-\r_-+\r\,\cos\q)^2+\r^2\sin^2\q} = \sqrt{\frac{4\r_0^2 e^2}{(1-e^2)^2}+\frac{4e}{1-e^2}\,\r_0 \r(\q)\,\cos\q + \r^2(\q)}\\
+		& = \sqrt{\frac{4e^2}{(1-e^2)^2}\,\r_0^2+ \frac{4e}{1-e^2}\,\r_0^2 \frac{\cos\q}{1+e\,\cos\q} + \frac{\r_0^2}{(1+e\,\cos\q)^2}}\\
+		& = \r_0\,\sqrt{\frac{4e^2}{(1-e^2)^2}+ \frac{4}{1-e^2}\, \frac{-1+1\cos\q}{1+e\,\cos\q} + \frac{1}{(1+e\,\cos\q)^2}}\\
+		& = \r_0\,\sqrt{\frac{4e^2}{(1-e^2)^2}+ \frac{4}{1-e^2}- \frac{4}{1-e^2}\,\frac{1}{1+e\,\cos\q}+ \frac{1}{(1+e\,\cos\q)^2}},
+	\end{split}
+\]
+dove
+\[
+	\frac{4e^2}{(1-e^2)^2} + \frac{4}{1-e^2} = \frac{4e^2+4(1-e^2)}{(1-e^2)^2} = \frac{4}{(1-e^2)^2},
+\]
+da cui
+\[
+	\r' = \r_0 \,\sqrt{\frac{4}{(1-e^2)^2}-\frac{4}{1-e^2}\,\frac{1}{1+e\,\cos\q} + \frac{1}{(1+e\,\cos\q)^2}} = \r_0\,\abs*{\frac{2}{1-e^2}-\frac{1}{1+e\,\cos\q}}.
+\]
+Osserviamo che il segno del modulo è costante, infatti
+\[
+	\frac{2}{1-e^2} > \max_{\q} \frac{1}{1+e\,\cos\q} = \frac{1}{1-e} \iff \frac{2(1-e)}{(1-e)(1+e)} > 1 \iff 2>1+e \iff e < 1
+\]
+che è vero per costruzione. Pertanto
+\[
+	p'(\q) = p_0\, \left( \frac{2}{1-e^2}-\frac{1}{1+e\,\cos\q} \right) = \frac{2\r_0}{1-e^2} - \r(\q),
+\]
+ovvero
+
+\begin{remark}{Somma delle distanze dai fuochi}{sommaDistanzeFuochiGravitazionale}
+	\[
+		\r(\q) + \r'(\q) = \frac{2\r_0}{1-e^2} = \r_+ + \r_- = cost.
+	\]
+\end{remark}
+\noindent
+Quindi la traiettoria descrive un'ellisse di semiasse maggiore
+\[
+	a = \frac{\r_++\r_-}{2} = \frac{\r_0}{1-e^2} = \frac{k}{2\abs{E}},
+\]
+e semiasse minore
+\[
+	b = \sqrt{\left( \frac{\r_++\r_-}{2} \right)^2 - \left( \frac{\r_+ - \r_-}{2} \right)^2} = \sqrt{\r_+ \r_-} = \frac{L}{\sqrt{2m\,\abs{E}}}.
+\]
+
+\section{Leggi di Keplero}
+
+Tramite i risultati ottenuti nei precedenti paragrafi possiamo dimostrare le tre leggi di Keplero
+
+\begin{teor}{Prima legge di Keplero}{primaLeggeKeplero}
+	Ogni pianeta, nel suo moto attorno al sole, descrive una traiettoria ellittica, con il solo coincidente con uno dei suoi due fuochi.
+\end{teor}
+
+\begin{proof}
+	Vedi paragrafo precedente.
+\end{proof}
+
+\begin{teor}{Seconda legge di Keplero}{secondaLeggeKeplero}
+	Il moto di ogni pianeta si svolge sulla sua traiettoria ellittica in modo tale che la sua velocità areolare sia costante.
+\end{teor}
+
+\begin{proof}
+	La velocità areolare corrisponde  alla variazione di area attraversata nel tempo. Se consideriamo il vettore posizione in coordinate polari, avremo
+	\[
+		\vec{r}(t) = \r(t)\, 	\begin{pmatrix}
+			\cos\q(t) \\
+			\sin\q(t) \\
+			0	
+		\end{pmatrix} \qquad\text{e}\qquad
+		\vec{r}(t+\dd t) = \r(t+\dd t)\, 	\begin{pmatrix}
+			\cos\q(t+\dd t) \\
+			\sin\q(t+\dd t) \\
+			0	
+		\end{pmatrix}
+	\]
+	Per cui la porzione infinitesima di area sarà data da
+	\[
+		\dd A = \frac{1}{2} \abs{\vec{r}(t) \wedge \vec{r}(t+\dd t)}.
+	\]
+	Tramite la definizione di differenziale avremo
+	\[
+		\vec{r}(t+\dd t) = \vec{r}(t) +\dot{\vec{r}}(t)\,\dd t = \r\,\hat{e}_r + \dd t\,(\dot{\r}\,\hat{e}_r + \r\,\dot{\q}\,\hat{e}_t),
+	\]
+	dove abbiamo trascurato gli infinitesimi di ordine superiore. Per cui
+	\[
+		\dd A = \frac{1}{2} \abs{\r\,\hat{e}_r \wedge (\r\,\hat{e}_r + \dot{\r}\,\dd t\,\hat{e}_r + \r\,\dot{\q}\,\dd t\,\hat{e}_t)} = \frac{1}{2}\abs{\r^2\dot{\q}\,\dd t \hat{L}} = \frac{1}{2}\,\r^2\,\dot{\q}\,\dd t.
+	\]
+	Quindi la velocità areolare sarà
+	\[
+		\frac{\dd A}{\dd t} = \frac{1}{2}\,\frac{\r^2\,\dd \q}{\dd t} = \frac{1}{2}\,\r^2\,\dot{\q} = \frac{1}{2m}\,L,
+	\]
+	che è costante
+\end{proof}
+
+\begin{teor}{Terza legge di Keplero}{terzaLeggeKeplero}
+	Il periodo di rivoluzione del pianeta attorno al sole è proporzionale al semiasse maggiore della traiettoria ellittica. In particolare
+	\[
+		T^2 \propto a^3.
+	\]
+\end{teor}
+
+\begin{proof}
+	Nei paragrafi precedenti abbiamo fornito una scrittura esplicita sia per il periodo che per il semiasse maggiore, in particolare
+	\[
+		T = \p\,\sqrt{\frac{2m}{\abs{E}}}\,\frac{k}{2\abs{E}} \qquad\text{e}\qquad a = \frac{k}{2\abs{E}}.
+	\]
+	Da cui
+	\[
+		\frac{T^2}{a^3} = \frac{\p^2 k^2 m}{2\abs{E}^3}\,\frac{8\abs{E}^3}{k^3} = 4\p^2\,\frac{m}{k}.
+	\]
+	Ricordando inoltre
+	\[
+		k = G\,M_S\,m_P \qquad\text{e}\qquad m = \frac{M_S m_P}{M_S+m_P} \simeq m_P,
+	\]
+	avremo infine
+	\[
+		\frac{T^2}{a^3} = 4\p^2\,\frac{m}{k} \simeq 4\p^2\,\frac{m_P}{G\,M_s\,m_P} = \frac{4\p^2}{G\,M_S}.\qedhere
+	\]
+\end{proof}

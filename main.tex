@@ -1,0 +1,40 @@
+\documentclass[10pt,a4paper,twoside,headinclude,footinclude,color]{./latex-notes-cls/edoars-notes}
+\graphicspath{ {Immagini/} }
+
+\hypersetup{pdfauthor={Edoardo Signorini},
+            pdftitle={Meccanica Analitica},
+            pdfcreator={Latex with hyperref}}
+
+\begin{document}
+%MATERIALE INIZIALE
+\input{MaterialeInizialeFinale/titolo}
+\tableofcontents
+
+%MATERIALE PRINCIPALE
+%parte I
+\part{Introduzione}
+\input{Capitoli/parte1/chap1}
+\input{Capitoli/parte1/chap2}
+%parte II
+\part{Analisi qualitativa del moto}
+\input{Capitoli/parte2/chap1}
+\input{Capitoli/parte2/chap2}
+\input{Capitoli/parte2/chap3}
+%parte III
+\part{Meccanica Lagrangiana}
+\input{Capitoli/parte3/chap1}
+\input{Capitoli/parte3/chap2}
+\input{Capitoli/parte3/chap3}
+%parte IV
+\part{Cambiamenti di sistemi di riferimento e corpo rigido}
+\input{Capitoli/parte4/chap1}
+\input{Capitoli/parte4/chap2}
+%parte V
+\part{Meccanica Hamiltoniana}
+\input{Capitoli/parte5/chap1}
+\input{Capitoli/parte5/chap2}
+
+%MATERIALE FINALE
+\addcontentsline{toc}{chapter}{Indice analitico}
+\printindex
+\end{document}

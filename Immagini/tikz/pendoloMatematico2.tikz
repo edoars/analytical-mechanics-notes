@@ -1,0 +1,21 @@
+%!TEX root = ../../main.tex
+\tikz[baseline=-2.5cm, scale=2]{
+	\coordinate (O) at (0,0);
+
+	\draw[dashed, help lines] (O) -- (0, -1.5);
+	\draw (O) -- (-60:1.5);
+	\draw[dashed, help lines] (230:1.5) arc[radius=1.5, start angle=230, end angle= 300];
+	\draw (270:0.3) arc (270:300:0.3);
+	\draw[dashed] (-60:1.5) -- ++ (0,-1);
+	\draw[dashed] (-60:1.5) -- ++ (1, 0);
+	\draw[->, thick] (-60:1.5) -- (-60:2.5);
+	\draw[->, thick] (-60:1.5) -- ++ (30:1);
+	\draw ([shift={(-60:1.5)}]270:0.3) arc[radius=0.3, start angle=270, end angle= 300];
+	\draw ([shift={(-60:1.5)}]0:0.3) arc[radius=0.3, start angle=0, end angle= 30];
+
+	\node at (-75:0.5) {\(\q\)};
+	\node at ($(-60:1.5) + (15:0.5)$) {\(\q\)};
+	\node at ($(-60:1.5) + (-75:0.5)$) {\(\q\)};
+	\node[right] at (-60:2.5) {\(\hat{e}_r\)};
+	\node[above] at ($(-60:1.5) + (30:1)$) {\(\hat{e}_t\)};
+}

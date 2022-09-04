@@ -1,0 +1,26 @@
+%!TEX root = ../../main.tex
+\tikz{
+	\coordinate (O) at (0,0);
+	\coordinate (O') at (7,2);
+	\coordinate (P) at (3,2);
+
+	\draw[-latex, thick, contrast] (O) -- (-2.83,-2.83) node[black, below] {\(\hat{e}_1\)};
+	\draw[-latex, thick, contrast] (O) -- (4,0) node[black, below] {\(\hat{e}_2\)};
+	\draw[-latex, thick, contrast] (O) -- (0,4) node[black, right] {\(\hat{e}_3\)};
+
+	\draw[-latex, thick, compl] (O') -- (8.04,-1.86) node[black, left] {\(\hat{\h}_1\)};
+	\draw[-latex, thick, compl] (O') -- (9,5.46) node[black, below right] {\(\hat{\h}_2\)};
+	\draw[-latex, thick, compl] (O') -- (4.46,4) node[black, above right] {\(\hat{\h}_3\)};	
+
+	\draw[->] (O) -- (P) node[pos=0.5, above] {\(\vec{q}\)};
+	\draw[->] (O') -- (P) node[pos=0.5, above] {\(\vec{Q}\)};
+	\draw[->] (O) -- (O') node[pos=0.5, above] {\(\vec{r}\)};
+
+	\fill (P) circle (0.03);
+
+	\node[below] at (O) {\(O\)};
+	\node[right] at (O') {\(O'\)};
+	\node[above] at (P) {\(P\)};
+	\node[font=\large, contrast] at (-2.83,4) {\(k\)};
+	\node[font=\large, compl] at (9,4) {\(K\)};
+}

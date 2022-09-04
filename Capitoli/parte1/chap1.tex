@@ -1,0 +1,273 @@
+%!TEX root = ../../main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 01/03/2017 - PRIMA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Le equazioni della meccanica e la conservazione dell'energia}
+\section{Equazioni di Newton}
+
+In questo corso studieremo le equazioni del moto classiche nei casi non relativistici.
+L'espressione alla base dei principali problemi che affronteremo è data dalla seconda legge della meccanica:
+\[
+	\vec{F} = m\,\vec{a} = m\,\ddot{\vec{x}}(t).
+\]
+Idealmente, vorremmo essere in grado di risolvere un problema costituito da \(N\) masse puntiformi in \(\R^3\).
+Se indichiamo le masse con \(m_1, \ldots, m_N\) e le coordinate con \(\vec{x}_1, \ldots, \vec{x}_N\in\R^3\), dove assumiamo la dipendenza dal tempo \(\vec{x}=\vec{x}(t)\), otteniamo il sistema
+\[
+	\left\{\begin{aligned}
+		m_1 \ddot{\vec{x}}_1 & = \vec{F}_1\big(\vec{x}_1,\ldots,\vec{x}_N, \dot{\vec{x}}_1, \ldots, \dot{\vec{x}}_N, t\big) \\
+		                     & \vdots                                                                                       \\
+		m_N \ddot{\vec{x}}_N & = \vec{F}_N\big(\vec{x}_1,\ldots,\vec{x}_N, \dot{\vec{x}}_1, \ldots, \dot{\vec{x}}_N, t\big)
+	\end{aligned}\right.
+\]
+Questo problema risulta fin troppo generale. Tipicamente l'espressione della forza sarà data dalla sovrapposizione di una forza esterna, di quelle interne ed eventualmente di un attrito.
+Avremo quindi:
+\[
+	\vec{F}_i\big(\vec{x}_1,\ldots,\vec{x}_N, \dot{\vec{x}}_1, \ldots, \dot{\vec{x}}_N, t\big) = \vec{\j}_i\big(\vec{x}_i,t\big) + \sum_{j\neq i} \vec{f}_{i\,j}\big(\vec{x}_i - \vec{x}_j\big) - \g\,\dot{\vec{x}}_i.
+\]
+Osserviamo che per \(N\ge 3\), anche per espressioni semplici di \(\vec{\j}\) e \(\vec{f}\), questi sistemi non sono risolubili, né esplicitamente né qualitativamente.
+
+In questo corso studieremo alcuni casi particolari del problema generale con una struttura particolarmente semplice \((N=1,2)\). In questi casi saremo in grado di scrivere la soluzione in forma esplicita.
+Introdurremo, inoltre, metodi analitici di trattazione della meccanica; i quali sono alla base di ulteriori sviluppi che permettono di trattare i casi non risolubili.
+
+\begin{notz}
+	I casi in cui è possibile esibire una soluzione esplicita si dicono \emph{integrabili}.
+\end{notz}
+
+\section{Forze conservative e indipendenti dal tempo}
+
+Nel caso di forze posizionali e indipendenti dal tempo, il problema generale diventa:
+\[
+	\left\{\begin{aligned}
+		m_1 \ddot{\vec{x}}_1 & = \vec{F}_1\big(\vec{x}_1,\ldots,\vec{x}_N\big)  \\
+		                     & \vdots                                           \\
+		m_N \ddot{\vec{x}}_N & = \vec{F}_N\big(\vec{x}_1,\ldots,\vec{x}_N,\big)
+	\end{aligned}\right.
+\]
+Ricordiamo che una forza si dice \emph{conservativa} se esiste una funzione scalare
+\[
+	U\colon \R^{3N} \to \R,
+\]
+detta \emph{energia potenziale}, tale che
+\[
+	\vec{F}_i \big(\vec{x}_1, \ldots, \vec{x}_N\big) = - \frac{\pd}{\pd\vec{x}_i} U\big(\vec{x}_1, \ldots, \vec{x}_N\big).
+\]
+
+\begin{defn}{Sistema di forze conservative}{sistemaForzeConservative}\index{Sitema!di forze conservative}
+	Un sistema di forze \(\vec{F}=\big(\vec{F}_1, \ldots, \vec{F}_N\big)\) si dice \emph{conservativo}, se tutte le componenti \(\vec{F}_i\) sono conservative.
+\end{defn}
+
+Da questo momento, allo scopo di alleggerire la notazione, introduciamo le matrici delle posizioni e delle forze
+\[
+	\vec{R} = \begin{pmatrix}\vec{x}_1\\\vdots\\\vec{x}_N\end{pmatrix}\in\R^n, n = 3N \qquad\qquad
+	\vec{F}\big(\vec{R}\big) = \begin{pmatrix}\vec{F}_1\big(\vec{x}_1, \ldots, \vec{x}_N\big)\\\vdots\\\vec{F}_N\big(\vec{x}_1, \ldots, \vec{x}_N\big)\end{pmatrix}
+\]
+e quella delle masse
+\[
+	M = \left( \begin{array}{ccccccc}
+			m_1    & \hfill        & \hfill & \hfill & \hfill & \hfill        & \hfill \\
+			\hfill & m_1           & \hfill & \hfill & \hfill & \text{\huge0} & \hfill \\
+			\hfill & \hfill        & m_1    & \hfill & \hfill & \hfill        & \hfill \\
+			\hfill & \hfill        & \hfill & \ddots & \hfill & \hfill        & \hfill \\
+			\hfill & \hfill        & \hfill & \hfill & m_N    & \hfill        & \hfill \\
+			\hfill & \text{\huge0} & \hfill & \hfill & \hfill & m_N           & \hfill \\
+			\hfill & \hfill        & \hfill & \hfill & \hfill & \hfill        & m_N    \\
+		\end{array} \right)
+\]
+Con queste notazioni, il problema generale nel caso di forze conservative e indipendenti dal tempo diventa
+\[
+	M\,\ddot{\vec{R}} = \vec{F}\big(\vec{R}\big) = -\frac{\pd}{\pd\vec{R}}U\big(\vec{R}\big).
+\]
+Risulta di particolare interesse fornire delle condizioni per cui la forza \(\vec{F}\big(\vec{R}\big)\) risulti conservativa.
+
+\begin{teor}{Caratterizzazione delle forze conservative}{caratterizzazioneForzeConservative}
+	Una forza \(\vec{F}\big(\vec{R}\big)\) è conservativa se e soltanto se il lavoro di \(\vec{F}\) lungo una qualsiasi curva \(\vec{\g}(t)\) dipende solo dagli estremi.
+\end{teor}
+
+\begin{proof}
+	Vedi AM220 (\emph{Caratterizzazione delle forme esatte}, p. 75).
+\end{proof}
+
+\begin{oss}
+	Equivalentemente \(\vec{F}\) risulta conservativa se e solo se il lavoro di \(\vec{F}\) lungo una qualsiasi curva chiusa è nullo.
+\end{oss}
+
+Questa caratterizzazione, pur fornendo una condizione necessaria e sufficiente, non è pratica per valutare se \(\vec{F}\) sia effettivamente conservativo.
+Un metodo alternativo sfrutta la teoria delle forme differenziali esatte e in particolare il Lemma di Poincarè.
+Si dimostra infatti che l'integrale di linea di \(\vec{F}\sdot\dd\vec{R}\) dipende solo dagli estremi se e soltanto se \(\vec{F}\sdot\dd\vec{R}\) è esatta, da cui segue che \(\vec{F}\sdot\dd\vec{R}\) è chiusa.
+Per un teorema di AM220 (\emph{Lemma di Poincarè}, p. 77), se il dominio è semplicemente connesso, allora
+\[
+	\vec{F}\sdot\dd\vec{R} \text{ è esatta }\iff \vec{F}\sdot\dd\vec{R} \text{ è chiusa}.
+\]
+Ciò significa che, nel caso di un dominio semplicemente connesso, \(\vec{F}\) è conservativo se e soltanto se
+\[
+	\frac{\pd F_i}{\pd R_j}\big(\vec{R}\big) = \frac{\pd F_j}{\pd R_i}\big(\vec{R}\big),\,\fa i,j\in\{1,\ldots,N\}.
+\]
+
+\begin{ese}[Oscillatore armonico]
+	Prendiamo \(\vec{x}\in\R^3\) e consideriamo un oscillatore armonico, governato dalla legge
+	\[
+		m\,\ddot{\vec{x}} = -k\,\vec{x}.
+	\]
+	L'espressione della forza è quindi dato da \(\vec{F}\big(\vec{x}\big)=-k\,\vec{x}\).
+	Il dominio è semplicemente connesso, quindi possiamo dimostrare che \(\vec{F}\) è conservativa verificando che è chiusa:
+	\[
+		\frac{\pd F_i}{\pd x_j} = -k\,\d_{i,j} = \frac{\pd F_j}{\pd x_i}.
+	\]
+	Quindi \(\vec{F}\) è conservativa. In questo caso l'espressione di \(U\) è semplice da ottenere ed è data da
+	\[
+		U\big(\vec{x}\big) = \frac{1}{2}k\,\vec{x}^2 \implies -\frac{\pd}{\pd\vec{x}}U\big(\vec{x}\big) = -k\,\vec{x}.
+	\]
+\end{ese}
+
+\begin{ese}[Forza gravitazionale]
+	Prendiamo \(\vec{x}\in\R^3\) e consideriamo l'espressione della forza gravitazionale:
+	\[
+		\vec{F}\big(\vec{x}\big) = - \frac{G\,M\,m}{\abs{\vec{x}}^2}\,\hat{x} = -\frac{G\,M\,m}{\abs{\vec{x}}^3}\,\vec{x} \implies F_i = -G\,M\,m\, \frac{x_i}{\abs{\vec{x}}^3}\graffito{\(\hat{x}=\vec{x}/\abs{\vec{x}}\)}
+	\]
+	Verifichiamo che \(\vec{F}\) sia chiusa:
+	\[
+		\begin{split}
+			\frac{\pd F_i}{\pd x_j} & = -G\,M\,m\, \frac{\pd}{\pd x_j} \left( \frac{x_i}{\abs{\vec{x}}^3} \right) = -G\,M\,m\,\left( \frac{\d_{i,j}\abs{\vec{x}}^3-x_i \pd_{x_j}\abs{\vec{x}}^3}{\abs{\vec{x}}^6} \right)\\
+			& = -G\,M\,m\, \left( \frac{\d_{i,j}}{\abs{\vec{x}}^3} - \frac{3x_i}{\abs{\vec{x}}^4} \frac{\pd\abs{\vec{x}}}{\pd x_j} \right).
+		\end{split}
+	\]
+	Ora
+	\[
+		\frac{\pd\abs{\vec{x}}}{\pd x_j} = \frac{\pd\sqrt{x_1^2+x_2^2+x_3^2}}{\pd x_j} = \frac{2 x_j}{2\sqrt{x_1^2+x_2^2+x_3^2}} = \frac{x_j}{\abs{\vec{x}}} = \hat{x}_j.
+	\]
+	Da cui
+	\[
+		\frac{\pd F_i}{\pd x_j} = -G\,M\,m\, \left( \frac{\d_{i,j}}{\abs{\vec{x}}^3} - \frac{3x_i x_j}{\abs{\vec{x}}^5} \right) = \frac{\pd F_j}{\pd x_i}.
+	\]
+	Quindi \(\vec{F}\) è conservativo.
+\end{ese}
+
+\begin{ese}[Forza non conservativa]
+	Prendiamo \(\vec{x}\in \R^2\setminus\{\vec{0}\}\) con \(\vec{x}=(x,y)\) e consideriamo la seguente forza:
+	\[
+		\vec{F}\big(\vec{x}\big) = \begin{pmatrix}-\a\, \frac{y}{x^2+y^2}\\\a\,\frac{x}{x^2+y^2}\end{pmatrix}.
+	\]
+	Osserviamo che tale forza risulta chiusa, infatti:
+	\[
+		\frac{\pd F_x}{\pd y} = -\a\,\frac{\pd}{\pd y}\left( \frac{y}{x^2+y^2} \right) = -\a\,\frac{x^2-y^2}{(x^2+y^2)^2},
+	\]
+	e
+	\[
+		\frac{\pd F_y}{\pd x} = \a\,\frac{\pd}{\pd x}\left( \frac{x}{x^2+y^2} \right) = -\a\,\frac{x^2-y^2}{(x^2+y^2)^2}.
+	\]
+	D'altronde, non essendo \(\R^2\setminus\{\vec{0}\}\) semplicemente connesso, ciò non implica che \(\vec{F}\) sia conservativa. Mostriamo che non lo è esibendo una curva chiusa su cui otteniamo un integrale non nullo di \(\vec{F}\).
+	Consideriamo la seguente curva non riducibile:
+	\[
+		\vec{\g}(t)\colon [0,2\p] \longrightarrow \R^2, t \longmapsto \begin{pmatrix}\cos t\\\sin t\end{pmatrix}.
+	\]
+	Da cui
+	\[
+		\begin{split}
+			\oint\limits_\g \vec{F}\sdot\dd \vec{x} & = \int_0^{2\p} \begin{pmatrix}-\a\,\sin t\\\a\,\cos t\end{pmatrix} \sdot \begin{pmatrix}-\sin t\\\cos t\end{pmatrix} \,\dd t = \int_0^{2\p}(\a\,\sin^2 t + \a\,\cos^2 t)\,\dd t\\
+			& = \a \int_0^{2\p}\, \dd t = a\,2\p \neq 0.
+		\end{split}
+	\]
+\end{ese}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 03/03/2017 - PRIMA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conservazione dell'energia meccanica}
+
+\begin{defn}{Energia meccanica}{energiaMeccanica}\index{Energia meccanica}
+	Definiamo l'\emph{energia meccanica} \(H\) come la somma delle energie cinetiche e di quella potenziale:
+	\[
+		H\big(\vec{x}_1,\ldots,\vec{x}_n, \dot{\vec{x}}_1, \ldots, \dot{\vec{x}}_N\big) := \sum_{i=1}^N \frac{1}{2}\,m_i\,\abs{\dot{\vec{x}}_i}^2 + U\big(\vec{x}_1,\ldots,\vec{x}_N\big).
+	\]
+\end{defn}
+
+\begin{oss}
+	In forma sintetica avremo
+	\[
+		H \big( \vec{R},\dot{\vec{R}} \big) = \frac{1}{2}\,\dot{\vec{R}}\sdot \big( M\,\dot{\vec{R}} \big) + U \big( \vec{R} \big).
+	\]
+\end{oss}
+
+\begin{teor}{Conservazione energia meccanica}{conservazioneEnergiaMeccanica}
+	L'energia meccanica \(H\) è una grandezza conservata per il sistema di equazioni \(M\,\ddot{\vec{R}} = -\pd_{\vec{R}}U \big( \vec{R} \big)\), ovvero
+	\[
+		\frac{\dd}{\dd t}H \big( \vec{R}(t),\dot{\vec{R}}(t) \big) = 0
+	\]
+	per ogni \(\vec{R}(t)\) soluzione del sistema.
+\end{teor}
+
+\begin{proof}
+	Supponiamo che \(\vec{R}(t)\) sia soluzione del sistema e mostriamo esplicitamente che la derivata totale di \(H\) è nulla.
+	\[
+		\frac{\dd}{\dd t} H\big(\vec{R}(t),\dot{\vec{R}}(t)\big) = \frac{\pd}{\pd \vec{R}}H\big(\vec{R}(t),\dot{\vec{R}}(t)\big) \sdot \dot{\vec{R}}(t) + \frac{\pd}{\pd \dot{\vec{R}}} H\big(\vec{R}(t),\dot{\vec{R}}(t)\big) \sdot \ddot{\vec{R}}(t).
+	\]
+	Ora, per definizione di energia meccanica,
+	\[
+		\frac{\pd H}{\pd \vec{R}} = \frac{\pd U}{\pd \vec{R}} \qquad\text{e}\qquad \frac{\pd H}{\pd \dot{\vec{R}}} = M\,\dot{\vec{R}}.
+	\]
+	Quindi
+	\[
+		\begin{split}
+			\frac{\dd}{\dd t} H\big(\vec{R}(t),\dot{\vec{R}}(t)\big) &= \frac{\pd}{\pd \vec{R}} U\big(\vec{R}(t)\big) \sdot \dot{\vec{R}}(t) + \big(M\,\dot{\vec{R}}(t)\big)\sdot \ddot{\vec{R}}(t) = \frac{\pd}{\pd \vec{R}} U\big(\vec{R}(t)\big) \sdot \dot{\vec{R}}(t) + \dot{\vec{R}}(t)\sdot \big(M\,\ddot{\vec{R}}(t)\big) \graffito{\(M\) è una matrice simmetrica}\\
+			& = \dot{\vec{R}}(t) \sdot \bigg[ M\,\ddot{\vec{R}}(t) + \frac{\pd}{\pd \vec{R}} U\big(\vec{R}(t)\big)\bigg] = 0
+		\end{split}
+	\]
+	in quanto \(\vec{R}(t)\) è per ipotesi soluzione del sistema e si ha pertanto
+	\[
+		M\,\ddot{\vec{R}}(t) = -\frac{\pd}{\pd \vec{R}}U\big(\vec{R}(t)\big).\qedhere
+	\]
+\end{proof}
+
+\begin{notz}
+	Diremo anche che \(H\) è un \emph{integrale primo} del nostro sistema, ovvero una funzione differenziabile con continuità che resta costante lungo le soluzioni del problema.
+\end{notz}
+
+\begin{oss}
+	Se in un sistema vi sono un numero sufficiente di integrali primi, spesso è possibile risolvere esplicitamente il problema.
+\end{oss}
+
+Concludiamo il capitolo con alcuni esempi banali ma comunque importanti.
+Per semplicità di notazione, adotteremo il seguente simbolismo per i dati iniziali:
+\[
+	\vec{R}_0 := \vec{R}(0) \qquad\text{e}\qquad \vec{V}_0 := \dot{\vec{R}}(0).
+\]
+
+\begin{ese}[Moto rettilineo uniforme]
+	In assenza di forze il sistema è
+	\[
+		M\,\ddot{\vec{R}} = \vec{0}.
+	\]
+	In tal caso la soluzione è chiaramente
+	\[
+		\vec{R}(t) = \vec{R}_0 + \vec{V}_0 t.
+	\]
+\end{ese}
+
+\begin{ese}[Moto accelerato uniforme]
+	Consideriamo un sistema in cui la forza \(\vec{F}_0\) è costante e indipendente da \(\vec{R}\):
+	\[
+		M\,\ddot{\vec{R}} = \vec{F}_0.
+	\]
+	Anche in questo caso la soluzione si ottiene banalmente
+	\[
+		\vec{R}(t) = \vec{R}_0 + \vec{V}_0 t + \frac{1}{2}\,M^{-1}\vec{F}_0 t^2.
+	\]
+\end{ese}
+
+\begin{ese}[Oscillatore armonico]
+	Consideriamo l'equazione dell'oscillatore armonico
+	\[
+		M\,\ddot{\vec{R}} = - k\,\vec{R}.
+	\]
+	Le varie equazioni sono indipendenti dalle altre, per semplicità possiamo quindi considerare una singola componente:
+	\[
+		M_{ii}\ddot{R}_i = -k\,R_i \implies \ddot{R}_i = -\frac{k}{M_{ii}}\,R_i = -\w_i^2 R_i,
+	\]
+	che è una equazione differenziale di facile risoluzione. Esplicitamente
+	\[
+		R_i(t) = R_i(0)\cos(\w_i t) + \frac{\dot{R}_i(t)}{\w_i}\sin(\w_i t).
+	\]
+\end{ese}

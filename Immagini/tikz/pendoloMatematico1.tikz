@@ -1,0 +1,24 @@
+%!TEX root = ../../main.tex
+\tikz[baseline=-0.5cm, scale=1.5]{
+	\coordinate (O) at (0,0);
+	\coordinate (M) at (-60:2);
+	\draw [-latex, thick, gray] (O) -- (1,0);
+	\draw [-latex, thick, gray] (O) -- (0,1);
+
+	\draw[dashed, help lines] (O) -- (0, -2);
+	\draw (O) -- (-60:2);
+	\draw[dashed, help lines] (235:2) arc[radius=2, start angle=235, end angle= 305];
+	\draw (270:0.3) arc (270:300:0.3);
+	\draw[->, thick] (M) -- (-60:1.5);
+	\draw[->, thick] (M) -- ++ (0, -0.5);
+
+	\fill (M) circle (0.03);
+
+	\node[above, font=\footnotesize, gray] at (1,0) {\(x\)};
+	\node[right, font=\footnotesize, gray] at (0,1) {\(y\)};
+	\node at (-75:0.45) {\(\q\)};
+	\node[left] at (-60:1) {\(l\)};
+	\node[left] at (-60:2) {\(m\)};
+	\node[right] at ($(-60:2) + (0,-0.5)$) {\(m\,\vec{g}\)};
+	\node[above right] at (-60:1.5) {\(\vec{T}\)};
+}

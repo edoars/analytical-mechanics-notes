@@ -1,0 +1,444 @@
+%!TEX root = ../../main.tex
+\chapter{Formalismo hamiltoniano}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 15/05/2017 - UNDICESIMA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduzione}
+
+La meccanica hamiltoniana è una riformulazione della meccanica classica introdotta nel 1833 da William Rowan Hamilton a partire dalla meccanica lagrangiana, descritta inizialmente da Joseph-Louis Lagrange nel 1788.
+La dinamica di un sistema fisico è caratterizzata dal fatto che il moto di un corpo tende a rendere stazionaria (a variazione nulla) una quantità astratta detta azione, un funzionale definito come l'integrale nel tempo della lagrangiana. Solitamente questo corrisponde a minimizzare l'energia del sistema dinamico considerato, che è la somma dell'energia potenziale più l'energia cinetica.
+La meccanica hamiltoniana fa corrispondere all'energia una funzione scalare detta hamiltoniana, e le equazioni del moto di Eulero-Lagrange, che erano alla base della descrizione di Lagrange, vengono ora riscritte nello spazio delle fasi (grazie cioè ad una diversa scelta delle coordinate) nella forma di equazioni di Hamilton per l'hamiltoniana.
+
+Nel contesto di questa trattazione considereremo una lagrangiana indipendente dal tempo
+\[
+	\mathcal{L}\big(\vec{q},\dot{\vec{q}}\big) \qquad\text{con }\vec{q},\dot{\vec{q}}\in\R^n
+\]
+e i momenti coniugati
+\[
+	p_i = \frac{\pd\mathcal{L}}{\pd \dot{q}_i}\big(\vec{q},\dot{\vec{q}}\big).
+\]
+Come già accennato, le equazioni di Hamilton sono una riformulazione delle equazioni di Eulero-Lagrange, in particolare sono un riformulazione in termini di \(\vec{q}\) e \(\vec{p}\).
+
+\begin{defn}{Lagrangiana regolare}{lagrangianaRegolare}\index{Lagrangiana!regolare}
+	La lagrangiana \(\mathcal{L}\big(\vec{q},\dot{\vec{q}}\big)\) si dice \emph{regolare} se i momenti coniugati \(\vec{p}\) sono invertibili rispetto a \(\dot{\vec{q}}\), ovvero se possiamo scrivere
+	\[
+		\dot{\vec{q}} = \vec{F}\big(\vec{q}, \vec{p}\big).
+	\]
+\end{defn}
+
+\begin{oss}
+	Il caso tipico di maggiore interesse per le applicazioni è quello in cui \(\mathcal{L}\big(\vec{q},\dot{\vec{q}}\big)\) è convessa nelle \(\dot{\vec{q}}\) per ogni \(\vec{q}\) fissato. Nel qual caso \(\mathcal{L}\) è regolare.
+\end{oss}
+
+\begin{ese}
+	\begin{itemize}
+		\item Consideriamo la lagrangiana meccanica:
+		      \[
+			      \mathcal{L}\big(\vec{q},\dot{\vec{q}}\big) = \frac{m}{2}\,\abs{\dot{\vec{q}}}^2 -U\big(\vec{q}\big)
+		      \]
+		      i suoi momenti coniugati saranno
+		      \[
+			      p_i = \frac{\pd\mathcal{L}}{\pd\dot{q}_i} = m\,\dot{q}_i \implies \vec{p} = m\,\dot{\vec{q}}.
+		      \]
+		      In particolare
+		      \[
+			      \vec{p}=m\,\dot{\vec{q}} \iff \dot{\vec{q}} = \frac{1}{m}\,\vec{p} = \vec{F}\big(\vec{q},\vec{p}\big).
+		      \]
+		      Quindi \(\mathcal{L}\) è regolare.
+		\item Consideriamo la tipica lagrangiana meccanica in presenza di vincoli:
+		      \[
+			      \mathcal{L}\big(\vec{q},\dot{\vec{q}}\big) = \frac{1}{2}\dot{\vec{q}} \sdot M\big(\vec{q}\big)\,\dot{\vec{q}}-U\big(\vec{q}\big) \qquad\text{con }M\big(\vec{q}\big) > 0.
+		      \]
+		      Analogamente al caso precedente avremo
+		      \[
+			      \vec{p} = M\big(\vec{q}\big)\,\dot{\vec{q}} \iff \dot{\vec{q}}=M^{-1}\big(\vec{q}\big)\,\vec{p},
+		      \]
+		      ovvero anche questa \(\mathcal{L}\) è regolare.
+	\end{itemize}
+\end{ese}
+
+\begin{defn}{Funzione di Hamilton}{funzioneHamilton}\index{Funzione di Hamilton}
+	La \emph{funzione di Hamilton} \(\mathcal{H}\big(\vec{q},\vec{p}\big)\), o \emph{hamiltoniana}, è l'espressione dell'energia generalizzata scritta in termini di \(\vec{q}\) e \(\vec{p}\), ovvero
+	\[
+		\mathcal{H}\big(\vec{q},\vec{p}\big) = \vec{F}\big(\vec{q},\vec{p}\big) \sdot \vec{p} - \mathcal{L}\big(\vec{q},\vec{F}(\vec{q},\vec{p})\big).
+	\]
+\end{defn}
+
+\begin{oss}
+	Come detto la definizione discende direttamente dall'espressione dell'energia generalizzata
+	\[
+		E = \dot{\vec{q}} \sdot \frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}} - \mathcal{L}\big(\vec{q},\dot{\vec{q}}\big).
+	\]
+	Da cui, sostituendo
+	\[
+		\vec{p} = \frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}} \qquad\text{e}\qquad \vec{F}\big(\vec{q},\vec{p}\big) = \dot{\vec{q}},
+	\]
+	si ottiene l'espressione di \(\mathcal{H}\big(\vec{q},\vec{p}\big)\).
+\end{oss}
+
+\begin{ese}
+	Consideriamo le lagrangiane dell'esempio precedente e calcoliamo la funzione di Hamilton:
+	\begin{itemize}
+		\item Consideriamo la lagrangiana
+		      \[
+			      \mathcal{L}\big(\vec{q},\dot{\vec{q}}\big) = \frac{m}{2}\,\abs{\dot{\vec{q}}}^2 -U\big(\vec{q}\big),
+		      \]
+		      allora
+		      \[
+			      \mathcal{H}\big(\vec{q},\vec{p}\big) = \frac{1}{m}\,\vec{p} \sdot \vec{p} - \left(\frac{m}{2}\,\frac{\abs{\vec{p}}^2}{m^2}-U\big(\vec{q}\big)\right) = \frac{1}{2m}\,\abs{\vec{p}}^2 + U\big(\vec{q}\big).
+		      \]
+		\item Consideriamo la lagrangiana
+		      \[
+			      \mathcal{L}\big(\vec{q},\dot{\vec{q}}\big) = \frac{1}{2}\dot{\vec{q}} \sdot M\big(\vec{q}\big)\,\dot{\vec{q}}-U\big(\vec{q}\big) \qquad\text{con }M\big(\vec{q}\big) > 0,
+		      \]
+		      allora
+		      \[
+			      \mathcal{H}\big(\vec{q},\vec{p}\big) = \vec{p} \sdot M^{-1}\big(\vec{q}\big)\,\vec{p} - \left(\frac{1}{2}\vec{p} \sdot M^{-1}\big(\vec{q}\big)\,\vec{p}-U\big(\vec{q}\big)\right) = \frac{1}{2}\vec{p} \sdot M^{-1}\big(\vec{q}\big)\,\vec{p} + U\big(\vec{q}\big).
+		      \]
+	\end{itemize}
+\end{ese}
+
+\begin{prop}{\(\mathcal{H}\) come trasformata di Legendre di \(\mathcal{L}\)}{HTrasformataLegendreL}
+	La funzione di Hamilton \(\mathcal{H}\) è esprimibile come trasformata di Legendre della lagrangiana \(\mathcal{L}\) a cui è associata.
+\end{prop}
+
+\begin{proof}
+	Consideriamo la combinazione
+	\[
+		\vec{p} \sdot \vec{v} - \mathcal{L}\big(\vec{q},\vec{v}\big)
+	\]
+	e pensiamo ad essa come funzione delle \(\vec{v}\) a \(\big(\vec{q},\vec{p}\big)\) fissate.
+	I punti stazionari di tale combinazione corrispondono alle soluzioni di
+	\[
+		\frac{\pd}{\pd\vec{v}} \Big[\vec{p}\sdot\vec{v} - \mathcal{L}\big(\vec{q},\vec{v}\big)\Big] = 0,
+	\]
+	ovvero
+	\[
+		\vec{p} - \frac{\pd\mathcal{L}}{\pd\vec{v}}\big(\vec{q},\vec{v}) = 0 \iff \vec{v} = \vec{F}\big(\vec{q},\vec{p}\big)
+	\]
+	quando \(\mathcal{L}\) è regolare.
+	Studiamo la natura del punto di stazionarietà \(\vec{v}=\vec{F}\big(\vec{q},\vec{p}\big)\):
+	se \(\mathcal{L}\) è convessa nelle \(\vec{q}\) e \(\vec{p}\) fissate, allora \(\vec{p} \sdot \vec{v} - \mathcal{L}\big(\vec{q},\vec{v}\big)\) è concava nelle \(\vec{v}\) e \(\big(\vec{q},\vec{p}\big)\) fissate.
+	Pertanto, se \(\vec{p}\sdot\vec{v}-\mathcal{L}\) ammette un unico punto di stazionarietà, allora tale punto è un massimo globale e il suo valore sul punto di massimo è
+	\[
+		\vec{p} \sdot \vec{F}\big(\vec{q},\vec{p}\big) -\mathcal{L}\big(\vec{q},\vec{F}(\vec{q},\vec{p})\big) = \mathcal{H}\big(\vec{q},\vec{p}\big).
+	\]
+	Per cui possiamo scrivere
+	\[
+		\mathcal{H}\big(\vec{q},\vec{p}\big) = \max_{\vec{v}}\Set{\vec{p}\sdot\vec{v}-\mathcal{L}\big(\vec{q},\vec{v}\big)}
+	\]
+	che è proprio la trasformata di Legendre di \(\mathcal{L}\).
+\end{proof}
+
+\begin{oss}
+	Dal momento che la \(\mathcal{L}\) è convessa, la trasformata di Legendre è invertibile e la sua inversa è essa stessa una trasformata di Legendre, in particolare si ha
+	\[
+		\mathcal{L}\big(\vec{q},\vec{v}\big) = \max_{\vec{p}} \Set{\vec{p}\sdot\vec{v} - \mathcal{H}\big(\vec{q},\vec{p}\big)}.
+	\]
+	Si dimostra (noi non lo faremo) che la trasformata di Legendre è ben definita per funzioni \(\mathcal{L}\big(\vec{q},\vec{v}\big)\) convesse nelle \(\vec{v}\) per ogni \(\vec{q}\) fissato.
+\end{oss}
+
+\section{Equazioni di Hamilton e teorema di Liouville}
+
+Le equazioni di Hamilton sono le equivalenti delle equazioni di Eulero-Lagrange per la lagrangiana \(\mathcal{L}\big(\vec{q},\dot{\vec{q}}\big)\), una volta che quest'ultima sia legata all'hamiltoniana \(\mathcal{H}\) dalla relazione
+\[
+	\mathcal{H}\big(\vec{q},\vec{p}\big) = \vec{F}\big(\vec{q},\vec{p}\big) \sdot \vec{p} - \mathcal{L}\big(\vec{q},\vec{F}(\vec{q},\vec{p})\big).
+\]
+Tali equazioni si derivano a partire da \(\mathcal{H}\) derivando nelle sue componenti. Cominciamo derivando nelle componenti \(q_i\):
+\[
+	\frac{\pd\mathcal{H}}{\pd q_i} = \frac{\pd\vec{F}}{\pd q_i} \sdot \vec{p} - \frac{\pd\mathcal{L}}{\pd q_i} - \underbrace{\frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}}}_{\vec{p}} \sdot \frac{\pd\vec{F}}{\pd q_i} = -\frac{\pd\mathcal{L}}{\pd q_i}\graffito{applicando le equazioni di E-L} = -\frac{\dd}{\dd t} \frac{\pd\mathcal{L}}{\pd \dot{q}_i} = -\frac{\dd}{\dd t}p_i
+\]
+da cui si ottiene la prima delle due equazioni
+\[
+	\dot{p}_i = -\frac{\pd H}{\pd q_i}.
+\]
+La seconda si ottiene analogamente derivando rispetto a \(p_i\):
+\[
+	\frac{\pd\mathcal{H}}{\pd p_i} = \frac{\pd\vec{F}}{\pd p_i} \sdot \vec{p} + F_i\big(\vec{q},\vec{p}\big) - \underbrace{\frac{\pd\mathcal{L}}{\pd\dot{\vec{q}}}}_{\vec{p}} \sdot \frac{\pd\vec{F}}{\pd p_i} = F_i\big(\vec{q},\vec{p}\big) = \dot{q}_i
+\]
+da cui si ottiene la seconda equazione
+\[
+	\dot{q}_i = \frac{\pd\mathcal{H}}{\pd p_i}.
+\]
+In forma compatta troviamo l'espressione delle equazioni di Hamilton:
+
+\begin{remark}{Equazioni di Hamilton}{equazioniHamilton}\index{Equazioni di Hamilton}
+	\[
+		\dot{\vec{q}} = \frac{\pd\mathcal{H}}{\pd\vec{p}} \qquad\text{e}\qquad \dot{\vec{p}} = -\frac{\pd\mathcal{H}}{\pd\vec{q}}.
+	\]
+\end{remark}
+
+\begin{defn}{Campo vettoriale hamiltoniano}{campoVettorialeHamiltoniano}
+	Consideriamo la funzione di Hamilton \(\mathcal{H}\big(\vec{q},\vec{p}\big)\). Detto \(\vec{x}=\big(\vec{q},\vec{p}\big)\in\R^{2n}\), definiamo il \emph{campo vettoriale hamiltoniano} come segue:
+	\[
+		\vec{f}_{\mathcal{H}} \colon \R^{2n} \longrightarrow \R^{2n}, \vec{x} \longmapsto \dot{\vec{x}} =  \begin{pmatrix}
+			\frac{\pd\mathcal{H}}{\pd\vec{p}} \\[0.3em]
+			-\frac{\pd\mathcal{H}}{\pd\vec{q}}
+		\end{pmatrix}
+	\]
+	che ha come componenti le equazioni di Hamilton.
+\end{defn}
+
+\begin{oss}\label{df:matriceSimpletticaStandard}
+	Possiamo riscrivere
+	\[
+		\begin{pmatrix}
+			\frac{\pd\mathcal{H}}{\pd\vec{p}} \\[0.3em]
+			-\frac{\pd\mathcal{H}}{\pd\vec{q}}
+		\end{pmatrix} =
+		\begin{pmatrix}
+			0   & Id \\
+			-Id & 0
+		\end{pmatrix}
+		\begin{pmatrix}
+			\frac{\pd\mathcal{H}}{\pd\vec{q}} \\[0.3em]
+			\frac{\pd\mathcal{H}}{\pd\vec{q}}
+		\end{pmatrix}
+		= J\,\frac{\pd\mathcal{H}}{\pd\vec{x}},
+	\]
+	dove \(J\) è detta \emph{matrice simplettica standard}. Possiamo quindi ridefinire le equazioni di Hamilton tramite una scrittura compatta:
+	\[
+		\begin{cases}
+			\dot{\vec{q}} = \frac{\pd\mathcal{H}}{\pd\vec{p}} \\
+			\dot{\vec{p}} = -\frac{\pd\mathcal{H}}{\pd\vec{q}}
+		\end{cases}
+		\iff \dot{\vec{x}} = \vec{f}_{\mathcal{H}}\big(\vec{x}\big) = J\,\frac{\pd\mathcal{H}}{\pd\vec{x}}
+	\]
+\end{oss}
+
+\begin{prop}{Campo vettoriale hamiltoniano ha divergenza nulla}{campoVettorialeHamiltonianoDivergenzaNulla}
+	Consideriamo il campo vettoriale hamiltoniano \(\vec{f}_{\mathcal{H}}\). Allora
+	\[
+		\divg\vec{f}_{\mathcal{H}} = 0.
+	\]
+\end{prop}
+
+\begin{proof}
+	Tramite la scrittura compatta delle equazioni di Hamilton, mostriamo che \(\vec{f}_{\mathcal{H}}\) è a divergenza nulla, ovvero che
+	\[
+		\divg \vec{f}_{\mathcal{H}} = \sum_{i=1}^{2n} \frac{\pd\vec{f}_{\mathcal{H},i}}{\pd x_i} = 0.
+	\]
+	Infatti
+	\[
+		\sum_{i=1}^{2n} \frac{\pd\vec{f}_{\mathcal{H},i}}{\pd x_i} = \sum_{i=1}^n \frac{\pd}{\pd q_i} \frac{\pd\mathcal{H}}{\pd p_i} + \sum_{i=1}^n \frac{\pd}{\pd p_i} \left(-\frac{\pd\mathcal{H}}{\pd q_i}\right) = \sum_{i=1}^n \left(\frac{\pd^2\mathcal{H}}{\pd q_i\pd p_i}-\frac{\pd^2\mathcal{H}}{\pd p_i\pd q_i}\right) = 0\qedhere
+	\]
+\end{proof}
+
+\begin{teor}{di Liouville}{teoremaLiouville}\index{Teorema!di Liouville}
+	Il flusso hamiltoniano preserva il volume dello spazio delle fasi, nel senso seguente:
+	dato \(A\subseteq \R^{2n}\), sia \(\j_t(A)\) il suo evoluto al tempo \(t\), allora
+	\[
+		Vol(A) = Vol\big(\j_t(A)\big) \qquad\text{dove }Vol(A) = \int\limits_A \dd^{2n}\vec{x}
+	\]
+\end{teor}
+
+\begin{notz}
+	Con l'evoluto \(\j_t(A)\) al tempo \(t\) intendiamo
+	\[
+		\j_t(A) = \Set{\j_t\big(\vec{x}\big) | \vec{x} \in A},
+	\]
+	dove \(\j_t\big(\vec{x}\big)\) è la soluzione di \(\dot{\vec{x}}=\vec{f}_{\mathcal{H}}\big(\vec{x}\big)\) con dato iniziale \(\vec{x}(0)=\vec{x}_0\).
+\end{notz}
+
+\begin{proof}
+	Dobbiamo mostrare che
+	\[
+		Vol\big(\j_t(A)\big) = Vol(A) \iff \int\limits_{\j_t(A)}\dd^{2n}\vec{x}' = \int\limits_A \dd^{2n}\vec{x}.
+	\]
+	Scriviamo \(\vec{x}' = \j_t\big(\vec{x}\big)\) ed eseguiamo un cambio di variabile all'interno dell'integrale:
+	\[
+		\int\limits_{\j_t(A)}\dd^{2n}\vec{x}' = \int\limits_A \big\lvert\det M\big(t,\vec{x}\big)\big\rvert\,\dd^{2n}\vec{x},
+	\]
+	dove \(M\big(t,\vec{x}\big)\) è la matrice jacobiana associata alla mappa del cambio di variabile, in particolare
+	
+	\[
+		M_{ij}\big(t,\vec{x}\big) = \frac{\pd\j_{t,i}}{\pd x_j}\big(\vec{x}\big).
+	\]
+	Quindi, per dimostrare la tesi, è sufficiente dimostrare che \(\det M\big(t,\vec{x}\big) \equiv 1\). Innanzitutto osserviamo che
+	\[
+		\j_0\big(\vec{x}\big) = \vec{x} \implies M\big(0,\vec{x}\big) = Id \implies \det M\big(0,\vec{x}\big) = 1.
+	\]
+	Pertanto, se mostriamo che \(\det M\) è costante in \(t\) avremo proprio che \(\det M \equiv 1\). Dobbiamo quindi mostrare che
+	\[
+		\frac{\dd}{\dd t}\det M\big(t,\vec{x}\big) = 0.
+	\]
+	Scriviamo l'espressione del rapporto incrementale per studiare la derivata. Ora
+	\[
+		M_{ij}\big(t+\dd t,\vec{x}\big) = \frac{\pd}{\pd x_j}\j_{t+\dd t,i}\big(\vec{x}\big),
+	\]
+	dove
+	\[
+		\j_{t+\dd t}\big(\vec{x}\big) = \vec{x}(t+\dd t) = \vec{x}(t)+\dot{\vec{x}}\,\dd t = \vec{x}(t)+\vec{f}_{\mathcal{H}}\big(\vec{x}(t)\big)\,\dd t = \j_t\big(\vec{x}\big) + \vec{f}_{\mathcal{H}}\big(\j_t(\vec{x})\big)\,\dd t.
+	\]
+	Pertanto
+	\[
+		\frac{\pd}{\pd x_j}\j_{t+\dd t,i}\big(\vec{x}\big) = \frac{\pd}{\pd x_j}\j_{t,i}\big(\vec{x}\big) + \frac{\pd\vec{f}_{\mathcal{H},i}}{\pd x_j}\big(\j_t(\vec{x})\big)\,\dd t,
+	\]
+	quindi
+	\[
+		\begin{split}
+			M_{ij}\big(t+\dd t,\vec{x}\big) & = M_{ij}\big(t,\vec{x}\big) + \frac{\pd\vec{f}_{\mathcal{H},i}}{\pd x_j}\big(\j_t(\vec{x})\big)\,\dd t = M_{ij}\big(t,\vec{x}\big) + \dd t \sum_{k=1}^{2n} \frac{\pd\vec{f}_{\mathcal{H},i}}{\pd x_k}\big(\j_t(\vec{x})\big)\,\frac{\pd\j_{t,k}}{\pd x_j}\big(\vec{x}\big)\\
+			& = M_{ij}\big(t,\vec{x}\big) + \sum_{k=1}^{2n} A_{ik}\big(t,\vec{x}\big)\,M_{kj}\big(t,\vec{x}\big)\,\dd t.
+		\end{split}
+	\]
+	Riepilogando
+	\[
+		M\big(t+\dd t,\vec{x}\big) = M\big(t,\vec{x}\big) + A\big(t,\vec{x}\big)\,M\big(t,\vec{x}\big)\,\dd t = \Big(Id+A\big(t,\vec{x}\big)\,\dd t\Big)\,M\big(t,\vec{x}\big).
+	\]
+	Da cui otteniamo
+	\[
+		\det M\big(t+\dd t,\vec{x}\big) = \det\Big(Id+A\big(t,\vec{x}\big)\,\dd t\Big)\,\det M\big(t,\vec{x}\big).
+	\]
+	Cerchiamo ora l'espressione di \(\det\big(Id+A\,\dd t)\) a meno di termini di ordine superiore al primo, i quali sono ininfluenti nel calcolo della derivata. Ora 
+	\[
+		\big(Id + A\,\dd t\big)_{ij} = \d_{i,j} + A_{ij}\,\dd t,
+	\]
+	da cui si dimostra facilmente che
+	\[
+		\det\big(Id + A\,\dd t) = 1+(A_{11}+A_{22}+\ldots+A_{nn})\,\dd t + \bO(\dd t^2) = 1+Tr\,A\,\dd t+\bO(\dd t^2).
+	\]
+	Quindi
+	\[
+		\det M\big(t+\dd t,\vec{x}\big) = \Big(1+Tr\,A\big(t,\vec{x}\big)\,\dd t\Big)\,\det M\big(t,\vec{x}\big),
+	\]
+	da cui
+	\[
+		\frac{\dd}{\dd t}\det M\big(t,\vec{x}\big) = \frac{\det M\big(t+\dd t,\vec{x}\big)-\det M\big(t,\vec{x}\big)}{\dd t} = Tr\,A\big(t,\vec{x}\big)\,\det M\big(t,\vec{x}\big) = 0,
+	\]
+	in quanto
+	\[
+		Tr\,A = A_{11}+A_{22} + \ldots + A_{nn} = \sum_{i=1}^{2n} \frac{\pd\vec{f}_{\mathcal{H},i}}{\pd x_i} = \divg \vec{f}_{\mathcal{H}} = 0.
+	\]
+	Quindi
+	\[
+		Vol\big(\j_t(A)\big) = \int\limits_{\j_t(A)}\dd^{2n}\vec{x}' = \int\limits_A \big\lvert\det M\big(t,\vec{x}\big)\big\rvert\,\dd^{2n}\vec{x} = \int\limits_A \dd^{2n}\vec{x} = Vol(A).\qedhere
+	\]
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 17/05/2017 - UNDICESIMA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Parentesi di Poisson}
+
+\begin{defn}{Osservabile sullo spazio delle fasi}{osservabileSpazioFasi}\index{Osservabile}
+	Un'\emph{osservabile sullo spazio delle fasi} è una funzione \(f\) in funzione delle \(\vec{q}\) e \(\vec{p}\):
+	\[
+		f = f\big(\vec{q},\vec{p}\big).
+	\]
+\end{defn}
+
+\begin{defn}{Parentesi di Poisson}{parentesiPoisson}\index{Parentesi di Poisson}
+	Date due osservabili \(f=f\big(\vec{q},\vec{p}\big)\) e \(g=g\big(\vec{q},\vec{p}\big)\), definiamo come \emph{parentesi di Poisson} di \(f\) e \(g\) l'operazione seguente:
+	\[
+		\{f,g\} = \frac{\pd f}{\pd\vec{q}}\sdot \frac{\pd g}{\pd\vec{p}} - \frac{\pd f}{\pd\vec{p}} \sdot \frac{\pd g}{\pd\vec{q}}.
+	\]
+\end{defn}
+
+\begin{oss}
+	Fissato \(f\), la parentesi di Poisson \(\{f,g\}\), può essere vista come un operatore differenziale \(D(g)\) dipendente da \(f\) e applicato a \(g\), infatti:
+	\[
+		\{f,g\} = \left(\frac{\pd f}{\pd\vec{q}}\sdot \frac{\pd}{\pd\vec{p}} - \frac{\pd f}{\pd\vec{p}} \sdot \frac{\pd}{\pd\vec{q}}\right)\,g
+	\]
+\end{oss}
+
+\begin{ese}[Parentesi di Poisson fondamentali]
+	Se \(f=q_i\) si ha
+	\[
+		\{q_i,g\} = \frac{\pd}{\pd p_i} g.
+	\]
+	Analogamente se \(f=p_i\) si ha
+	\[
+		\{p_i,g\} = -\frac{\pd}{\pd q_i} g.
+	\]
+	Nel caso speciale in cui anche \(g=q_j\) oppure \(g=p_j\) si hanno
+	\[
+		\{q_i,q_j\} = 0; \qquad \{p_i,p_j\} = 0; \qquad \{q_i,p_j\} = \d_{i,j}.
+	\]
+	Queste relazioni prendono il nome di \emph{parentesi di Poisson fondamentali}.
+\end{ese}
+
+\begin{prop}{Evoluzione temporale di un'osservabile}{evoluzioneTemporaleOsservabile}
+	Sia \(f=f\big(\vec{q},\vec{p}\big)\) un osservabile e supponiamo che \(\big(\vec{q}(t),\vec{p}(t)\big)\) sia una soluzione delle equazioni di Hamilton per l'hamitoniana \(\mathcal{H}=\mathcal{H}\big(\vec{q},\vec{p}\big)\). Allora l'evoluzione temporale di \(f\) è data dalla seguente legge
+	\[
+		\dot{f} = \{f,\mathcal{H}\}.
+	\]
+\end{prop}
+
+\begin{proof}
+	L'osservabile \(f\) al tempo \(t\) sarà descritta da \(f\big(\vec{q}(t),\vec{p}(t)\big)\), per cui la sua legge di evoluzione sarà la seguente:
+	\[
+		\frac{\dd}{\dd t}f\big(\vec{q}(t),\vec{p}(t)\big) = \frac{\pd f}{\pd\vec{q}}\sdot\dot{\vec{q}}(t) + \frac{\pd f}{\pd\vec{p}}\sdot \dot{\vec{p}}(t).
+	\]
+	Ora, se \(\big(\vec{q}(t),\vec{p}(t)\big)\) sono una soluzione delle equazioni di Hamilton, posso sostituire \(\dot{\vec{q}}\) e \(\dot{\vec{p}}\) nell'espressione precedente, ottenendo
+	\[
+		\dot{f} = \frac{\pd f}{\pd\vec{q}} \sdot \frac{\pd\mathcal{H}}{\pd\vec{p}} - \frac{\pd f}{\pd\vec{p}} \sdot \frac{\pd\mathcal{H}}{\pd\vec{q}} = \{f,\mathcal{H}\}.\qedhere
+	\]
+\end{proof}
+\noindent
+Di seguito elenchiamo alcune proprietà elementari delle parentesi di Poisson, date \(f=f\big(\vec{q},\vec{p}\big)\) e \(g=g\big(\vec{q},\vec{p}\big)\) due osservabili.
+
+\begin{pr}
+	Antisimmetria:
+	\[
+		\{f,g\} = -\{g,f\}.
+	\]
+\end{pr}
+
+\begin{pr}
+	Multilinearità:
+	\[
+		\{f,\l_1 g_1 + \l_2 g_2\} = \l_1\{f,g_1\} + \l_2 \{f,g_2\}.
+	\]
+\end{pr}
+
+\begin{oss}
+	La multilinearità vale per entrambi gli argomenti.
+\end{oss}
+
+\begin{pr}
+	Regola del prodotto:
+	\[
+		\{f,g_1 g_2\} = \{f,g_1\}\,g_2 + \{f,g_2\}\,g_1.
+	\]
+\end{pr}
+
+\begin{oss}
+	Questa regola è analoga alla regola di derivazione del prodotto di Leibniz. Tale analogia è dovuta alla struttura di operatore differenziale delle parentesi di Poisson.
+\end{oss}
+
+\begin{pr}
+	Identità di Jacobi per tre osservabili \(f,g,h\):
+	\[
+		\big\{f,\{g,h\}\big\} + \big\{g,\{h,f\}\big\} + \big\{h,\{f,g\}\big\} = 0.
+	\]
+\end{pr}
+
+\begin{prop}{Caratterizzazione degli integrali primi come osservabili}{caratterizzazioneIntegraliPrimiOsservabili}
+	Sia \(f=f\big(\vec{q},\vec{p}\big)\) un'osservabile e supponiamo che \(\big(\vec{q}(t),\vec{p}(t)\big)\) sia una soluzione delle equazioni di Hamilton per l'hamiltoniana \(\mathcal{H}\). Allora \(f\) è un integrale primo se e soltanto se
+	\[
+		\frac{\dd}{\dd t}f\big(\vec{q}(t),\vec{p}(t)\big) = 0 \iff \{f,\mathcal{H}\} = 0.
+	\]
+\end{prop}
+
+\begin{prop}{Costruzione di un integrale primo a partire da altri due}{costruzioneIntegralePrimoAltriDue}
+	Supponiamo che \(f=f\big(\vec{q},\vec{p}\big)\) e \(g=g\big(\vec{q},\vec{p}\big)\) siano due integrali primi rispetto all'hamiltoniana \(\mathcal{H}\). Allora
+	\[
+		\{f,g\}
+	\]
+	è a sua volta un integrale primo.
+\end{prop}
+
+\begin{proof}
+	Dalla proposizione precedente, \(f,g\) sono integrali primi se e soltanto se
+	\[
+		\{f,\mathcal{H}\} = 0 \qquad\text{e}\qquad \{g,\mathcal{H}\} = 0.
+	\]
+	Pertanto, applicando l'identità di Jacobi, otteniamo
+	\[
+		\big\{\{f,g\},\mathcal{H}\big\} = -\big\{\mathcal{H},\{f,g\}\big\} = \big\{f,\{g,\mathcal{H}\}\big\} + \big\{g,\{\mathcal{H},f\}\big\} = \{f,0\} + \{g,0\} = 0,
+	\]
+	per cui \(\{f,g\}\) è un integrale primo.
+\end{proof}

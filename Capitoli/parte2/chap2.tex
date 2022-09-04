@@ -1,0 +1,508 @@
+%!TEX root = ../../main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 20/03/2017 - QUARTA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Moti in campo centrale}
+\section{Introduzione}
+\begin{defn}{Forza centrale}{forzaCentrale}\index{Forza centrale}
+	Una forza \(\vec{F}\big(\vec{r}\big)\colon \R^n \to \R^n\) si dice \emph{centrale} se è esprimibile attraverso una forza scalare che dipende solo dalla distanza dall'origine, ovvero
+	\[
+		\vec{F}\big(\vec{r}\big) = F\big(\abs{\vec{r}}\big)\,\hat{r} \qquad\text{dove }\hat{r} = \frac{\vec{r}}{\abs{\vec{r}}}.
+	\]
+\end{defn}
+
+\begin{defn}{Coppia di forze centrali}{coppiaForzeCentrali}
+	Consideriamo il sistema composto da due punti nello spazio sottoposti a forze reciproche \(\vec{f}_{12}\) e \(\vec{f}_{21}\).
+	Le due forze sono una \emph{coppia di forze centrali} se sono opposte, se dipendono solo dalla distanza reciproca e se sono orientate come la congiungente delle particelle. Ovvero
+	\[
+		\vec{f}_{12}\big(\vec{r}_1,\vec{r}_2\big) = -\vec{f}_{21}\big(\vec{r}_1,\vec{r}_2\big) = F\big(\abs{\vec{r}_1-\vec{r}_2}\big)\,\frac{\vec{r}_1-\vec{r}_2}{\abs{\vec{r}_1-\vec{r}_2}}.
+	\]
+\end{defn}
+
+\begin{defn}{Forza attrattiva}{forzaAttrattiva}\index{Forza centrale!attrattiva}
+	Una forza centrale \(F\big(\vec{x}\big)\) si dice \emph{attrattiva in \(\vec{x}\)} se
+	\[
+		F\big(\vec{x}\big) < 0.
+	\]
+\end{defn}
+
+\begin{notz}
+	Se vale
+	\[
+		F\big(\vec{x}\big) < 0 \,\fa \vec{x},
+	\]
+	diremo che \(F\) è puramente attrattiva.
+\end{notz}
+
+\begin{defn}{Forza repulsiva}{forzaRepulsiva}\index{Forza centrale!repulsiva}
+	Una forza centrale \(F\big(\vec{x}\big)\) si dice \emph{repulsiva in \(\vec{x}\)} se
+	\[
+		F\big(\vec{x}\big) > 0.
+	\]
+\end{defn}
+
+\begin{notz}
+	Se vale
+	\[
+		F\big(\vec{x}\big) > 0 \,\fa \vec{x},
+	\]
+	diremo che \(F\) è puramente repulsiva.
+\end{notz}
+
+\begin{defn}{Centro di massa}{centroMassa}\index{Centro di massa}
+	In un sistema di \(n\) particelle, si definisce \emph{centro di massa} la posizione
+	\[
+		\vec{r}_{CM} = \frac{\sum m_i \vec{r}_i}{\sum m_i}.
+	\]
+\end{defn}
+
+\begin{defn}{Massa ridotta}{massaRidotta}\index{Massa ridotta}
+	In un sistema di \(n\) particelle, chiamiamo \emph{massa ridotta} la quantità
+	\[
+		m = \frac{\sum m_i}{\prod m_i}.
+	\]
+\end{defn}
+
+\begin{oss}
+	Tale quantità soddisfa la relazione
+	\[
+		\frac{1}{m} = \sum_{i=1}^n \frac{1}{m_i}
+	\]
+\end{oss}
+
+Nello studio dei moti in campo centrale si presentano due possibili scenari:
+\begin{itemize}
+	\item Una singola particella soggetta ad una forza centrale, la cui equazione sarà
+	      \[
+		      m\,\ddot{\vec{r}} = \vec{F}\big(\vec{r}\big) = F\big(\abs{\vec{r}}\big)\,\frac{\vec{r}}{\abs{\vec{r}}},
+	      \]
+	      con \(m>0\) e \(\vec{r}\in\R^3\).
+	\item Due particelle soggette ad una coppia di forze centrali, le cui equazioni saranno
+	      \[
+		      \begin{cases}
+			      m_1\ddot{\vec{r}}_1 = \vec{f}_{12}\big(\vec{r}_1,\vec{r}_2\big) = F\big(\abs{\vec{r}_1-\vec{r}_2}\big)\,\frac{\vec{r}_1-\vec{r}_2}{\abs{\vec{r}_1-\vec{r}_2}} \\
+			      m_2\ddot{\vec{r}}_2 = \vec{f}_{21}\big(\vec{r}_1,\vec{r}_2\big) = F\big(\abs{\vec{r}_1-\vec{r}_2}\big)\,\frac{\vec{r}_2-\vec{r}_1}{\abs{\vec{r}_1-\vec{r}_2}}
+		      \end{cases}
+	      \]
+	      dove \(m_1,m_2>0\) e \(\vec{r}_1,\vec{r}_2\in \R^3\).
+\end{itemize}
+
+\section{Riconducibilità al caso di singola particella}
+
+Valutiamo come sia possibile ricondurre il secondo caso al primo.
+Abbiamo già osservato come il sistema si presenta:
+\[
+	\begin{cases}
+		m_1\ddot{\vec{r}}_1 = F\big(\abs{\vec{r}_1-\vec{r}_2}\big)\,\frac{\vec{r}_1-\vec{r}_2}{\abs{\vec{r}_1-\vec{r}_2}} \\
+		m_2\ddot{\vec{r}}_2 = F\big(\abs{\vec{r}_1-\vec{r}_2}\big)\,\frac{\vec{r}_2-\vec{r}_1}{\abs{\vec{r}_1-\vec{r}_2}}
+	\end{cases} \qquad \qquad
+	\tikz[baseline=-0.5ex]{
+		\coordinate (A) at (1,0.5) ;
+		\coordinate (B) at (-1,-0.5);
+		\fill (A) circle (0.03);
+		\fill (B) circle (0.03);
+		\draw[dashed] (A) -- (B);
+		\draw[->] (A) -- (3,1.5);
+		\draw[->] (B) -- (-3,-1.5);
+		\node[below=0.1cm] at (A) {\(m_2\)};
+		\node[below=0.1cm] at (B) {\(m_1\)};
+		\node[above left] at (3,1.5) {\(\vec{f}_{21}\)};
+		\node[above=0.6cm, right] at (-3,-1.5) {\(\vec{f}_{12}\)};
+	}
+\]
+Le due forze sono opposte, quindi sommando le due equazioni si ottiene
+\[
+	m_1\ddot{\vec{r}}_1 + m_2\ddot{\vec{r}}_2 = \vec{0}.
+\]
+Moltiplicando e dividendo per la massa totale \(m_1+m_2\) si ottiene l'espressione con il centro di massa
+\[
+	(m_1+m_2)\,\ddot{\vec{R}} = \vec{0}.
+\]
+Da ciò segue che l'accelerazione del centro di massa è nulla, pertanto la sua legge oraria si esprime semplicemente tramite
+\[
+	\vec{R}(t) = \vec{R}(0) + \dot{\vec{R}}(0)\,t.
+\]
+Tornando al sistema iniziale, dividiamo ogni equazione per la rispettiva massa e sottraiamo la prima alla seconda:
+\[
+	\ddot{\vec{r}}_2 - \ddot{\vec{r}}_1 = \left( \frac{1}{m_2}+\frac{1}{m_1} \right)\,F\big(\abs{\vec{r}_1-\vec{r}_2}\big)\,\frac{\vec{r}_2-\vec{r}_1}{\abs{\vec{r}_1-\vec{r}_2}}.
+\]
+Poniamo \(\vec{r}=\vec{r}_2-\vec{r}_1\) e sostituiamo la massa ridotta per ottenere
+\[
+	\ddot{\vec{r}} = \frac{1}{m}\,F\big(\abs{\vec{r}}\big)\,\hat{r}.
+\]
+Ci siamo pertanto ridotti al sistema
+\[
+	\begin{cases}
+		\vec{R}(t) = \vec{R}(0) + \dot{\vec{R}}(0)\,t \\
+		\ddot{\vec{r}} = \frac{1}{m}\,F\big(\abs{\vec{r}}\big)\,\hat{r}
+	\end{cases}
+\]
+Noti \(\vec{r}(t)\) e \(\vec{R}(t)\) possiamo ricavare le leggi orarie delle due particelle attraverso il sistema
+\[
+	\begin{cases}
+		\vec{r}(t) = \vec{r}_2(t)-\vec{r}_1(t) \\
+		\vec{R}(t) = \frac{m_1}{m_1+m_2}\,\vec{r}_1(t) + \frac{m_2}{m_1+m_2}\,\vec{r}_2(t)
+	\end{cases}
+\]
+Moltiplicando la prima riga per \(\frac{m_2}{m_1+m_2}\) e sottraendo le due righe si ottiene
+\[
+	\vec{R}(t) - \frac{m_2}{m_1+m_2}\,\vec{r}(t) = \frac{m_1}{m_1+m_2}\,\vec{r}_1(t) + \frac{m_2}{m_1+m_2}\,\vec{r}_1(t) = \vec{r}_1(t).
+\]
+Analogamente si trova \(\vec{r}_2\). Riepilogando
+\[
+	\begin{cases}
+		\vec{r}_1 = \vec{R}- \frac{m_2}{m_1+m_2}\,\vec{r} \\
+		\vec{r}_2 = \vec{R} + \frac{m_1}{m_1+m_2}\,\vec{r}
+	\end{cases}
+\]
+
+\section{Conservazione dell'energia meccanica}
+
+La forza dei moti in campo centrale è del tipo \(F\colon (0,+\infty) \to \R\).
+\'E facile osservare come tali \(F\) siano sempre conservative.
+Dal punto di vista fisico si considera \(\vec{r}\in \R^3\setminus{\vec{0}}\), pertanto è sufficiente verificare che \(F\) è chiusa affinché sia conservativa.
+Osserviamo che
+\[
+	\frac{\pd}{\pd r_i} \abs{\vec{r}} = \frac{r_i}{\abs{\vec{r}}}.
+\]
+Da cui
+\[
+	\frac{\pd}{\pd r_i} \left( F\big(\abs{\vec{r}}\big)\, \frac{r_j}{\abs{\vec{r}}} \right) = F'\big(\abs{\vec{r}}\big)\,\frac{r_i}{\abs{\vec{r}}}\,\frac{r_j}{\abs{\vec{r}}} - F\big(\abs{\vec{r}}\big)\, \frac{r_j r_i}{\abs{\vec{r}}^3} = \frac{\pd}{\pd r_j}\left( F\big(\abs{\vec{r}}\big)\, \frac{r_i}{\abs{\vec{r}}} \right),
+\]
+pertanto \(\vec{F}\big(\vec{r}\big) = F\big(\abs{\vec{r}}\big)\,\hat{r}\) è conservativa per ogni scelta di \(F\).
+
+\section{Potenziale radiale}
+
+In un problema a simmetria radiale come quello che stiamo considerando, ci aspettiamo che l'energia potenziale sia unicamente funzione di \(\abs{\vec{r}}\), ovvero che
+
+\begin{remark}{Potenziale radiale}{potenzialeRadiale}
+	\[
+		U\big(\vec{r}\big) = V\big(\abs{\vec{r}}\big).
+	\]
+\end{remark}
+\noindent
+Verifichiamo che scegliendo \(U\) in questo modo, troviamo una soluzione di
+\[
+	-\frac{\pd}{\pd\vec{r}}U\big(\vec{r}\big) = \vec{F}\big(\vec{r}\big).
+\]
+Ora 
+\[
+	-\frac{\pd}{\pd\vec{r}}V\big(\abs{\vec{r}}\big) = -V'\big(\abs{\vec{r}}\big)\,\hat{r} = F\big(\abs{\vec{r}}\big)\,\hat{r},
+\]
+pertanto, posto \(\r = \abs{\vec{r}}\),
+\[
+	V(\r) = -\int^\r F(t)\,\dd t
+\]
+è una qualsiasi primitiva di \(F\).
+
+La conservatività ci permette di scrivere la legge di conservazione dell'energia meccanica
+\[
+	E = \frac{1}{2}\,m\,\abs{\dot{\vec{r}}}^2 + V\big(\abs{\vec{r}}\big).
+\]
+
+\begin{oss}
+	Chiaramente
+	\[
+		\abs{\dot{\vec{r}}} \neq \frac{\dd}{\dd t} \abs{\vec{r}}.
+	\]
+\end{oss}
+
+\section{Conservazione del momento angolare}
+
+In precedenza abbiamo visto come nel caso unidimensionale, fosse sufficiente una sola relazione conservativa per risolvere il sistema.
+In questo caso, in cui vi sono tre dimensioni, ci aspettiamo di doverne trovare altre affinché il sistema sia ugualmente risolubile.
+In particolare, osserveremo in seguito, che ci servono tanti integrali primi quanti sono i gradi di libertà del sistema.
+
+In questo caso saremo in grado di trovare altri 3 integrali primi, uno in più del necessario.
+
+\begin{defn}{Momento angolare}{momentoAngolare}
+	Consideriamo un punto materiale di massa \(m\) e posizione \(\vec{r}\).
+	Il \emph{momento angolare} di tale punto è definito come il prodotto vettoriale del vettore posizione per il vettore quantità di moto:
+	\[
+		\vec{L} = \vec{r} \wedge m\,\dot{\vec{r}}.
+	\]
+\end{defn}
+\noindent
+Verifichiamo che \(\vec{L}\) è una grandezza conservata, o integrale primo, per l'equazione del moto che stiamo considerando, ovvero che \(\vec{L}=\vec{L}\big(\vec{r},\dot{\vec{r}}\big)\) è tale che
+\[
+	\frac{\dd}{\dd t} \vec{L}\big(\vec{r}(t),\dot{\vec{r}}(t)\big)
+\]
+se \(\vec{r}(t)\) è soluzione di \(m\,\ddot{\vec{r}} = F\big(\abs{\vec{r}}\big)\,\hat{r}\).
+Verifichiamolo:
+\[
+	\frac{\dd}{\dd t}\vec{L} = \cancel{\dot{\vec{r}} \wedge m\,\dot{\vec{r}}} + \vec{r} \wedge m\,\ddot{\vec{r}} = \vec{r} \wedge m\,\ddot{\vec{r}}.
+\]
+Ora se \(\vec{r}(t)\) è soluzione del moto, possiamo sostituire \(m\,\ddot{\vec{r}}\), da cui
+\[
+	\frac{\dd}{\dd t}\vec{L} = \vec{r} \wedge F\big(\abs{\vec{r}}\big)\,\hat{r} = \vec{r} \wedge F\big(\abs{\vec{r}}\big)\,\frac{\vec{r}}{\abs{\vec{r}}} = \frac{F\big(\abs{\vec{r}}\big)}{\abs{\vec{r}}}\,\big(\vec{r}\wedge \vec{r}\big) = \vec{0}.
+\]
+Dalla conservazione di \(\vec{L}\) otteniamo quindi tre leggi di conservazione date dalle conservazioni delle singole componenti di \(\vec{L}\)
+
+\subsection{Caso banale}
+
+Supponiamo che \(\vec{L} \equiv \vec{0}\), pertanto \(\vec{r}(0) \parallel \dot{\vec{r}}(0)\).
+Definiamo
+\[
+	\hat{n}_0 = \frac{\vec{r}(0)}{\abs{\vec{r}(0)}}
+\]
+la direzione iniziale di \(\vec{r}\) e \(\dot{\vec{r}}\).
+Di conseguenza l'equazione del moto assume una forma molto semplice:
+\[
+	\vec{r}(t) = x(t)\,\hat{n}_0.
+\]
+Dove, sostituendo nell'equazione del moto, si ottiene che \(x(t)\) risolve
+\[
+	m\,\ddot{x} = F(\abs{x})
+\]
+in quanto \(\hat{n}_0\) è indipendente dal tempo e pertanto
+\[
+	\ddot{\vec{r}}(t) = \ddot{x}(t)\,\hat{n}_0.
+\]
+Per cui ci siamo ridotti ad un sistema conservativo unidimensionale.
+
+\section{Riduzione dimensionale}
+
+Supponiamo che \(\vec{L} \not\equiv \vec{0}\)
+
+\begin{notz}
+	Da qui in avanti esprimeremo \(\vec{L}\) anche in coordinate sferiche, tramite il suo modulo \(L=\abs{\vec{L}}\) e gli angoli \(\q\) e \(\j\) che lo individuano nello spazio.
+\end{notz}
+\noindent
+Dal momento che \(\vec{L}\) si conserva, la sua direzione sarà invariante.
+Questo ci dice che \(\vec{r}(t),\dot{\vec{r}}(t)\) appartengono al piano perpendicolare a \(\vec{L}\) e passante per l'origine per ogni \(t\ge 0\).
+
+\'E quindi conveniente scegliere delle coordinate che siano legate a questo piano per descrivere il moto del sistema.
+Tali coordinate \(x',y',z'\) saranno definite in modo che
+\[
+	\hat{z}' = \hat{L}.
+\]
+Nelle nuove coordinate avremo
+\[
+	\vec{r} = 	\begin{pmatrix}
+		x'(t) \\
+		y'(t) \\
+		0
+	\end{pmatrix}
+	\qquad\text{e}\qquad
+	\vec{L} = 	\begin{pmatrix}
+		0 \\
+		0 \\
+		L
+	\end{pmatrix}
+\]
+Ci siamo quindi ridotti ad un sistema bidimensionale.
+Possiamo semplificare ulteriormente la notazione passando in coordinate polari, ottenendo
+\[
+	\vec{r}(t) = \r(t)\, 	\begin{pmatrix}
+		\cos\q(t) \\
+		\sin\q(t) \\
+		0
+	\end{pmatrix}
+	\qquad\text{con }\r(t) = \abs{\vec{r}(t)}.
+\]
+Infine possiamo introdurre i versori radiale \(\hat{e}_r\) e tangenziale \(\hat{e}_t\) come mostrati nel piano \((x',y')\):
+\[
+	\tikz[baseline=-0.5ex, scale=2]{
+		\draw[-latex] (-0.5,0) -- (2, 0) node[above] {\(x'\)};
+		\draw[-latex] (0,-0.5) -- (0,2) node[right] {\(y'\)};
+		\draw[->] (0,0) -- (30:1.5);
+		\draw[->, thick] (30:1.5) -- ++(30:0.5) node[shift={(30:0.3)}] {\(\hat{e}_r\)};
+		\draw[->, thick] (30:1.5) -- ++(120:0.5) node[shift={(120:0.3)}] {\(\hat{e}_t\)};
+		\draw (0:0.3) arc[radius=0.3, start angle=0, end angle=30];
+		\node[above] at (30:0.75) {\(\r\)};
+		\node at (15:0.4) {\(\q\)};
+	}
+	\qquad\text{con }\hat{e}_r = 	\begin{pmatrix}
+		\cos\q(t) \\
+		\sin\q(t) \\
+		0
+	\end{pmatrix}
+	\qquad\text{e}\qquad\hat{e}_t = 	\begin{pmatrix}
+		-\sin\q(t) \\
+		\cos\q(t)  \\
+		0
+	\end{pmatrix}
+\]
+Procediamo quindi a tradurre tutte le espressioni del moto nelle nuove coordinate.
+Per definizione
+\[
+	\vec{r} = \r\,\hat{e}_r,
+\]
+da cui
+\[
+	\dot{\vec{r}} = \dot{\r}\,\hat{e}_r + \r\, \begin{pmatrix}-\sin\q\\\cos\q\\0\end{pmatrix}\,\dot{\q} = \dot{\r}\,\hat{e}_r + \r\,\dot{\q}\,\hat{e}_t.
+\]
+Tramite \(\dot{\vec{r}}\) possiamo calcolare \(\abs{\dot{\vec{r}}}^2\):
+\[
+	\abs{\dot{\vec{r}}}^2 = \dot{\r}^2 + \r^2 \dot{\q}^2.
+\]
+Pertanto, sostituendo nell'espressione dell'energia meccanica, otteniamo
+
+\begin{remark}{Energia meccanica ridotta}{energiaMeccanicaRidotta}
+	\[
+		E = \frac{1}{2}\,m\,\dot{\r}^2 + \frac{1}{2}\,m\,\r^2\dot{\q}^2 + V(\r).
+	\]
+\end{remark}
+\noindent
+Mentre, sostituendo nell'espressione del momento angolare, otteniamo
+\[
+	\vec{L} = \r\,\hat{e}_r \wedge (\cancel{m\,\dot{\r}\,\hat{e}_r} + m\,\r\,\dot{\q}\,\hat{e}_t) = m\,\r^2\,\dot{\q}\,(\hat{e}_r \wedge \hat{e}_t) = m\,\r^2\,\dot{\q}\,\hat{L},
+\]
+dove \(\hat{e}_r \wedge \hat{e}_t=\hat{L}\) poiché sappiamo che \(\hat{e}_r, \hat{e}_t\) individuano il piano perpendicolare a \(\hat{L}\). Pertanto
+
+\begin{remark}{Momento angolare ridotto}{momentoAngolareRidotto}
+	\[
+		\vec{L} = m\,\r^2\,\dot{\q}\,\hat{L}.
+	\]
+\end{remark}
+\noindent
+Traduciamo infine l'equazione del moto calcolando \(\ddot{\vec{r}}\):
+\[
+	\ddot{\vec{r}} = \ddot{\r}\,\hat{e}_r + \dot{\r}\,\dot{\q}\,\hat{e}_t + (\dot{\r}\,\dot{\q}+\r\,\ddot{\q})\,\hat{e}_t - \r\,\dot{\q}^2 \hat{e}_r = (\ddot{\r}-\r\,\dot{\q}^2)\,\hat{e}_r + (2\dot{\r}\,\dot{\q}+\r\,\ddot{\q})\,\hat{e}_t,
+\]
+sostituendo nell'equazione del moto otteniamo
+\[
+	m\,\ddot{\vec{r}} = m\,(\ddot{\r}-\r\,\dot{\q}^2)\,\hat{e}_r + m\,(2\dot{\r}\,\dot{\q}+\r\,\ddot{\q})\,\hat{e}_t = F(\r)\,\hat{e}_r,
+\]
+da cui
+
+\begin{remark}{Equazione del moto ridotta}{equazioneMotoRidotta}
+	\[
+		\begin{cases}
+			m\,\ddot{\r} = F(\r) + m\,\r\,\dot{\q}^2 \\
+			m\,\r\,\ddot{\q} + 2m\,\dot{\r}\,\dot{\q} = 0
+		\end{cases}
+	\]
+\end{remark}
+
+\begin{oss}
+	La seconda equazione corrisponde alla conservazione del momento angolare, infatti
+	\[
+		\frac{\dd}{\dd t}\vec{L} = \vec{0} \iff 0 = \frac{\dd}{\dd t}m\,\r^2\,\dot{\q} = 2m\,\r\,\dot{\r}\,\dot{\q} + m\,\r^2\ddot{\q} = \r(2m\,\dot{\r}\,\dot{\q} + m\,\r\,\ddot{\q}).
+	\]
+\end{oss}
+
+\section{Potenziale efficace}
+
+Tramite la prima equazione
+\[
+	m\,\ddot{\r} = F(\r) + m\,\r\,\dot{\q}^2,
+\]
+possiamo ricondurci ad un sistema unidimensionale che studi la componente radiale del moto.
+Sostituendo l'espressione del potenziale del momento angolare nell'equazione otteniamo
+\[
+	\begin{split}
+		m\,\ddot{\r} & = F(\r) + m\,\r\,\dot{\q}^2 = -V'(\r) + m\,\r\, \frac{L^2}{m^2\,\r^4} = -V'(\r) + \frac{L^2}{m\,\r^3}\\
+		& = -\left( V(\r) + \frac{L^2}{2m\,\r^2} \right)' = -V_{eff}'(\r),
+	\end{split}
+\]
+dove
+
+\begin{defn}{Potenziale efficace}{potenzialeEfficace}\index{Potenziale efficace}
+	In un sistema di moto, definiamo \emph{potenziale efficace} un'espressione che coinvolge il potenziale e il momento angolare del sistema.
+	Nel caso di moto in campo centrale avremo
+	\[
+		V_{eff}(\r) = V(\r) + \frac{L^2}{2m\,\r^2}.
+	\]
+\end{defn}
+\noindent
+Da cui
+\[
+	m\,\ddot{\r} = F(\r) + m\,\r\,\dot{\q}^2 \iff m\,\ddot{\r} = -V_{eff}'(\r).
+\]
+Possiamo facilmente osservare che
+\[
+	E = \frac{1}{2}\,m\,\dot{\r}^2 + \frac{1}{2}\,m\,\r^2\,\dot{\q}^2 + V(\r),
+\]
+è l'espressione della conservazione dell'energia meccanica per il sistema \(m\,\ddot{\r} = -V_{eff}'(\r)\).
+Infatti, sostituendo l'espressione di \(\dot{\q}\), che troviamo nel momento angolare
+\[
+	L = m\,\r^2\dot{\q} \iff \dot{\q} = \frac{L}{m\,\r^2},
+\]
+all'interno dell'energia meccanica, troviamo
+\[
+	E = \frac{1}{2}\,m\,\dot{\r}^2 + \frac{1}{2}\,m\,\r^2\,\frac{L^2}{m^2 \r^4} + V(\r) = \frac{1}{2}\,m\,\dot{\r}^2 + V_{eff}(\r).
+\]
+Ci siamo quindi ricondotti ad un caso unidimensionale la cui equazione conservativa è
+
+\begin{remark}{Integrale primo del moto radiale}{integralePrimoMotoRadiale}
+	\[
+		E = \frac{1}{2}\,m\,\dot{\r}^2 + V_{eff}(\r).
+	\]
+\end{remark}
+
+\section{Moto complessivo}
+
+Una volta descritto il moto radiale, è possibile analizzare quello angolare per descrivere il moto complessivo.
+L'espressione del moto angolare si ricava dalla relazione
+\[
+	L = m\,\r^2 \dot{\q} \implies \dot{\q} = \frac{L}{m\,\r^2}.
+\]
+In generale è utile definire la seguente quantità
+
+\begin{remark}{Pulsazione angolare}{pulsazioneAngolare}
+	\[
+		w_1 = \dot{\q} = \frac{L}{m\,\r^2}.
+	\]
+\end{remark}
+
+\subsection{Traiettoria banale}
+Consideriamo inizialmente il caso notevole in cui il moto radiale è costante nel punto di equilibrio:
+\[
+	\r(t) \equiv \r_{eq}.
+\]
+In questo caso il moto radiale è invariante, mentre quello angolare varia uniformemente. Infatti
+\[
+	\dot{\q} = \frac{L}{m\,\r_{eq}^2} = \w_1
+\]
+che è costante.
+Il moto complessivo è pertanto circolare uniforme di periodo
+\[
+	T_1 = \frac{2\p}{\w_1}.
+\]
+
+\subsection{Traiettoria chiusa non singolare}
+Per traiettorie chiuse e non singolari, il moto è periodico 
+\[
+	\r(t) = \r(t+T_0) \qquad\text{con } T_0 = 2\int_{\r_-}^{\r_+} \frac{\dd\r}{\sqrt{\frac{2}{m}\big(E-V_{eff}(\r)\big)}}
+\]
+Osserviamo che, dal momento che \(\r\) è periodica, la funzione integranda di
+\[
+	\q(t) = \q_0 + \int_0^t \frac{L}{m\,\r^2(s)}\,\dd s
+\]
+sarà periodica di periodo \(T_0\).
+Inoltre avremo
+\[
+	\w_1 \in \left( \frac{L}{m\,\r^2_-}, \frac{L}{m\,\r^2_+} \right) \qquad\text{e}\qquad \overline{\w_1} = \int_0^{T_0} \frac{\dd t}{T_0}\,\w_1(t).\graffito{\(\overline{\w_1}\) è il valor medio di \(\w_1\)}
+\]
+Da cui
+\[
+	\w_1(t) = \overline{\w_1} + f(t),
+\]
+dove \(f\) è una funzione periodica a media nulla di periodo \(T_0\). Segue
+\[
+	\q(t) = \q_0 + \overline{\w_1} t + \int_0^t f(s)\,\dd s,
+\]
+dove, nuovamente, l'integrale è una funzione periodica a media nulla di periodo \(T_0\).
+Pertanto \(\q(t)\) corrisponde ad un moto circolare uniforme di periodo
+
+\begin{remark}{Periodo del moto angolare}{periodoMotoAngolare}
+	\[
+		T_1 = \frac{2\p}{\frac{1}{T_0}\int_0^{T_0}\frac{L}{m\,\r^2(s)}\,\dd s}
+	\]
+\end{remark}
+\noindent
+Il moto complessivo è qualitativamente
+
+FIGURA!!
+
+Esso avviane pertanto nella corona circolare \(\r_-, \r_+\) con 
+\[
+	\Delta\q = \w_1 T_0 = \int_0^{T_0} \frac{L}{m\,\r^2(s)}\,\dd s.
+\]
+
+\begin{oss}
+	Se \(\w_1 T_0\) è un multiplo razionale di \(2\p\), allora il moto complessivo è \emph{periodico} di periodo \(T_0 n = T_1 m\). Altrimenti si dice che è \emph{quasi periodico}.
+\end{oss}

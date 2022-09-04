@@ -1,0 +1,789 @@
+%!TEX root = ../../main.tex
+\chapter{Calcolo delle variazioni e trasformazioni canoniche}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 17/05/2017 - UNDICESIMA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Principio di variazione di Hamilton}
+
+Ricordiamo che le equazioni di Eulero-Lagrange rendono stazionaria l'azione
+\[
+	A_{t_1,t_2}^{\mathcal{L}}\big[\vec{q}(t)\big] = \int_{t_1}^{t_2}\mathcal{L}\big(\vec{q}(t),\dot{\vec{q}}(t)\big)\,\dd t.
+\]
+D'altronde, sappiamo che tali equazioni sono equivalenti alle equazioni di Hamilton. Pertanto è lecito chiedersi quale azione renderanno stazionaria tali equazioni.
+
+\begin{defn}{Azione di Hamilton}{azioneHamilton}\index{Azione di Hamilton}
+	Consideriamo l'hamiltoniana \(\mathcal{H}=\mathcal{H}\big(\vec{q},\vec{p}\big)\). \emph{L'azione di Hamilton} associata ad \(\mathcal{H}\) è definita come
+	\[
+		S_{t_1,t_2}^{\mathcal{H}}\big[\big(\vec{q}(t),\vec{p}(t)\big)\big] = \int_{t_1}^{t_2}\big[\vec{p}(t)\sdot \dot{\vec{q}}(t)-\mathcal{H}\big(\vec{q}(t),\vec{p}(t)\big)\big]\,\dd t
+	\]
+\end{defn}
+
+\begin{defn}{Variazioni di Hamilton}{variazioniHamilton}
+	Definiamo una \emph{variazione} di \(\big(\vec{q}(t),\vec{p}(t)\big)\) come
+	\[
+		\big(\vec{q}(t),\vec{p}(t)\big) + \big(\vec{u}_\e(t),\vec{v}_\e(t)\big) = \big(\vec{q}(t)+\vec{v}_\e(t),\vec{p}(t)+\vec{v}_\e(t)\big),
+	\]
+	dove \(\vec{u}_\e,\vec{v}_\e\) sono tali che
+	\[
+		\begin{matrix}
+			\vec{u}_0(t) \equiv \vec{0} \\
+			\vec{v}_0(t) \equiv \vec{0}
+		\end{matrix} \qquad\text{e}\qquad
+		\begin{matrix}
+			\vec{u}_\e(t_1) = \vec{u}_\e(t_2) = \vec{0} \\
+			\vec{v}_\e(t_1) = \vec{v}_\e(t_2) = \vec{0}
+		\end{matrix}
+	\]
+\end{defn}
+
+\begin{notz}
+	Abbiamo considerato \(\big(\vec{q}(t),\vec{p}(t)\big)\) sullo spazio dei moti in \(\R^{2n}\) sull'intervallo temporale \([t_1,t_2]\) ed estremi fissati
+	\[
+		\big(\vec{q}_1,\vec{p}_1\big) = \big(\vec{q}(t_1),\vec{p}(t_1)\big) \qquad\text{e}\qquad \big(\vec{q}_2,\vec{p}_2\big) = \big(\vec{q}(t_2),\vec{p}(t_2)\big).
+	\]
+\end{notz}
+
+\begin{teor}{Stazionarietà del funzionale hamiltoniano}{stazionarietàFunzionaleHamiltoniano}
+	Il moto \(\big(\vec{q}(t),\vec{p}(t)\big)\) inteso come nella notazione precedente, è soluzione delle equazioni di Hamilton se e soltanto se \(\big(\vec{q}(t),\vec{p}(t)\big)\) rende stazionaria l'azione
+	\[
+		S_{t_1,t_2}^{\mathcal{H}}\big[\big(\vec{q}(t),\vec{p}(t)\big)\big]
+	\]
+	rispetto a variazioni \(\big(\vec{q}(t)+\vec{v}_\e(t),\vec{p}(t)+\vec{v}_\e(t)\big)\).
+\end{teor}
+
+\begin{proof}
+	La dimostrazione è analoga al caso lagrangiano. Forniamo una traccia di dimostrazione che mostra come manipolare il funzionale d'azione.
+	Ricordiamo che la condizione di stazionarietà dell'azione è data da
+	\[
+		\frac{\dd}{\dd\e} S_{t_1,t_2}^{\mathcal{H}}\big[\big(\vec{q}(t)+\vec{v}_\e(t),\vec{p}(t)+\vec{v}_\e(t)\big)\big]\bigg|_{\e = 0} = 0.
+	\]
+	Sviluppiamo \(S_{t_1,t_2}^{\mathcal{H}}\) per ottenere
+	\[
+		\frac{\dd}{\dd\e}\int_{t_1}^{t_2}\Big[\big(\vec{p}(t)+\vec{v}_\e(t)\big) \sdot \big(\dot{\vec{q}}(t)+\dot{\vec{u}}_\e(t)\big) - \mathcal{H}\big(\vec{q}(t)+\vec{u}_\e(t),\vec{p}(t)+\vec{v}_\e(t)\big)\Big]\,\dd t \bigg|_{\e=0}.
+	\]
+	\'E conveniente definire la seguente notazione:
+	\[
+		\frac{\dd}{\dd\e}\vec{u}_\e(t)\bigg|_{\e=0} = \vec{z}(t) \qquad\text{e}\qquad \frac{\dd}{\dd\e}\vec{v}_\e(t)\bigg|_{\e=0}=\vec{w}(t).
+	\]
+	Da cui, portando la derivata dentro l'integrale e sostituendo, si ottiene
+	\[
+		\int_{t_1}^{t_2}\Big[\vec{w}(t) \sdot \dot{\vec{q}}(t)+\vec{p}(t)\sdot\dot{\vec{z}}(t)-\frac{\pd\mathcal{H}}{\pd\vec{q}}\big(\vec{q}(t),\vec{p}(t)\big)\sdot\vec{z}(t) - \frac{\pd\mathcal{H}}{\pd\vec{p}}\big(\vec{q}(t),\vec{p}(t)\big) \sdot \vec{w}(t)\Big]\,\dd t.
+	\]
+	Osserviamo che, per le condizioni date su \(\vec{u}_\e\) e \(\vec{v}_\e\) si ha
+	\[
+		\vec{z}(t_1) = \vec{z}(t_2) = \vec{0} \qquad\text{e}\qquad \vec{w}(t_1)=\vec{w}(t_2) = \vec{0}.
+	\]
+	Integrando per parti il secondo addendo dell'integrale, otteniamo
+	\[
+		\int_{t_1}^{t_2}\vec{p}(t)\sdot\dot{\vec{z}}(t)\,\dd t = \underbrace{\vec{p}(t)\sdot\vec{z}(t)\bigg|_{t_1}^{t_2}}_{=0} - \int_{t_1}^{t_2} \dot{\vec{p}}(t)\sdot \vec{z}(t)\,\dd t.
+	\]
+	Quindi, sostituendo nell'espressione di partenza, avremo
+	\[
+		\int_{t_1}^{t_2}\left[\vec{z}(t)\sdot\left(-\dot{\vec{p}}(t)-\frac{\pd\mathcal{H}}{\pd\vec{q}}\big(\vec{q}(t),\vec{p}(t)\big)\right) + \vec{w}(t) \sdot \left(\dot{\vec{q}}(t) - \frac{\pd\mathcal{H}}{\pd\vec{p}}\big(\vec{q}(t),\vec{p}(t)\big)\right)\right]\,\dd t.
+	\]
+	Da questa espressione è chiaro che se \(\big(\vec{q}(t),\vec{p}(t)\big)\) soddisfano le equazioni di Hamilton, allora l'integrale è nullo e l'azione è resa stazionaria.
+	Per mostrare il viceversa rifarsi alla dimostrazione analoga nel caso lagrangiano.
+\end{proof}
+
+\begin{defn}{Forma differenziale di Poincarè-Cartan}{formaDifferenzialePoincareCartan}
+	Consideriamo l'azione sull'hamiltoniana \(\mathcal{H}=\mathcal{H}\big(\vec{q},\vec{p}\big)\), allora possiamo scrivere
+	\[
+		S_{t_1,t_2}^{\mathcal{H}} = \int \big(\vec{p} \sdot \dd \vec{q} - \mathcal{H}\,\dd t\big)
+	\]
+	che in questa forma prende il nome di \emph{forma differenziale di Poincarè-Cartan}.
+\end{defn}
+
+\begin{oss}
+	La scrittura dell'integranda come forma differenziale segue da
+	\[
+		\int_{t_1}^{t_2} \vec{p}(t) \sdot \dot{\vec{q}}(t)\,\dd t = \int\limits_{\substack{(\vec{q}(t),\vec{p}(t))\\(\vec{q}_1,\vec{p}_1) \to (\vec{q}_2,\vec{p}_2)}} \vec{p} \sdot \dd\vec{q}.
+	\]
+\end{oss}
+
+\begin{defn}{Invariante integrale di Poincarè-Cartan}{invarianteIntegralePoincareCartan}
+	Si definisce \emph{invariante integrale di Poincarè-Cartan}, l'integrale della forma differenziale di Poincarè-Cartan lungo una curva chiusa \(\g\in\R^{2n}\) al tempo fissato \(t\equiv t_0\), dove si ha
+	\[
+		S_{t_1,t_2}^{\mathcal{H}} = \oint\limits_\g \vec{p} \sdot \dd\vec{q}.
+	\]
+\end{defn}
+
+\begin{oss}
+	In generale, integrando la forma differenziale lungo una curva \(\g\) qualsiasi, si ha
+	\[
+		\int\big(\vec{p}\sdot\dd\vec{q}-\mathcal{H}\,\dd t\big) = \int\limits_\g \vec{p}\sdot\dd\vec{q} = \int_a^b \vec{p}(\t)\sdot\frac{\pd}{\pd\t}\vec{q}(\t)\,\dd \t.
+	\]
+\end{oss}
+
+\begin{prop}{Invariante di Poincarè-Cartan si conserva}{invariantePoincarèCartanConservato}
+	L'invariante integrale di Poincarè-Cartan è un integrale primo del moto, per qualsiasi curva chiusa \(\g\).
+\end{prop}
+
+\begin{proof}
+	Definiamo
+	\[
+		I_\g(0) = \oint\limits_\g \vec{p}\sdot\dd\vec{q} = \int_0^{2\p}\vec{p}(\q) \sdot \frac{\pd}{\pd\q}\vec{q}(\q)\,\dd \q,
+	\]
+	dove \(\q\) è una variabile angolare e \(\vec{q}(\q),\vec{p}(\q)\) sono funzioni periodiche di periodo \(2\p\). Da cui
+	\[
+		I_\g(t) = \oint\limits_{\j_t(\g)}\vec{p} \sdot \dd\vec{q} \qquad\text{con }\j_t(\g) = {\big(\vec{Q}_t(\q),\vec{P}_t(\q)\big)}_{\q\in[0,2\p]},
+	\]
+	dove \(\big(\vec{Q}_t(\q),\vec{P}_t(\q)\big)=\j_t\big(\vec{q}(\q),\vec{p}(\q)\big)\). Da cui
+	\[
+		I_\g(t) = \oint\limits_{\j_t(\g)}\vec{p} \sdot \dd\vec{q} = \int_0^{2\p}\vec{P}_t(\q) \sdot \frac{\pd}{\pd\q}\vec{Q}_t(\q)\,\dd\q.
+	\]
+	Affinché l'invariante di Poincarè-Cartan sia un integrale primo, dobbiamo dimostrare che
+	\[
+		\frac{\dd}{\dd t}I_\g(t) = 0.
+	\]
+	Ora, sfruttando le equazioni di Hamilton, otteniamo
+	\[
+		\begin{split}
+			\frac{\dd}{\dd t}I_\g(t) & = \int_0^{2\p}\left[\dot{\vec{P}}_t(\q) \sdot \frac{\pd}{\pd\q}\vec{Q}_t(\q)+\vec{P}_t(\q) \sdot \frac{\pd}{\pd\q}\dot{\vec{Q}}_t(\q)\right]\,\dd \q\\
+			& = \int_0^{2\p} \left[-\frac{\pd\mathcal{H}}{\pd\vec{q}}\big(\vec{Q}_t(\q),\vec{P}_t(\q)\big) \sdot \frac{\pd}{\pd\q}\vec{Q}_t(\q)+\vec{P}_t(\q) \sdot \frac{\pd}{\pd\q}\frac{\pd\mathcal{H}}{\pd\vec{p}}\big(\vec{Q}_t(\q),\vec{P}_t(\q)\big)\right]\,\dd \q.
+		\end{split}
+	\]
+	Integriamo per parti il secondo addendo dell'integranda:
+	\[
+		\begin{split}
+			\int_0^{2\p} \vec{P}_t(\q) \sdot \frac{\pd}{\pd\q}\frac{\pd\mathcal{H}}{\pd\vec{p}}\big(\vec{Q}_t(\q),\vec{P}_t(\q)\big)\,\dd \q & = \vec{P}_t(\q) \sdot \underbrace{\frac{\pd\mathcal{H}}{\pd\vec{p}}\big(\vec{Q}_t(\q),\vec{P}_t(\q)\big) \bigg|_0^{2\p}}_{=0}\\
+			& - \int_0^{2\p} \frac{\pd}{\pd\q}\vec{P}_t(\q) \sdot \frac{\pd\mathcal{H}}{\pd\vec{q}}\big(\vec{Q}_t(\q),\vec{P}_t(\q)\big)\,\dd \q.
+		\end{split}
+	\]
+	Da cui
+	\[
+		\frac{\dd}{\dd t}I_\g(t) = -\int_0^{2\p}\left[\frac{\dd}{\dd\q}\mathcal{H}\big(\vec{Q}_t(\q),\vec{P}_t(\q)\big)\right]\,\dd \vec{\q} = -H\big(\vec{Q}_t(\q),\vec{P}_t(\q)\big)\bigg|_0^{2\p} = 0.\qedhere
+	\]
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 23/05/2017 - DODICESIMA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Trasformazioni canoniche e funzioni generatrici}
+
+Supponiamo di avere una trasformazione \(\big(\vec{q},\vec{p}\big) \longleftrightarrow \big(\vec{Q},\vec{P}\big)\) invertibile definita dalle leggi
+\[
+	\begin{cases}
+		\vec{Q} = \vec{Q}\big(\vec{q},\vec{p}\big) \\
+		\vec{P} = \vec{P}\big(\vec{q},\vec{p}\big)
+	\end{cases} \iff
+	\begin{cases}
+		\vec{q} = \vec{q}\big(\vec{Q},\vec{P}\big) \\
+		\vec{p} = \vec{p}\big(\vec{Q},\vec{P}\big)
+	\end{cases}\tag{\(1\)}
+\]
+Ci domandiamo se soluzioni delle equazioni di Hamilton, rispetto ad un'hamiltoniana \(\mathcal{H}=\mathcal{H}\big(\vec{q},\vec{p}\big)\), vengano mappate tramite \((1)\) in soluzioni delle equazioni di Hamilton rispetto all'hamiltoniana
+\[
+	\tilde{\mathcal{H}}\big(\vec{Q},\vec{P}\big) = \mathcal{H}\big(\vec{q}(\vec{Q},\vec{P}),\vec{p}(\vec{Q},\vec{P})\big).
+\]
+La formulazione di questa domanda è naturale in quanto ciò avviene, in maniera analoga, nel contesto lagrangiano.
+D'altronde la risposta a questo quesito è, in generale, negativa.
+Il motivo di ciò risiede nella differente richiesta che viene fatta, per le scelta delle leggi di trasformazione, rispetto al caso lagrangiano; in quest'ultimo la trasformazione riguardava solo le posizioni, le velocità erano infatti trasformate di conseguenza. Nel caso hamiltoniano, le leggi di trasformazione riguardano sia le posizioni che i momenti \(\vec{p}\); di fatto vengono trasformate il doppio delle coordinate e ciò giustifica la mancata covarianza generale.
+
+Noi ci occuperemo quindi del sottoinsieme di trasformazioni su cui vi è covarianza.
+
+\begin{defn}{Trasformazioni completamente canoniche}{trasformazioniCompletamenteCanoniche}\index{Trasformazioni canoniche}
+	Si dicono \emph{trasformazioni completamente canoniche}, le trasformazione del tipo \((1)\) che preservano le equazioni di Hamilton per la generica hamiltoniana \(\mathcal{H}\big(\vec{q},\vec{p}\big)\).
+\end{defn}
+
+\begin{notz}
+	Da questo momento faremo riferimento a tali trasformazioni con il solo aggettivo canoniche, pur facendo sempre riferimento a trasformazioni completamente canoniche.
+\end{notz}
+
+\begin{defn}{Funzione generatrice}{funzioneGeneratrice}\index{Funzione generatrice}
+	Consideriamo una legge di trasformazione del tipo \((1)\). Si definisce \emph{funzione generatrice} una mappa \(F\) tale che
+	\[
+		\vec{p} \sdot \dd\vec{q} - \vec{P} \sdot \dd\vec{Q} = \dd F.
+	\]
+\end{defn}
+
+\begin{notz}
+	Le funzioni generatrici si distinguono in quattro tipologie:
+	di I, II, III e IV specie.
+\end{notz}
+
+\begin{oss}
+	La condizione che definisce le funzioni generatrici sarà chiarita dalla prossima proposizione.
+\end{oss}
+
+\begin{prop}{Condizione sufficiente per le trasformazioni canoniche}{condizioneSufficienteTrasformazioniCanoniche}
+	Sia \(F\) una funzione generatrice. Supponiamo di avere una legge di trasformazione del tipo \((1)\) che soddisfa la condizione di \(F\), diremo che è generata da \(F\). Allora tale legge di trasformazione è canonica.
+\end{prop}
+
+\begin{proof}
+	Un modo per garantire che le equazioni di Hamilton vengano preservate dalle trasformazioni \((1)\) è che valga
+	\[
+		S_{t_1,t_2}^{\mathcal{H}}\big[\big(\vec{q}(t),\vec{p}(t)\big)\big] = S_{t_1,t_2}^{\tilde{\mathcal{H}}}\big[\big(\vec{Q}(t),\vec{P}(t)\big)\big] + C \qquad\text{con }\begin{matrix}\vec{Q}(t) = \vec{Q}\big(\vec{q}(t),\vec{p}(t)\big) \\[0.5em]
+			\vec{P}(t) = \vec{P}\big(\vec{q}(t),\vec{p}(t)\big)\end{matrix},\tag{\(2\)}
+	\]
+	dove \(C\) è una costante che, in generale, dipende dagli estremi \(\big(\vec{q}_1,\vec{p}_1\big),\big(\vec{q}_2,\vec{p}_2\big)\) ma non dalla traiettoria della curva. Osserviamo che, esplicitamente, la condizione \((2)\) equivale a
+	\[
+		\int\limits_\Gamma \big(\vec{p}\sdot \dd\vec{q} - \mathcal{H}\,\dd t\big) = \int\limits_{\tilde{\Gamma}} \big(\vec{P} \sdot \dd\vec{Q} - \tilde{\mathcal{H}}\,\dd t\big) + \int\limits_{\tilde{\Gamma}}\dd F,
+	\]
+	dove \(C\) ha assunto la forma dell'integrale di un differenziale esatto, che rispetta le condizioni che avevamo richiesto.
+	Pertanto, un modo per garantire che la \((2)\) valga, per ogni coppia di \((\mathcal{H} \longleftrightarrow \tilde{\mathcal{H}})\), è di chiedere che
+	\[
+		\vec{p} \sdot \dd\vec{q} - \mathcal{H}\,\dd t = \vec{P} \sdot \dd\vec{Q} - \tilde{\mathcal{H}}\,\dd t + \dd F.
+	\]
+	Per costruzione \(\mathcal{H}=\tilde{\mathcal{H}}\), in quanto
+	\[
+		\tilde{\mathcal{H}}\big(\vec{Q},\vec{P}\big) = \mathcal{H}\big(\vec{q}(\vec{Q},\vec{P}),\vec{p}(\vec{Q},\vec{P})\big).
+	\]
+	Quindi la condizione precedente si riscrive come
+	\[
+		\vec{p} \sdot \dd\vec{q} = \vec{P} \sdot \dd\vec{Q} + \dd F \iff \vec{p}\sdot \dd\vec{q} - \vec{P}\sdot \dd\vec{Q} = \dd F.
+	\]
+	Ovvero la legge di trasformazione è generata da \(F\). 
+\end{proof}
+
+Procediamo ora con una descrizione delle quattro tipologie di funzioni generatrici.
+Osserveremo che, una volta definita la prima, le altre sfruttano la medesima logica.
+
+\begin{defn}{Funzione generatrice di prima specie}{funzioneGeneratricePrimaSpecie}
+	\(F=F\big(\vec{q},\vec{Q}\big)\) si definisce \emph{funzione generatrice di prima specie} se soddisfa le seguenti condizioni
+	\[
+		\begin{cases}
+			\vec{p} = \frac{\pd F}{\pd\vec{q}}\big(\vec{q},\vec{Q}\big) \\
+			\vec{P} = -\frac{\pd F}{\pd\vec{Q}}\big(\vec{q},\vec{Q}\big)
+		\end{cases}
+	\]
+	e se la prima di tali condizioni è invertibile rispetto a \(\vec{Q}\).
+\end{defn}
+
+\begin{pr}
+	Le funzioni generatrici di prima specie sono funzioni generatrici di trasformazioni canoniche.
+\end{pr}
+
+\begin{proof}
+	Consideriamo la mappa \(F=F\big(\vec{q},\vec{Q}\big)\), avremo
+	\[
+		\dd F = \frac{\pd F}{\pd\vec{q}}\sdot \dd\vec{q} + \frac{\pd F}{\pd\vec{Q}} \sdot \dd\vec{Q}.
+	\]
+	Quindi la condizione affinché \(F\) sia una funzione generatrice è soddisfatta se e solo se vengono soddisfatte le condizioni di definizione di \(F\), infatti
+	\[
+		\vec{p} \sdot \dd\vec{q} - \vec{P} \sdot \dd\vec{Q} = \dd F \iff 	\begin{cases}
+			\vec{p} = \frac{\pd F}{\pd\vec{q}}\big(\vec{q},\vec{Q}\big) \\
+			\vec{P} = -\frac{\pd F}{\pd\vec{Q}}\big(\vec{q},\vec{Q}\big)
+		\end{cases}
+	\]
+	Supponiamo ora che la prima relazione si invertibile rispetto a \(\vec{Q}\). Pertanto avremo \(\vec{Q}=\vec{Q}\big(\vec{q},\vec{p}\big)\).
+	Sostituendo tale trasformazione nella seconda relazione si ottiene
+	\[
+		\vec{P} = -\frac{\pd F}{\pd\vec{Q}}\big(\vec{q},\vec{Q}\big) = -\frac{\pd F}{\pd\vec{Q}}\big(\vec{q},\vec{Q}(\vec{q},\vec{p})\big) \equiv \vec{P}\big(\vec{q},\vec{p}\big).
+	\]
+	Se tale procedura ci fornisce una relazione del tipo \((1)\), allora tale costruzione è automaticamente canonica.
+\end{proof}
+
+\begin{ese}[Scambio delle coordinate]
+	Consideriamo la funzione generatrice di I specie 
+	\[
+		F\big(\vec{q},\vec{Q}\big) = \vec{q} \sdot \vec{Q}.
+	\]
+	Imponendo le condizioni si ottiene
+	\[
+		\begin{cases}
+			\vec{p} = \frac{\pd}{\pd\vec{q}} \big(\vec{q} \sdot \vec{Q}\big) = \vec{Q} \\
+			\vec{P} = -\frac{\pd}{\pd\vec{Q}} \big(\vec{q} \sdot \vec{Q}\big) = \vec{q}
+		\end{cases} \iff
+		\begin{cases}
+			\vec{Q} = \vec{p} \\
+			\vec{P} = -\vec{q}
+		\end{cases}
+	\]
+	Quindi, tramite una trasformazione canonica, abbiamo ottenuto una legge in cui il ruolo di momenti e posizioni sono scambiati. Ciò nonostante la struttura e la validità del moto è mantenuta inalterata.
+\end{ese}
+
+\begin{defn}{Funzione generatrice si seconda specie}{funzioneGeneraticieSecondaSpecie}
+	\(G=G\big(\vec{q},\vec{P}\big)\) so definisce \emph{funzione generatrice di seconda specie} se soddisfa le seguenti condizioni
+	\[
+		\begin{cases}
+			\vec{p} = \frac{\pd G}{\pd\vec{q}}\big(\vec{q},\vec{P}\big) \\
+			\vec{Q} = \frac{\pd G}{\pd\vec{p}}\big(\vec{q},\vec{P}\big)
+		\end{cases}
+	\]
+	e se la prima di tali condizioni è invertibile rispetto a \(\vec{P}\).
+\end{defn}
+
+\begin{pr}
+	Le funzioni generatrici di seconda specie sono funzioni generatrici di trasformazioni canoniche.
+\end{pr}
+
+\begin{proof}
+	Scrivendo
+	\[
+		\vec{P} \sdot \dd\vec{Q} = \dd\big(\vec{P}\sdot\vec{Q})-\vec{Q} \sdot \dd\vec{P},
+	\]
+	e sostituendo nella condizione delle funzioni generatrici, otteniamo
+	\[
+		\vec{p} \sdot \dd\vec{q} - \vec{P} \sdot \dd\vec{Q} = \dd F \iff \vec{p} \sdot \dd\vec{q} + \vec{Q} \sdot \dd\vec{P} = \dd\big(F-\vec{P} \sdot \vec{Q}\big) \equiv \dd G,
+	\]
+	dove \(G=G\big(\vec{q},\vec{P}\big)\).
+	A questo punto è sufficiente applicare la dimostrazione per le funzioni generatrici di prima specie a \(G\) per ottenere la tesi.
+\end{proof}
+
+\begin{ese}[Funzione generatrice della trasformazione identica]
+	La trasformazione identica è generata dalla trasformazione di II specie
+	\[
+		G\big(\vec{q},\vec{P}\big) = \vec{q} \sdot \vec{P},
+	\]
+	infatti si ottiene
+	\[
+		\begin{cases}
+			\vec{p} = \frac{\pd}{\pd\vec{q}}\big(\vec{q}\sdot\vec{P}\big) = \vec{P} \\
+			\vec{Q} = \frac{\pd}{\pd\vec{P}}\big(\vec{q}\sdot\vec{P}\big) = \vec{q}
+		\end{cases} \iff
+		\begin{cases}
+			\vec{Q} = \vec{q} \\
+			\vec{P} = \vec{p}
+		\end{cases}
+	\]
+\end{ese}
+
+\begin{defn}{Funzione generatrice si terza specie}{funzioneGeneraticieTerzaSpecie}
+	\(\y=\y\big(\vec{p},\vec{Q}\big)\) so definisce \emph{funzione generatrice di terza specie} se soddisfa le seguenti condizioni
+	\[
+		\begin{cases}
+			\vec{q} = \frac{\pd \y}{\pd\vec{p}}\big(\vec{p},\vec{Q}\big) \\
+			\vec{P} = \frac{\pd \y}{\pd\vec{Q}}\big(\vec{p},\vec{Q}\big)
+		\end{cases}
+	\]
+	e se la prima di tali condizioni è invertibile rispetto a \(\vec{Q}\).
+\end{defn}
+
+\begin{pr}
+	Le funzioni generatrici di terza specie sono funzioni generatrici di trasformazioni canoniche.
+\end{pr}
+
+\begin{proof}
+	Scrivendo
+	\[
+		\vec{p} \sdot \dd\vec{q} = \dd\big(\vec{p}\sdot\vec{q}\big) - \vec{q}\sdot \dd\vec{p},
+	\]
+	e sostituendo nella condizione delle funzioni generatrici, otteniamo
+	\[
+		\vec{p} \sdot \dd\vec{q} - \vec{P} \sdot \dd\vec{Q} = \dd F \iff \vec{q} \sdot \dd\vec{p} + \vec{P} \sdot \dd\vec{Q} = \dd\big(-F+\vec{p}\sdot\vec{q}\big) \equiv \dd\y
+	\]
+	dove \(\y=\y\big(\vec{p},\vec{Q}\big)\).
+	A questo punto è sufficiente applicare la dimostrazione per le funzioni generatrici di prima specie a \(\y\) per ottenere la tesi.
+\end{proof}
+
+\begin{defn}{Funzione generatrice si quarta specie}{funzioneGeneraticieQuartaSpecie}
+	\(\phi=\phi\big(\vec{p},\vec{P}\big)\) so definisce \emph{funzione generatrice di quarta specie} se soddisfa le seguenti condizioni
+	\[
+		\begin{cases}
+			\vec{q} = \frac{\pd \phi}{\pd\vec{p}}\big(\vec{p},\vec{P}\big) \\
+			\vec{Q} = -\frac{\pd \phi}{\pd\vec{P}}\big(\vec{p},\vec{P}\big)
+		\end{cases}
+	\]
+	e se la prima di tali condizioni è invertibile rispetto a \(\vec{P}\).
+\end{defn}
+
+\begin{pr}
+	Le funzioni generatrici di quarta specie sono funzioni generatrici di trasformazioni canoniche.
+\end{pr}
+
+\begin{proof}
+	Scrivendo
+	\[
+		\vec{p}\sdot \dd\vec{q} = \dd\big(\vec{p}\sdot \vec{q}\big) - \vec{q}\sdot\dd\vec{p} \qquad\text{e}\qquad \vec{P} \sdot \dd\vec{Q} = \dd\big(\vec{P}\sdot\vec{Q})-\vec{Q} \sdot \dd\vec{P},
+	\]
+	e sostituendo nella condizione delle funzioni generatrici, otteniamo
+	\[
+		\vec{p} \sdot \dd\vec{q} - \vec{P} \sdot \dd\vec{Q} = \dd F \iff \vec{q}\sdot \dd\vec{p} - \vec{Q}\sdot \dd\vec{P} = \dd\big(-F+\vec{p}\sdot\vec{q} - \vec{P}\sdot\vec{Q}\big) \equiv \dd\phi,
+	\]
+	dove \(\phi=\phi\big(\vec{p},\vec{P}\big)\).
+	A questo punto è sufficiente applicare la dimostrazione per le funzioni generatrici di prima specie a \(\phi\) per ottenere la tesi.
+\end{proof}
+
+\section{Equazione di Hamilton-Jacobi}
+
+Immaginiamo di avere una legge di trasformazione della posizione che riguardi solo la posizione, ovvero \(\vec{Q}=\vec{Q}\big(\vec{q}\big)\).
+Per ottenere una trasformazione canonica tale che la trasformazione delle posizioni abbia questa forma, possiamo generarla tramite la funzione generatrice di seconda specie
+\[
+	G\big(\vec{q},\vec{P}\big) = \vec{Q}\big(\vec{q}\big) \sdot \vec{P}.
+\]
+Infatti, imponendo le condizioni derivanti da \(G\), otteniamo
+\[
+	\begin{cases}
+		\vec{p} = \frac{\pd\utilde{Q}}{\pd\vec{q}} \, \utilde{P} \\
+		\vec{Q} = \vec{Q}\big(\vec{q}\big),
+	\end{cases}
+\]
+dove la prima relazione può essere letta in coordinate come
+\[
+	p_i = \sum_{j=1}^n \frac{\pd Q_j}{\pd q_i}\,P_j \equiv {\big(M\,\vec{P}\big)}_i \qquad\text{dove }M_{ij}\big(\vec{q}\big) = \frac{\pd Q_j}{\pd q_i}\big(\vec{q}\big)
+\]
+è la matrice jacobiana della trasformazione \(\vec{Q}\big(\vec{q}\big)\). Da cui otteniamo la seguente definizione
+
+\begin{defn}{Trasformazioni canoniche puntuali}{trasformazioniCanonichePuntuali}\index{Trasformazioni canoniche!puntuali}
+	Una trasformazione canoniche si dice \emph{puntuale} se è della forma
+	\[
+		\begin{cases}
+			\vec{Q} = \vec{Q}\big(\vec{q}\big) \\
+			\vec{P} = M^{-1}\big(\vec{q}\big)\,\vec{p},
+		\end{cases}
+	\]
+	dove \(M\big(\vec{q}\big)\) è la matrice jacobiana della trasformazione \(\vec{Q}\big(\vec{q}\big)\).
+\end{defn}
+
+\begin{oss}
+	Nel contesto lagrangiano queste trasformazioni, che riguardavano solo la posizione, erano accompagnate dalle trasformazioni della velocità da esse indotte:
+	\[
+		\dot{\vec{Q}} = \frac{\pd\vec{Q}}{\pd\utilde{q}}\sdot \dot{\utilde{q}}.
+	\]
+\end{oss}
+
+L'interesse pratico per trasformazioni che preservano le equazioni di Hamilton riguarda la risoluzione di queste ultime.
+L'idea, assegnate delle equazioni di Hamilton in generali difficili da risolvere, è quella di cercare nuove coordinate, legate alle precedenti da una trasformazione canonica, sulle quali le equazioni di Hamilton siano banali da risolvere.
+
+Un caso in cui ciò accade è quello dove \(\tilde{\mathcal{H}}\big(\vec{Q},\vec{P}\big)=\tilde{\mathcal{H}}\big(\vec{P}\big)\) è indipendente dalle \(\vec{Q}\). In tal caso, per le equazioni di Hamilton, si ha
+\[
+	\dot{\vec{P}} = -\frac{\pd\tilde{\mathcal{H}}}{\pd\vec{Q}} = 0 \implies \vec{P}(t) = \vec{P}_0
+\]
+e, di conseguenza,
+\[
+	\dot{\vec{Q}} = \frac{\pd\tilde{\mathcal{H}}}{\pd\vec{P}}\big(\vec{P}_0\big) = \vec{V}\big(\vec{P}_0\big) \implies \vec{Q}(t) = \vec{Q}_0 + V\big(\vec{P}_0\big)\,t.
+\]
+Cerchiamo quindi una trasformazione canonica generata da una funzione generatrice di II specie \(G\big(\vec{q},\vec{P}\big)\) che abbia che proprietà. In particolare vorremmo che, tramite le condizioni
+\[
+	\begin{cases}
+		\vec{p} = \frac{\pd G}{\pd\vec{q}}\big(\vec{q},\vec{P}\big) \\
+		\vec{Q} = \frac{\pd G}{\pd\vec{P}}\big(\vec{q},\vec{P}\big)
+	\end{cases}
+\]
+si abbia \(\mathcal{H}\big(\vec{q}(\vec{Q},\vec{P}),\vec{p}(\vec{Q},\vec{P})\big) = \tilde{\mathcal{H}}\big(\vec{P}\big)\).
+Sostituendo \(\vec{p}\) tramite le condizioni della funzione generatrice, si ottiene
+
+\begin{remark}{Equazione di Hamilton-Jacobi}{equazioneHamiltonJacobi}\index{Equazione di Hamilton-Jacobi}
+	\[
+		\mathcal{H}\left(\vec{q}\big(\vec{Q},\vec{P}\big), \frac{\pd G}{\pd\vec{q}}\big(\vec{q}(\vec{Q},\vec{P}),\vec{P}\big)\right) = \tilde{\mathcal{H}}\big(\vec{P}\big)
+	\]
+\end{remark}
+
+\begin{oss}
+	La possibilità di sfruttare le equazioni di Hamilton-Jacobi per risolvere in modo sistematico le equazioni di Hamilton, giustifica il formalismo Hamiltoniano. Tale possibilità non esiste infatti nel contesto lagrangiano.
+	Ciò nonostante non è detto che l'equazione di Hamilton-Jacobi ammetta sempre soluzione.
+\end{oss}
+
+\begin{ese}
+	Consideriamo la lagrangiana
+	\[
+		\mathcal{L}(q,\dot{q}) = \frac{1}{4}q^2 \dot{q}^2 e^{q^2}.
+	\]
+	Ricaviamo l'hamiltoniana associata ad \(\mathcal{L}\) e scriviamo le equazioni di Hamilton corrispondenti.
+	Per definizione
+	\[
+		\mathcal{H}(q,p) = p\,\dot{q} - \mathcal{L}(q,\dot{q}),
+	\]
+	dove
+	\[
+		p = \frac{\pd\mathcal{L}}{\pd \dot{q}} = \frac{1}{2}q^2 \dot{q}\,e^{q^2} \iff \dot{q} = \frac{2p}{q^2}e^{-q^2},
+	\]
+	con \(p\) che è invertibile rispetto a \(\dot{q}\) per \(q\in (0,+\infty)\) oppure \(q\in (-\infty,0)\).
+	Scegliamo la prima determinazione, segue
+	\[
+		\mathcal{H}(q,p) = \frac{2p^2}{q^2}e^{-q^2} -\frac{1}{4}q^2 \frac{4p^2}{q^4}\,e^{-2q^2} e^{q^2} = \frac{p^2}{q^2}\,e^{-q^2}.
+	\]
+	Da cui le equazioni di Hamilton
+	\[
+		\begin{cases}
+			\dot{q} = \frac{2p}{q^2}\,e^{-q^2} \\
+			\dot{p} = \frac{2p^2}{q}\,e^{-q^2} \left(1+\frac{1}{q^2}\right)
+		\end{cases}
+	\]
+	Risolviamo ora le equazioni di Hamilton tramite coordinate opportune, queste ultime trovate sfruttando le equazioni di Hamilton-Jacobi.
+	Scegliamo arbitrariamente, in modo da semplificarci i calcoli, \(\tilde{\mathcal{H}}(P)=P^2\). Applicando l'equazione di Hamilton-Jacobi avremo
+	\[
+		\mathcal{H}\left(q,\frac{\pd G}{\pd q}\right) = \tilde{\mathcal{H}}(P) = P^2 \iff \frac{1}{q^2}e^{-q^2} \left( \frac{\pd G}{\pd q} \right)^2 = P^2,
+	\]
+	da cui
+	\[
+		\left( \frac{\pd G}{\pd q} \right)^2 = q^2 p^2 e^{q^2} \implies \frac{\pd G}{\pd q} = \pm q\,P\,e^{\frac{q^2}{2}}.
+	\]
+	Scegliamo la determinazione positiva della radice per ottenere
+	\[
+		\frac{\pd G}{\pd q} = q\,P\,e^{\frac{q^2}{2}} \implies G(q,P) = P\,e^{\frac{q^2}{2}}.
+	\]
+	Con tale scelta, imponendo le condizioni delle funzioni generatrici del II tipo, otteniamo
+	\[
+		\begin{cases}
+			p = \frac{\pd G}{\pd q}(q,P) = q\,P\,e^{\frac{q^2}{2}} \\
+			Q = \frac{\pd G}{\pd P}(q,P) = e^{\frac{q^2}{2}}
+		\end{cases}\iff
+		\begin{cases}
+			Q = e^{\frac{q^2}{2}} \\
+			P = \frac{p}{q}\,e^{-\frac{q^2}{2}}
+		\end{cases}
+	\]
+	che, come ci aspettavamo, è una trasformazione puntuale. Osserviamo inoltre che
+	\[
+		(q,p) \in (0,+\infty) \times \R \longleftrightarrow (Q,P) \in (1,+\infty) \times \R.
+	\]
+	La trasformazione inversa si ottiene facilmente:
+	\[
+		\begin{cases}
+			q = \sqrt{2\ln Q} \\
+			p = P\,Q\,\sqrt{2\ln Q}
+		\end{cases}
+	\]
+	Nelle nuove coordinate, per costruzione \(\tilde{\mathcal{H}}(P)=P^2\), da cui otteniamo le equazioni di Hamilton
+	\[
+		\begin{cases}
+			\dot{Q} = 2P \\
+			\dot{P} = 0
+		\end{cases} \implies
+		\begin{cases}
+			Q(t) = Q_0 +2 P_0 t \\
+			P(t) = P_0
+		\end{cases} \qquad\text{con } Q(t) > 1 \iff t > \frac{1-Q_0}{2P_0}.
+	\]
+	Tornando alle coordinate iniziali otteniamo
+	\[
+		\begin{cases}
+			q(t) = \sqrt{2\ln(Q_0+2P_0 t)} \\
+			p(t) = P_0 (Q_0+2P_0 t)\,\sqrt{2\ln(Q_0+2P_0 t)}
+		\end{cases}
+	\]
+	che risolvono il moto.
+\end{ese}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 24/05/2017 - DODICESIMA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Caratterizzazione delle trasformazioni canoniche}
+
+\begin{teor}{Caratterizzazione delle trasformazioni canoniche}{caratterizzazioneTrasformazioniCanoniche}
+	Una trasformazione \(\big(\vec{q},\vec{p}\big) \longleftrightarrow \big(\vec{Q},\vec{P}\big)\) è canonica se e soltanto se la matrice jacobiana \(M\) della trasformazione soddisfa
+	\[
+		M\,J \tran{M} = J,
+	\]
+	dove \(J\) è la \hyperref[df:matriceSimpletticaStandard]{matrice simplettica standard}.
+\end{teor}
+
+\begin{proof}
+	Siano \(\big(\vec{q}(t),\vec{p}(t)\big)\) soluzioni delle equazioni di Hamilton associate all'hamiltoniana \(\mathcal{H}\). Dalla legge di trasformazione, derivando otteniamo
+	\[
+		\begin{cases}
+			\vec{Q}(t) = \vec{Q}\big(\vec{q}(t),\vec{p}(t)\big) \\[0.5em]
+			\vec{P}(t) = \vec{P}\big(\vec{q}(t),\vec{p}(t)\big)
+		\end{cases} \implies
+		\begin{cases}
+			\dot{\vec{Q}} = \frac{\pd\vec{Q}}{\pd\utilde{q}} \, \dot{\utilde{q}} + \frac{\pd\vec{Q}}{\pd\utilde{p}}\,\dot{\utilde{p}} \\[0.5em]
+			\dot{\vec{P}} = \frac{\pd\vec{P}}{\pd\utilde{q}}\,\dot{\utilde{q}} + \frac{\vec{P}}{\utilde{p}}\,\dot{\utilde{p}}
+		\end{cases}
+	\]
+	da cui, sostituendo le equazioni di Hamilton per \(\dot{\vec{q}}\) e \(\dot{\vec{p}}\), si ottiene
+	\[
+		\begin{cases}
+			\dot{\vec{Q}} = \frac{\pd\vec{Q}}{\pd\utilde{q}} \, \frac{\pd\mathcal{H}}{\pd\utilde{p}} - \frac{\pd\vec{Q}}{\pd\utilde{p}}\,\frac{\pd\mathcal{H}}{\pd\utilde{q}} \\[0.5em]
+			\dot{\vec{P}} = \frac{\pd\vec{P}}{\pd\utilde{q}} \, \frac{\pd\mathcal{H}}{\pd\utilde{p}} - \frac{\pd\vec{P}}{\pd\utilde{p}} \, \frac{\pd\mathcal{H}}{\pd\utilde{q}}
+		\end{cases}
+	\]
+	Introduciamo la matrice di jacobi della trasformazione, adottando una notazione di matrice a blocchi:
+	\[
+		M = \begin{pmatrix}
+			\frac{\pd\vec{Q}}{\pd\utilde{q}} & \frac{\pd\vec{Q}}{\pd\utilde{p}} \\[0.5em]\\
+			\frac{\pd\vec{P}}{\pd\utilde{q}} & \frac{\pd\vec{P}}{\pd\utilde{p}}
+		\end{pmatrix} = 
+		\begin{pmatrix}
+			A & B  \\
+			C & D
+		\end{pmatrix},
+	\]
+	dove \(A,B,C,D\) sono matrici \(n \times n\). Pertanto, sfruttando tale notazione nella scrittura di \(\dot{\vec{Q}}\) e \(\dot{\vec{P}}\), avremo
+	\[
+		\begin{cases}
+			\dot{Q}_i = \sum_j \left(A_{ij} \frac{\pd\mathcal{H}}{\pd p_j} - B_{ij} \frac{\pd\mathcal{H}}{\pd q_j}\right) \\[0.5em]
+			\dot{P}_i = \sum_j \left(C_{ij} \frac{\pd\mathcal{H}}{\pd p_j} - D_{ij} \frac{\pd\mathcal{H}}{\pd q_j}\right)
+		\end{cases}\implies
+		\begin{cases}
+			\dot{\vec{Q}} = A\,\frac{\pd\mathcal{H}}{\pd\vec{p}} - B\,\frac{\pd\mathcal{H}}{\pd\vec{q}} \\[0.5em]
+			\dot{\vec{P}} = C\,\frac{\pd\mathcal{H}}{\pd\vec{p}} - D\,\frac{\pd\mathcal{H}}{\pd\vec{q}}
+		\end{cases}
+	\]
+	ovvero
+	\[
+		\begin{pmatrix}\dot{\vec{Q}}\\[0.5em] \dot{\vec{P}}\end{pmatrix} = \begin{pmatrix}A & B\\[0.5em]C & D\end{pmatrix} \begin{pmatrix}
+			\frac{\pd\mathcal{H}}{\pd\vec{p}} \\[0.5em]
+			-\frac{\pd\mathcal{H}}{\pd\vec{q}}
+		\end{pmatrix}
+	\]
+	Adottiamo la seguente notazione per il resto della dimostrazione:
+	\[
+		\vec{x} = \begin{pmatrix}\vec{q}\\[0.5em] \vec{p}\end{pmatrix} \qquad\text{e}\qquad \vec{X} = \begin{pmatrix}\vec{Q}\\[0.5em] \vec{P}\end{pmatrix}
+	\]
+	Ricordiamo che il \hyperref[df:campoVettorialeHamiltoniano]{campo vettoriale hamiltoniano}, può essere riscritto tramite la matrice simplettica standard \(J\):
+	\[
+		\begin{pmatrix}
+			\frac{\pd\mathcal{H}}{\pd\vec{p}} \\[0.5em]
+			-\frac{\pd\mathcal{H}}{\pd\vec{q}}
+		\end{pmatrix} =
+		\begin{pmatrix}
+			0  & -Id \\[0.5em]
+			Id & 0
+		\end{pmatrix}
+		\begin{pmatrix}
+			\frac{\pd\mathcal{H}}{\pd\vec{q}} \\[0.5em]
+			\frac{\pd\mathcal{H}}{\pd\vec{p}}
+		\end{pmatrix} \equiv J\,\frac{\pd\mathcal{H}}{\pd\vec{x}}
+	\]
+	In questi termini, le equazioni del moto hanno la seguente forma sintetica
+	\[
+		\dot{\vec{X}} = M\,J\,\frac{\pd\mathcal{H}}{\pd\vec{x}}
+	\]
+	A questo punto vogliamo imporre la seguente condizione
+	\[
+		M\,J\,\frac{\pd\mathcal{H}}{\pd\vec{x}} = J\,\frac{\pd\tilde{\mathcal{H}}}{\pd\vec{X}}.
+	\]
+	Da \(\mathcal{H}\big(\vec{q},\vec{p}\big) = \tilde{\mathcal{H}}\big(\vec{Q}(\vec{q},\vec{p}),\vec{P}(\vec{q},\vec{p})\big)\), otteniamo
+	\[
+		\begin{cases}
+			\frac{\pd\mathcal{H}}{\pd\vec{q}} = \frac{\pd\tilde{\mathcal{H}}}{\pd\utilde{Q}}\,\frac{\pd\utilde{Q}}{\pd\vec{q}} + \frac{\pd\tilde{\mathcal{H}}}{\pd\utilde{P}}\,\frac{\utilde{P}}{\pd\vec{q}} \\[0.5em]
+			\frac{\pd\mathcal{H}}{\pd\vec{p}} = \frac{\pd\tilde{\mathcal{H}}}{\pd\utilde{Q}}\,\frac{\pd\utilde{Q}}{\pd\vec{p}} + \frac{\pd\tilde{\mathcal{H}}}{\pd\utilde{P}}\,\frac{\utilde{P}}{\pd\vec{p}}
+		\end{cases}
+	\]
+	Sfruttando la definizione di \(M\) data in precedenza, avremo
+	\[
+		\frac{\pd\mathcal{H}}{\pd q_i} = \sum_j A_{ji} \frac{\pd\tilde{\mathcal{H}}}{\pd Q_j} + C_{ji} \frac{\pd\tilde{\mathcal{H}}}{\pd P_j} = \sum_{j}{(\tran{A})}_{ij} \frac{\pd\tilde{\mathcal{H}}}{\pd Q_j} + {(\tran{C})}_{ij} \frac{\pd\tilde{\mathcal{H}}}{\pd P_j} \implies \frac{\pd\mathcal{H}}{\pd\vec{q}} = \tran{A}\,\frac{\pd\tilde{\mathcal{H}}}{\pd\vec{Q}} + \tran{C}\,\frac{\pd\tilde{\mathcal{H}}}{\pd\vec{P}}
+	\]
+	e, analogamente,
+	\[
+		\frac{\pd\mathcal{H}}{\pd\vec{p}} = \tran{B}\,\frac{\pd\tilde{\mathcal{H}}}{\pd\vec{Q}} + \tran{D}\,\frac{\pd\tilde{\mathcal{H}}}{\pd\vec{P}}.
+	\]
+	Tali scritture, in forma compatta, diventano
+	\[
+		\frac{\pd\mathcal{H}}{\pd\vec{x}} = \begin{pmatrix}
+			\tran{A} & \tran{C} \\[0.5em]
+			\tran{B} & \tran{D}
+		\end{pmatrix}
+		\begin{pmatrix}
+			\frac{\pd\tilde{\mathcal{H}}}{\pd\vec{Q}} \\[0.5em]
+			\frac{\pd\tilde{\mathcal{H}}}{\pd\vec{P}}
+		\end{pmatrix} = \tran{M}\,\frac{\pd\tilde{\mathcal{H}}}{\pd\vec{X}}
+	\]
+	che, sostituita nell'equazione del moto, ci permette di scrivere
+	\[
+		\dot{\vec{X}} = M\,J\,\frac{\pd\mathcal{H}}{\pd\vec{x}} = M\,J \tran{M}\,\frac{\pd\tilde{\mathcal{H}}}{\pd\vec{X}}.
+	\]
+	La quale soddisfa la condizione imposta in precedenza se e soltanto se
+	\[
+		M\,J \tran{M} = J.\qedhere
+	\]
+\end{proof}
+
+\begin{defn}{Matrice simplettica}{matriceSimplettica}\index{Matrice simplettica}
+	Una matrice \(M\), di dimensioni \(2n \times 2n\), si dice \emph{simplettica} se soddisfa
+	\[
+		M\,J \tran{M} = J,
+	\]
+	dove \(J\) è la matrice simplettica standard.
+\end{defn}
+
+\begin{oss}
+	La matrice simplettica standard è una matrice simplettica, infatti se prendiamo \(M=J\), avremo
+	\[
+		M\,J \tran{M} = J\,J \tran{J} = J^2 \tran{J}.
+	\]
+	Ora
+	\[
+		J^2 = 	\begin{pmatrix}0 & -Id\\Id & 0\end{pmatrix}\begin{pmatrix}0 & -Id\\Id & 0\end{pmatrix} = \begin{pmatrix}-Id & 0\\0 & -Id\end{pmatrix} = -Id_{2n}
+	\]
+	da cui
+	\[
+		J^2 \tran{J} = -\tran{J} = J
+	\]
+	in quanto \(J\) è antisimmetrica.
+\end{oss}
+
+\begin{pr}
+	Sia \(M\) una matrice simplettica. Allora
+	\[
+		\det M = 1
+	\]
+\end{pr}
+
+\begin{proof}
+	Dimostriamo con un argomento semplice che \(\det M = \pm 1\), per dimostrare completamente la tesi è necessario qualche sforzo ulteriore.
+	Calcoliamo inizialmente il determinante di \(J\):
+	\[
+		\det J = \det \begin{pmatrix}0 & -Id\\Id & 0\end{pmatrix} = (-1)^n \det \begin{pmatrix}Id & 0\\0 & -Id\end{pmatrix} = (-1)^n (-1)^n = 1 \,\fa n.
+	\]
+	A questo punto, per calcolare il determinante di \(M\), sfruttiamo la condizione delle matrici simplettiche
+	\[
+		\det(M\,J \tran{M}) = \det J \iff \det M\,\det \tran{M} = 1 \iff {(\det M)}^2 = 1,
+	\]
+	da cui
+	\[
+		\det M = \pm 1. \qedhere
+	\]
+\end{proof}
+
+\begin{pr}
+	Sia \(M\) una matrice simplettica. Allora
+	\[
+		M^{-1} = -J \tran{M}\, J.
+	\]
+\end{pr}
+
+\begin{proof}
+	Dalla definizione di matrice simplettica \(M\,J \tran{M} = J\), da cui
+	\[
+		J \tran{M} = M^{-1} J \implies J \tran{M}\,J^{-1} = M^{-1},
+	\]
+	ovvero, dal momento che \(J\) è antisimmetrica,
+	\[
+		M^{-1} = -J \tran{M}\, J.\qedhere
+	\]
+\end{proof}
+
+\begin{prop}{Conservazione delle parentesi di Poisson fondamentali}{conservazioneParentesiPoissonFond}
+	Una trasformazione \(\big(\vec{q},\vec{p}\big) \longleftrightarrow \big(\vec{Q},\vec{P}\big)\) è canonica se e soltanto se preserva le parentesi di Poisson fondamentali, ovvero
+	\[
+		\{Q_i,Q_j\} = 0; \qquad \{P_i,P_j\} = 0; \qquad \{Q_i,P_j\} = \d_{i,j}.
+	\]
+\end{prop}
+
+\begin{proof}
+	Detta \(M\) la matrice jacobiana della trasformazione, sappiamo che la trasformazione è canonica se e soltanto se 
+	\[
+		M\,J \tran{M} = J,
+	\]
+	con \(J\) la matrice simplettica standard. Tale condizione può essere riscritta come segue:
+	\[
+		\begin{split}
+			M\,J\tran{M} & = \begin{pmatrix}A & B\\C & D\end{pmatrix} \begin{pmatrix}0 & -Id\\Id & 0\end{pmatrix} \begin{pmatrix}\tran{A} & \tran{C}\\\tran{B} & \tran{D}\end{pmatrix} = \begin{pmatrix}A & B\\C & D\end{pmatrix} \begin{pmatrix}-\tran{B} & -\tran{D}\\\tran{A} & \tran{C}\end{pmatrix}\\
+			& = \begin{pmatrix}
+				-A\tran{B} + B\tran{A} & -A\tran{D} + B\tran{C} \\
+				-C\tran{B} + D\tran{A} & -C\tran{D} + D\tran{C}
+			\end{pmatrix} = \begin{pmatrix}0 & -Id\\Id & 0\end{pmatrix} = J.
+		\end{split}
+	\]
+	Da cui si ottengono tre condizioni:
+	\[
+		A\tran{B} - B\tran{A} = 0; \qquad C\tran{D} - D\tran{C} = 0; \qquad A\tran{D} - B\tran{C} = Id.
+	\]
+	Ricordando l'espressione di \(A,B\), la prima condizione diventa
+	\[
+		\sum_k A_{ik} {(\tran{B})}_{kj} - B_{ik} {(\tran{A})}_{kj} = 0 \iff \sum_k (A_{ik} B_{jk} - B_{ik} A_{jk}) = 0,
+	\]
+	da cui
+	\[
+		\sum_k \bigg(\frac{\pd Q_i}{\pd q_k}\,\frac{\pd Q_j}{\pd p_k} - \frac{\pd Q_i}{\pd p_k}\,\frac{\pd Q_i}{\pd q_k}\bigg) = 0 \iff \{Q_i,Q_j\} = 0.
+	\]
+	Analogamente la seconda condizione ci dice
+	\[
+		C\tran{D} - D\tran{C} = 0 \iff \{P_i,P_j\} = 0.
+	\]
+	Infine, per la terza condizione, si ha
+	\[
+		A\tran{D} - B\tran{C} = Id \iff \sum_k (A_{ik} D_{jk} - B_{ik} C_{jk}) = \d_{ij},
+	\]
+	da cui
+	\[
+		\sum_k \bigg(\frac{\pd Q_i}{\pd q_k}\,\frac{\pd P_j}{\pd p_k} - \frac{\pd Q_i}{\pd p_k}\,\frac{\pd P_j}{\pd q_k}\bigg) = \d_{i,j} \iff \{Q_i,P_j\} = \d_{i,j}.
+	\]
+	Pertanto abbiamo dimostrato che la trasformazione è canonica se e soltanto se sono preservate le parentesi di Poisson fondamentali.
+\end{proof}
